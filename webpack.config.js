@@ -31,7 +31,7 @@ module.exports = env => {
     module: {
       loaders: [
         { test: /\.json$/, loader: 'json-loader' },
-        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel', query: { presets: ['es2015-webpack', 'react']} },
+        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['es2015', 'react']} },
         { test: /\.css$/,  loader: 'style!css' },
       ],
     },
