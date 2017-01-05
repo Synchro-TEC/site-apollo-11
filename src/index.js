@@ -1,4 +1,7 @@
-/**
- * Created by mgasparotto on 1/3/17.
- */
-console.log('Rodando....');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+var mountNode = document.getElementById('main');
+
+ReactDOM.render(<App />, mountNode);

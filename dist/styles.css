@@ -27,7 +27,7 @@ pre {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 2;
 }
 
 .dm-logo {
@@ -58,8 +58,8 @@ pre {
 
 .dm-hero {
   height: 280px;
-  background: url('hero-text.svg') no-repeat center center;
-  background-size: 90% 90%;
+  background: url('hero-text.svg') no-repeat bottom center;
+  background-size: 70% 70%;
   transition: all 0.3s;
 }
 
@@ -126,7 +126,7 @@ pre {
   overflow-x: hidden;
   transition: all .2s ease-in-out;
   background-color: #fff;
-  z-index: 999;
+  z-index: 3;
 }
 
 
