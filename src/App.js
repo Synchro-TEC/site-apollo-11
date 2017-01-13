@@ -7,7 +7,8 @@ import HomePage from './pages/home/Home';
 import InstallPage from './pages/install/InstallPage';
 import DocsHomePage from './pages/docsHome/DocsHome';
 import HermesPage from './pages/hermes/HermesPage';
-import LaunchWindowPage from './pages/launchWindow/LaunchWindowPage';
+import LaunchWindowPage from './pages/launchWindow/launchWindowPage';
+import FilterPage from './pages/filter/filterPage';
 
 const App = () => (
   <Router history={hashHistory}>
@@ -22,7 +23,7 @@ const App = () => (
       <Route component={HermesPage} path='hermes' />
       <Route component={LaunchWindowPage} path='launch-window' />
 
-
+      <Route component={FilterPage} path='filter' />
     </Route>
 
   </Router>
