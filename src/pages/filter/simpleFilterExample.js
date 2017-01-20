@@ -2,14 +2,15 @@ import React from 'react';
 import { Filter } from 'apollo-11';
 
 class SimpleFilterExample extends React.Component {
-  constructor() {
-    super();
+
+  search(value) {
+    // Do something with the value of filter
   }
 
   render() {
     return (
       <div>
-        <Filter name='simpleSearch'/>
+        <Filter name='simpleSearch' onSearch={(value) => this.search(value)}/>
       </div>
     );
   }
