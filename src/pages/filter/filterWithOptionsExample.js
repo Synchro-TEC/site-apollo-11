@@ -7,10 +7,14 @@ class FilterWithOptionsExample extends React.Component {
     super(props);
   }
 
+  search(values) {
+    // Do something with values of filter options and search
+  }
+
   render() {
     return (
       <div>
-        <Filter>
+        <Filter name='searchValue' onSearch={(values) => this.search(values)}>
           <div className='sv-row--with-gutter'>
             <div className='sv-column'>
               <label>
@@ -52,6 +56,18 @@ class FilterWithOptionsExample extends React.Component {
           </label>
           <label>
             <input name='radioName' type='radio' value='50' /> 50
+          </label>
+          <label>
+            <span>Worldly goods</span>
+          </label>
+          <label>
+            <input defaultValue='bikeValue' name='checkBoxName' type='checkBox' /> Have a bike
+          </label>
+          <label>
+            <input defaultValue='carValue' name='checkBoxName' type='checkbox' /> Have a car
+          </label>
+          <label>
+            <input defaultValue='videoGameValue' name='checkBoxName' type='checkbox' /> Have a videogame
           </label>
         </Filter>
       </div>

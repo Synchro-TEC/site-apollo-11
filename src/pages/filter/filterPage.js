@@ -9,13 +9,21 @@ import ShowCode from '../../components/ShowCode';
 class FilterPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {prettyValuesForFilterWithOptions: {}}
+    this.state = {
+      prettyValuesForFilterWithOptions: {},
+      prettyValueForSingleFilter: {},
+    }
   }
 
-  search(values, e) {
-    console.log(e);
+  search(values) {
     this.setState({
       prettyValuesForFilterWithOptions: values,
+    });
+  }
+
+  onSearchWhenEnter(value) {
+    this.setState({
+      prettyValueForSingleFilter: value,
     });
   }
 
@@ -26,16 +34,23 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <h3>Filter</h3>
             <h6 className='sv-vertical-marged'>
-              Filter is a customizable search filter. Below, you can see a example of filter with options: (apply filter to see the result)
+              Filter is a customizable search filter. You can choose a filter with filter options or just a single filter.
             </h6>
-            <pre>
-              And it returns something like that: {JSON.stringify(this.state.prettyValuesForFilterWithOptions, undefined, 2)}
-            </pre>
+            <h5 className='bold'>
+              Filter with options
+            </h5>
+            <p>
+              In a filter with options, you can build the options the way you want, as long you choose between checkbox,
+              radio or select input types. All this types need a name, included the filter component. If you want a set of
+              options for a checkbox, just give to options the same name. The name of a field will be your key in return.
+            </p>
           </div>
         </div>
         <div className='sv-row'>
-          <div className='sv-column sv-vertical-marged-10'>
-            <Filter onSearch={(obj, e) => this.search(obj, e)} placeholder="I'm a filter with filter options!">
+          <div className='sv-column'>
+            <Filter name='valueOfSearch'
+                    onSearch={(obj) => this.search(obj)}
+                    placeholder="I'm a filter with filter options!">
               <div className='sv-row--with-gutter'>
                 <div className='sv-column'>
                   <label>
@@ -102,20 +117,41 @@ class FilterPage extends React.Component {
             </ShowCode>
           </div>
         </div>
-        <div className='sv-vertical-marged-50'/>
-        <div className='sv-row'>
+        <div className='sv-row sv-no-margins'>
           <div className='sv-column'>
-            <h6 className='sv-vertical-marged'>
-              Below, you can see a example of single filter without options: (press enter to see the result)
-            </h6>
-            <pre>
-              And it returns something like that: {JSON.stringify({}, undefined, 2)}
-            </pre>
+            <p>
+              This configuration will return something like that:
+            </p>
           </div>
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
-            <Filter placeholder="I'm just a single filter!" />
+            <div className='dm-code-container'>
+              <pre>
+                <PrismCode className='language-js'>
+                  {require('!raw-loader!./filterWithOptionsReturnExample.js')}
+                </PrismCode>
+              </pre>
+            </div>
+          </div>
+        </div>
+        <div className='sv-vertical-marged-50'/>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <h5 className='bold'>
+              Filter without options
+            </h5>
+            <p>
+              In a filter without options, you can get back the value of search value. The search works when enter
+              is pressed.
+            </p>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <Filter name='valueOfSingleSearch'
+                    onSearch={(value) => this.onSearchWhenEnter(value)}
+                    placeholder="I'm just a single filter!" />
           </div>
         </div>
         <div className='sv-row'>
@@ -125,6 +161,24 @@ class FilterPage extends React.Component {
                 {require('!raw-loader!./simpleFilterExample.js')}
               </PrismCode>
             </ShowCode>
+          </div>
+        </div>
+        <div className='sv-row sv-no-margins'>
+          <div className='sv-column'>
+            <p>
+              This configuration will return something like that:
+            </p>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <div className='dm-code-container'>
+              <pre>
+                <PrismCode className='language-js'>
+                  {require('!raw-loader!./simpleFilterReturnExample.js')}
+                </PrismCode>
+              </pre>
+            </div>
           </div>
         </div>
       </div>

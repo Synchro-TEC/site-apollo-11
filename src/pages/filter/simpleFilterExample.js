@@ -1,7 +1,5 @@
-/**
- * Created by gnf on 18/01/17.
- */
 import React from 'react';
+import { Filter } from 'apollo-11';
 
 class SimpleFilterExample extends React.Component {
   constructor() {
@@ -11,7 +9,7 @@ class SimpleFilterExample extends React.Component {
   render() {
     return (
       <div>
-        <Filter />
+        <Filter name='simpleSearch'/>
       </div>
     );
   }
