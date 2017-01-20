@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "watch": "npm run lint && webpack --progress --color --watch --env.dev",
+    "dev": "npm run lint && webpack --progress --color --env.dev",
     "lint": "eslint src",
     "build": "webpack --progress --color --watch --env.prod"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-11": "0.2.8",
+    "apollo-11": "file:../apollo-11",
     "react": "^15.4.1",
     "react-addons-update": "^15.4.1",
     "react-addons-pure-render-mixin": "^15.4.1",

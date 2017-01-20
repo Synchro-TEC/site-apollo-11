@@ -9,12 +9,13 @@ import ShowCode from '../../components/ShowCode';
 class FilterPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {prettyValues: {}}
+    this.state = {prettyValuesForFilterWithOptions: {}}
   }
 
-  search(values) {
+  search(values, e) {
+    console.log(e);
     this.setState({
-      prettyValues: values,
+      prettyValuesForFilterWithOptions: values,
     });
   }
 
@@ -25,16 +26,16 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <h3>Filter</h3>
             <h6 className='sv-vertical-marged'>
-              Filter is a customizable search filter. Can you put checkbox, radio and select input types. It returns something like that:
+              Filter is a customizable search filter. Below, you can see a example of filter with options: (apply filter to see the result)
             </h6>
             <pre>
-            {JSON.stringify(this.state.prettyValues, undefined, 2)}
+              And it returns something like that: {JSON.stringify(this.state.prettyValuesForFilterWithOptions, undefined, 2)}
             </pre>
           </div>
         </div>
         <div className='sv-row'>
           <div className='sv-column sv-vertical-marged-10'>
-            <Filter placeholder="I'm a filter with filter options!" onSearch={(obj) => this.search(obj)}>
+            <Filter onSearch={(obj, e) => this.search(obj, e)} placeholder="I'm a filter with filter options!">
               <div className='sv-row--with-gutter'>
                 <div className='sv-column'>
                   <label>
@@ -77,6 +78,18 @@ class FilterPage extends React.Component {
               <label>
                 <input name='radioName' type='radio' value='50' /> 50
               </label>
+              <label>
+                <span>Worldly goods</span>
+              </label>
+              <label>
+                <input defaultValue='bikeValue' name='checkBoxName' type='checkBox' /> Have a bike
+              </label>
+              <label>
+                <input defaultValue='carValue' name='checkBoxName' type='checkbox' /> Have a car
+              </label>
+              <label>
+                <input defaultValue='videoGameValue' name='checkBoxName' type='checkbox' /> Have a videogame
+              </label>
             </Filter>
           </div>
         </div>
@@ -90,6 +103,16 @@ class FilterPage extends React.Component {
           </div>
         </div>
         <div className='sv-vertical-marged-50'/>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <h6 className='sv-vertical-marged'>
+              Below, you can see a example of single filter without options: (press enter to see the result)
+            </h6>
+            <pre>
+              And it returns something like that: {JSON.stringify({}, undefined, 2)}
+            </pre>
+          </div>
+        </div>
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter placeholder="I'm just a single filter!" />
