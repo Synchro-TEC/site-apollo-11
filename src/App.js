@@ -9,6 +9,7 @@ import DocsHomePage from './pages/docsHome/DocsHome';
 import HermesPage from './pages/hermes/HermesPage';
 import LaunchWindowPage from './pages/launchWindow/launchWindowPage';
 import FilterPage from './pages/filter/filterPage';
+import GridPage from './pages/grid/gridPage';
 
 const App = () => (
   <Router history={hashHistory}>
@@ -24,8 +25,8 @@ const App = () => (
       <Route component={LaunchWindowPage} path='launch-window' />
 
       <Route component={FilterPage} path='filter' />
+      <Route component={GridPage} path='grid' />
     </Route>
-
   </Router>
 );
 

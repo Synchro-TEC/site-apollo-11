@@ -14,6 +14,7 @@ function TemplateDocs(props) {
           <li><Link activeClassName='active' to='docs/launch-window'>Launch Window</Link></li>
           <li><Link activeClassName='active' to='docs/colors'>Loader</Link></li>
           <li><Link activeClassName='active' to='docs/filter'>Filter</Link></li>
+          <li><Link activeClassName='active' to='docs/grid'>Grid</Link></li>
         </ul>
 
         <div className='dm-syntec'>
