@@ -1,56 +1,35 @@
+function getRandomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toLocaleDateString();
+}
+
 function generateFakeData() {
-  return {
-    titles: [
-      {label: 'Name'},
-      {label: 'Email'},
-      {label: 'Age'},
-      {label: 'Type'},
-      {label: 'City'},
-      {label: 'Language'},
-    ],
-    rows: [
-      {
-        name: 'John Doe',
-        email: 'john@doe.com',
-        age: 39,
-        type: 'Master',
-        city: 'Campinas',
-        language: 'Portuguese',
-      },
-      {
-        name: 'Minnie Murray',
-        email: 'minnie.murray31@example.com',
-        age: 29,
-        type: 'Master',
-        city: 'São Paulo',
-        language: 'Portuguese',
-      },
-      {
-        name: 'Diane Ruiz',
-        email: 'diane.ruiz91@example.com',
-        age: 27,
-        type: 'Senior',
-        city: 'San Francisco',
-        language: 'Spanish',
-      },
-      {
-        name: 'Tonya Campbell',
-        email: 'tonya.campbell@oci.com',
-        age: 24,
-        type: 'Leader',
-        city: 'Orlando',
-        language: 'English',
-      },
-      {
-        name: 'Gina Ryan',
-        email: 'gina.ryan@onesite.com.au',
-        age: 27,
-        type: 'Senior',
-        city: 'Sidney',
-        language: 'English',
-      },
-    ],
-  };
+  let rows = [];
+  let result = {};
+  for (let i = 1; i < 20; i++) {
+    rows.push({
+      id: i,
+      task: 'Task ' + i,
+      complete: Math.min(100, Math.round(Math.random() * 110)),
+      priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
+      issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
+      startDate: getRandomDate(new Date(2015, 3, 1), new Date()),
+      completeDate: getRandomDate(new Date(), new Date(2016, 0, 1)),
+    });
+  }
+
+  result.titles = [
+    {label: 'Id'},
+    {label: 'Task'},
+    {label: 'Complete'},
+    {label: 'Priority'},
+    {label: 'Issue Type'},
+    {label: 'Start Date'},
+    {label: 'Complete Date'},
+  ];
+
+  result.rows = rows;
+
+  return result;
 }
 
 export { generateFakeData };
