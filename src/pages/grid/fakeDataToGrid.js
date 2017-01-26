@@ -5,11 +5,11 @@ function getRandomDate(start, end) {
 function generateFakeData() {
   let rows = [];
   let result = {};
-  for (let i = 1; i < 20; i++) {
+  for (let i = 1; i <= 100; i++) {
     rows.push({
       id: i,
       task: 'Task ' + i,
-      complete: Math.min(100, Math.round(Math.random() * 110)),
+      complete: Math.min(100, Math.round(Math.random() * 110)) + '%',
       priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
       issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
       startDate: getRandomDate(new Date(2015, 3, 1), new Date()),
