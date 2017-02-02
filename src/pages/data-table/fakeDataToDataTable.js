@@ -2,10 +2,10 @@ function getRandomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toLocaleDateString();
 }
 
-function generateFakeData() {
+function generateData() {
   let rows = [];
-  let result = {};
-  for (let i = 1; i <= 140; i++) {
+
+  for (let i = 1; i <= 20; i++) {
     rows.push({
       id: i,
       task: 'Task ' + i,
@@ -17,19 +17,7 @@ function generateFakeData() {
     });
   }
 
-  result.titles = [
-    {label: 'Id'},
-    {label: 'Task'},
-    {label: 'Complete'},
-    {label: 'Priority'},
-    {label: 'Issue Type'},
-    {label: 'Start Date'},
-    {label: 'Complete Date'},
-  ];
-
-  result.rows = rows;
-
-  return result;
+  return rows;
 }
 
-export { generateFakeData };
+export { generateData };
