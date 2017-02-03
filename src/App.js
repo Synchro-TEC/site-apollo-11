@@ -9,7 +9,7 @@ import DocsHomePage from './pages/docsHome/DocsHome';
 import HermesPage from './pages/hermes/HermesPage';
 import LaunchWindowPage from './pages/launchWindow/launchWindowPage';
 import FilterPage from './pages/filter/filterPage';
-import DataTablePage from './pages/data-table/dataTablePage';
+import DataTablePage from './pages/dataTable/dataTablePage';
 
 const App = () => (
   <Router history={hashHistory}>
