@@ -1,24 +1,10 @@
 import React from 'react';
 import { Paginate, DataTable, DataTableColumn } from 'apollo-11';
 import { generateData } from './generateData';
+import { PrismCode } from 'react-prism';
+import ShowCode from '../../components/ShowCode';
 
 class PaginatePage extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.initialData = generateData();
-    this.state = { dataWithPaginateFilter: this.initialData}
-  }
-
-  paginateAction(paginateInfo) {
-    let newData = this.initialData.slice(paginateInfo.offset, paginateInfo.offset+paginateInfo.limit);
-    this.setState({ dataWithPaginateFilter: newData});
-  }
-
-  componentDidMount() {
-    let newData = this.initialData.slice(0, 10)
-    this.setState({ dataWithPaginateFilter: newData});
-  }
 
   render() {
     return (
@@ -27,7 +13,9 @@ class PaginatePage extends React.Component {
           <div className='sv-column'>
             <h3> Paginate </h3>
             <h6 className='sv-vertical-marged'>
-              Paginate is a pagination component that works with callbacks.
+              This component works with callbacks.
+              You can choose a simple or a paginate with options, in both choices you
+              can configure how much records for page you wants.
             </h6>
           </div>
         </div>
@@ -37,21 +25,64 @@ class PaginatePage extends React.Component {
               Simple paginate
             </h5>
             <p>
-              A simple paginate have just two callbacks: <b> onNextPage </b> and <b> onPreviousPage </b>
-              where you can get the value
+              A simple paginate have two properties to receive callbacks,
+              <b> onNextPage </b> and <b> onPreviousPage </b>
+              where you can get the value of currentPage, limit and offset when
+              that action is triggered.
             </p>
           </div>
         </div>
-        <DataTable rows={this.state.dataWithPaginateFilter}>
-          <DataTableColumn dataKey='id'>Id</DataTableColumn>
-          <DataTableColumn dataKey='task'>Task</DataTableColumn>
-          <DataTableColumn dataKey='complete'>Complete</DataTableColumn>
-        </DataTable>
-        <Paginate
-          totalSizeOfData={generateData().length}
-          onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-          onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-        />
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <Paginate />
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <ShowCode>
+              <PrismCode className='language-js'>
+                {require('!raw-loader!./simplePaginateExample.js')}
+              </PrismCode>
+            </ShowCode>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <h5 className='bold'>
+              Paginate with options
+            </h5>
+            <p>
+              If you want options to select a specif page, you have to add
+              a property to your component named <b>onSelectASpecifPage</b>. This property
+              will receive your callback function, and return the same informations of
+              onNext and onPrevious explained before.
+            </p>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <Paginate
+              totalSizeOfData={generateData().length}
+              onSelectASpecifPage={() => {}}
+            />
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <ShowCode>
+              <PrismCode className='language-js'>
+                {require('!raw-loader!./paginateWithOptionsExample.js')}
+              </PrismCode>
+            </ShowCode>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <p>
+              By default, the number of recordsForPage is ten.
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
