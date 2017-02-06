@@ -8,14 +8,14 @@ const yourData = [
 
 class DataTableWithSortExample extends React.Component {
 
-  executingSort(columnKey, directionOfSort) {
+  executingSort(sortInfo) {
     // Do your sort here
   }
 
   render() {
     return (
       <div>
-        <DataTable rows={yourData} onSort={(columnKey, directionOfSort) => this.executingSort(columnKey, directionOfSort)}>
+        <DataTable rows={yourData} onSort={(sortInfo) => this.executingSort(sortInfo)}>
           <DataTableColumn dataKey='name' sortable>Name</DataTableColumn>
           <DataTableColumn dataKey='age' sortable>Age</DataTableColumn>
         </DataTable>
