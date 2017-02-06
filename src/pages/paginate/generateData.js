@@ -5,7 +5,7 @@ function getRandomDate(start, end) {
 function generateData() {
   let rows = [];
 
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 130; i++) {
     rows.push({
       id: i,
       task: 'Task ' + i,

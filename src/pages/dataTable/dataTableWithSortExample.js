@@ -1,9 +1,10 @@
 import React from 'react';
 import {DataTable, DataTableColumn} from 'apollo-11';
 
-const yourData = [
-    {name: 'Marcus David', age: 45},
-    {name: 'Gordon Byron', age: 64},
+const exampleData = [
+  {name: 'Marcus David', age: 45},
+  {name: 'Gordon Byron', age: 64},
+  {name: 'Johnny Page',  age: 27},
 ]
 
 class DataTableWithSortExample extends React.Component {

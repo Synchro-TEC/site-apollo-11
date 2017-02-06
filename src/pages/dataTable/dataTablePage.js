@@ -1,12 +1,12 @@
 import React from 'react';
 import { DataTable, DataTableColumn, Paginate } from 'apollo-11';
-import { generateData } from './fakeDataToDataTable';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
 
 const exampleData = [
   {name: 'Marcus David', age: 45},
   {name: 'Gordon Byron', age: 64},
+  {name: 'Johnny Page',  age: 27},
 ]
 
 class DataTablePage extends React.Component {
@@ -31,25 +31,8 @@ class DataTablePage extends React.Component {
             <p>
               The component waits an array of objects, but will be visible just the attributes that was configured in
               a DataTableColumn component. For example, you have an object with the fields "name" and "age" and wants this
-              values in your DataTable, so will need to configure two columns with this values, like this:
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <div className='dm-code-container'>
-              <pre>
-                <PrismCode className='language-js'>
-                  {require('!raw-loader!./configurationWithoutSortExample.js')}
-                </PrismCode>
-              </pre>
-            </div>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <p>
-              This configuration will build:
+              values in your DataTable, so will need to configure two columns with this values. The child of DataTableColumn
+              is the header cell.
             </p>
           </div>
         </div>
@@ -59,9 +42,11 @@ class DataTablePage extends React.Component {
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
-            <p>
-              The child of DataTableColumn component is the header cell.
-            </p>
+            <ShowCode>
+              <PrismCode className='language-js'>
+                {require('!raw-loader!./configurationWithoutSortExample.js')}
+              </PrismCode>
+            </ShowCode>
           </div>
         </div>
         <div className='sv-row'>
@@ -71,24 +56,8 @@ class DataTablePage extends React.Component {
             </h5>
             <p>
               If you want a column with sort option, just add a property to your DataTableColumn named <b>sortable</b>.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <div className='dm-code-container'>
-              <pre>
-                <PrismCode className='language-js'>
-                  {require('!raw-loader!./dataTableWithSortExample.js')}
-                </PrismCode>
-              </pre>
-            </div>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <p>
-              This configuration will build:
+              Now, the DataTable have a property named "onSort". This property is a callback where
+              you can get an object with the value of <b>columnKey</b> and the <b> direction</b> of the sort.
             </p>
           </div>
         </div>
@@ -98,10 +67,11 @@ class DataTablePage extends React.Component {
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
-            <p>
-              Now, the DataTable have a property named 'onSort'. This property is a callback where
-              you can get a object with the value of <b>columnKey</b> and the <b> direction</b> of the sort.
-            </p>
+            <ShowCode>
+              <PrismCode className='language-js'>
+                {require('!raw-loader!./dataTableWithSortExample.js')}
+              </PrismCode>
+            </ShowCode>
           </div>
         </div>
       </div>
