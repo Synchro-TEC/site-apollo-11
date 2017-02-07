@@ -10,7 +10,7 @@ const yourData = [
 class DataTableWithSortExample extends React.Component {
 
   executingSort(sortInfo) {
-    // Do your sort here
+    //Function to execute when user makes sort in a column
   }
 
   render() {

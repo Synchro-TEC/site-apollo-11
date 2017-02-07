@@ -56,7 +56,7 @@ class DataTablePage extends React.Component {
             </h5>
             <p>
               If you want a column with sort option, just add a property to your DataTableColumn named <b>sortable</b>.
-              The DataTable now have a property named "onSort". This property is a callback where
+              The DataTable now have a property named "onSort", this property is a callback where
               you can get an object with the value of <b>columnKey</b> and the <b> direction</b> of the sort.
             </p>
           </div>

@@ -4,11 +4,11 @@ import {Paginate} from 'apollo-11';
 class SimplePaginateExample extends React.Component {
 
   executingOnNextPage(paginateInfo) {
-    // Here you can get the paginate information when onNextPage was triggered
+    //Function to execute when user go to next page
   }
 
   executingOnPreviousPage(paginateInfo) {
-    // Here you can get de paginate information when onPreviousPage was triggered
+    //Function to execute when user go to previous page
   }
 
   render() {

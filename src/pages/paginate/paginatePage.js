@@ -13,9 +13,9 @@ class PaginatePage extends React.Component {
           <div className='sv-column'>
             <h3> Paginate </h3>
             <h6 className='sv-vertical-marged'>
-              This component works with callbacks.
               You can choose a simple or a paginate with options, in both choices you
-              can configure how much records for page you wants.
+              can configure how much records for page you wants. By default,
+              the number of records for page is ten.
             </h6>
           </div>
         </div>
@@ -28,7 +28,7 @@ class PaginatePage extends React.Component {
               A simple paginate have two properties to receive callbacks,
               <b> onNextPage </b> and <b> onPreviousPage </b>
               where you can get the value of currentPage, limit and offset when
-              that action is triggered.
+              these actions are triggered.
             </p>
           </div>
         </div>
@@ -54,7 +54,7 @@ class PaginatePage extends React.Component {
             <p>
               If you want options to select a specif page, you have to add
               a property to your component named <b>onSelectASpecifPage</b>. This property
-              will receive your callback function, and return the same informations of
+              will receive your callback function, and return the same information of
               onNext and onPrevious explained before.
             </p>
           </div>
@@ -74,13 +74,6 @@ class PaginatePage extends React.Component {
                 {require('!raw-loader!./paginateWithOptionsExample.js')}
               </PrismCode>
             </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <p>
-              By default, the number of recordsForPage is ten.
-            </p>
           </div>
         </div>
       </div>
