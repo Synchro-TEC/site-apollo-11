@@ -2,14 +2,62 @@ import React from 'react';
 import { DataTable, DataTableColumn, Paginate } from 'apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
-
-const exampleData = [
-  {name: 'Marcus David', age: 45},
-  {name: 'Gordon Byron', age: 64},
-  {name: 'Johnny Page',  age: 27},
-]
+import {generateData} from '../../utils/generateData';
+import _sortBy from 'lodash/sortBy';
 
 class DataTablePage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.initialDataForPaginateExample = generateData();
+    this.dataExample = [
+      {task: 'Task 1', priority: 'Critical'},
+      {task: 'Task 2', priority: 'Low'},
+      {task: 'Task 3',  priority: 'Medium'},
+      {task: 'Task 4', priority: 'High'},
+      {task: 'Task 5',  priority: 'Critical'},
+    ];
+    this.state = {
+      sortableDataExample: [
+        {task: 'Task 2', priority: 'Critical'},
+        {task: 'Task 1', priority: 'Low'},
+        {task: 'Task 3',  priority: 'Medium'},
+        {task: 'Task 5', priority: 'High'},
+        {task: 'Task 4',  priority: 'Critical'},
+      ],
+      paginateData: this.initialDataForPaginateExample
+    };
+  }
+
+  componentDidMount() {
+    let oldData = this.state.paginateData;
+    let newData = oldData.slice(0,5);
+    this.setState({paginateData: newData});
+  }
+
+  doPaginateFilter(paginateInfo) {
+    let startOfSlice = paginateInfo.offset;
+    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
+    let filteredData = this.initialDataForPaginateExample.slice(startOfSlice, endOfSlice);
+    return filteredData;
+  }
+
+  paginateAction(paginateInfo) {
+    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+  }
+
+  executeSort(sortInfo) {
+    let oldStateData = this.state.sortableDataExample;
+    let sortedData;
+
+    if(sortInfo.direction === 'asc') {
+      sortedData = _sortBy(oldStateData, [ (o) => { return o[sortInfo.columnKey]; }]);
+    } else {
+      sortedData = oldStateData.reverse();
+    }
+
+    this.setState({sortableDataExample: sortedData});
+  }
 
   render() {
     return (
@@ -36,9 +84,9 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable rows={exampleData}>
-          <DataTableColumn dataKey='name'>Name</DataTableColumn>
-          <DataTableColumn dataKey='age'>Age</DataTableColumn>
+        <DataTable rows={this.dataExample}>
+          <DataTableColumn dataKey='task'>Task</DataTableColumn>
+          <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
@@ -61,9 +109,9 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable rows={exampleData}>
-          <DataTableColumn dataKey='name' sortable>Name</DataTableColumn>
-          <DataTableColumn dataKey='age' sortable>Age</DataTableColumn>
+        <DataTable rows={this.state.sortableDataExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
+          <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
+          <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
@@ -74,6 +122,40 @@ class DataTablePage extends React.Component {
             </ShowCode>
           </div>
         </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <h5 className='bold'>
+              DataTable with paginate
+            </h5>
+            <p>
+              You have option to use DataTable with the Paginate component, whether it simple or with options.
+            </p>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <DataTable rows={this.state.paginateData}>
+              <DataTableColumn dataKey='task'>Task</DataTableColumn>
+              <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
+            </DataTable>
+          </div>
+        </div>
+        <div className='sv-row'>
+          <div className='sv-column'>
+            <Paginate
+              recordsForPage={5}
+              totalSizeOfData={this.initialDataForPaginateExample.length}
+              onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+              onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+              onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+            />
+          </div>
+        </div>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./dataTableWithPaginateExample.js')}
+          </PrismCode>
+        </ShowCode>
       </div>
     );
   }

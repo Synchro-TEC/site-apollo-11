@@ -2,10 +2,12 @@ import React from 'react';
 import {DataTable, DataTableColumn} from 'apollo-11';
 
 const yourData = [
-  {name: 'Marcus David', age: 45, city: 'Detroit'},
-  {name: 'Gordon Byron', age: 64, city: 'Cairo'},
-  {name: 'Johnny Page',  age: 27, city: 'Washington'},
-]
+  {task: 'Task 2', priority: 'Critical'},
+  {task: 'Task 1', priority: 'Low'},
+  {task: 'Task 3', priority: 'Medium'},
+  {task: 'Task 5', priority: 'High'},
+  {task: 'Task 4', priority: 'Critical'},
+];
 
 class DataTableWithSortExample extends React.Component {
 
@@ -17,8 +19,8 @@ class DataTableWithSortExample extends React.Component {
     return (
       <div>
         <DataTable rows={yourData} onSort={(sortInfo) => this.executingSort(sortInfo)}>
-          <DataTableColumn dataKey='name' sortable>Name</DataTableColumn>
-          <DataTableColumn dataKey='age' sortable>Age</DataTableColumn>
+          <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
+          <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
         </DataTable>
       </div>
     );
