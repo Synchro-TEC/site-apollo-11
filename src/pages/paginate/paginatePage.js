@@ -28,12 +28,12 @@ class PaginatePage extends React.Component {
       {task: 'Task 17', priority: 'High'},
       {task: 'Task 18', priority: 'Medium'},
       {task: 'Task 19', priority: 'Low'},
-      {task: 'Task 20', priority: 'Critical'}
+      {task: 'Task 20', priority: 'Critical'},
     ];
-    this.dataToPowerfullPaginate = generateData();
+    this.dataToPaginateWithOptions = generateData();
     this.state = {
       dataToPaginateAList: this.dataToPaginateAList.slice(0,5),
-      dataToPowerfullPaginate: this.dataToPowerfullPaginate.slice(0,5),
+      dataToPaginateWithOptions: this.dataToPaginateWithOptions.slice(0,5),
     }
   }
 
@@ -49,7 +49,7 @@ class PaginatePage extends React.Component {
   }
 
   powerfullPaginateAction(paginateInfo) {
-    this.setState({dataToPowerfullPaginate: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataToPaginateWithOptions: this.doPaginateFilter(paginateInfo)});
   }
 
   render() {
@@ -118,7 +118,7 @@ class PaginatePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              totalSizeOfData={this.dataToPowerfullPaginate.length}
+              totalSizeOfData={this.dataToPaginateWithOptions.length}
               recordsForPage={5}
               onNextPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
               onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}

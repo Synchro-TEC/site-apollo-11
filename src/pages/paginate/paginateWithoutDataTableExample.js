@@ -24,7 +24,7 @@ class PaginateWithoutDataTableExample extends React.Component {
       {task: 'Task 17', priority: 'High'},
       {task: 'Task 18', priority: 'Medium'},
       {task: 'Task 19', priority: 'Low'},
-      {task: 'Task 20', priority: 'Critical'}
+      {task: 'Task 20', priority: 'Critical'},
     ];
     // The initial slice mencioned before (same value of recordsForPage)
     this.state = {paginateData: this.dataForPaginateExample.slice(0,5)}
