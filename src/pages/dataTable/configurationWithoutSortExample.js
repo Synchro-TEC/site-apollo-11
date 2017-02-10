@@ -14,7 +14,7 @@ class ConfigurationWithoutSortExample extends React.Component {
   render() {
     return (
       <div>
-        <DataTable rows={yourData}>
+        <DataTable data={yourData}>
           <DataTableColumn dataKey='task'>Task</DataTableColumn>
           <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>

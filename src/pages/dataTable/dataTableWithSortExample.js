@@ -18,7 +18,7 @@ class DataTableWithSortExample extends React.Component {
   render() {
     return (
       <div>
-        <DataTable rows={yourData} onSort={(sortInfo) => this.executingSort(sortInfo)}>
+        <DataTable data={yourData} onSort={(sortInfo) => this.executingSort(sortInfo)}>
           <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
           <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
         </DataTable>

@@ -19,7 +19,7 @@ class DataTableWithPaginateExample extends React.Component {
   render() {
     return (
       <div>
-        <DataTable rows={generateData()}>
+        <DataTable data={generateData()}>
           <DataTableColumn dataKey='task'>Task</DataTableColumn>
           <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>

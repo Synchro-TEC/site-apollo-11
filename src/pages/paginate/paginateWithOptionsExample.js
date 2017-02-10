@@ -3,22 +3,62 @@ import {Paginate} from 'apollo-11';
 
 class PaginateWithOptionsExample extends React.Component {
 
+  constructor() {
+    super();
+    this.exampleOfData = [
+      {task: 'Task 1', priority: 'Critical'},
+      {task: 'Task 2', priority: 'Critical'},
+      {task: 'Task 3', priority: 'Low'},
+      {task: 'Task 4', priority: 'High'},
+      {task: 'Task 5', priority: 'Medium'},
+      {task: 'Task 6', priority: 'High'},
+      {task: 'Task 7', priority: 'Critical'},
+      {task: 'Task 8', priority: 'Low'},
+      {task: 'Task 9', priority: 'Medium'},
+      {task: 'Task 10', priority: 'Critical'},
+      {task: 'Task 11', priority: 'High'},
+      {task: 'Task 12', priority: 'Critical'},
+      {task: 'Task 13', priority: 'Medium'},
+      {task: 'Task 14', priority: 'Critical'},
+      {task: 'Task 15', priority: 'Low'},
+      {task: 'Task 16', priority: 'Medium'},
+      {task: 'Task 17', priority: 'High'},
+      {task: 'Task 18', priority: 'Medium'},
+      {task: 'Task 19', priority: 'Low'},
+      {task: 'Task 20', priority: 'Critical'}
+      //And more...
+    ];
+    // The initial slice mencioned before (same value of recordsForPage)
+    this.state = {paginateData: this.exampleOfData.slice(0,5)}
+  }
+
+  doPaginateFilter(paginateInfo) {
+    let startOfSlice = paginateInfo.offset;
+    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
+    let filteredData = this.exampleOfData.slice(startOfSlice, endOfSlice);
+    return filteredData;
+  }
+
+  //Function to execute when user go to next page
   executingOnNextPage(paginateInfo) {
-    //Function to execute when user go to next page
+    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
   }
 
+  //Function to execute when user go to previous page
   executingOnPreviousPage(paginateInfo) {
-    //Function to execute when user go to previous page
+    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
   }
 
+  //Function to execute when user select a specific page
   executingOnSelectASpecificPage(paginateInfo) {
-    //Function to execute when user select a specific page
+    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
   }
 
   render() {
     return (
       <div>
         <Paginate
+          recordsForPage={5}
           onNextPage={(paginateInfo) => this.executingOnNextPage(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.executingOnPreviousPage(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.executingOnSelectASpecificPage(paginateInfo)}

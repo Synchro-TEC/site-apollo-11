@@ -7,8 +7,8 @@ import _sortBy from 'lodash/sortBy';
 
 class DataTablePage extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.initialDataForPaginateExample = generateData();
     this.dataExample = [
       {task: 'Task 1', priority: 'Critical'},
@@ -25,14 +25,8 @@ class DataTablePage extends React.Component {
         {task: 'Task 5', priority: 'High'},
         {task: 'Task 4',  priority: 'Critical'},
       ],
-      paginateData: this.initialDataForPaginateExample
+      paginateData: this.initialDataForPaginateExample.slice(0,5),
     };
-  }
-
-  componentDidMount() {
-    let oldData = this.state.paginateData;
-    let newData = oldData.slice(0,5);
-    this.setState({paginateData: newData});
   }
 
   doPaginateFilter(paginateInfo) {
@@ -84,7 +78,7 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable rows={this.dataExample}>
+        <DataTable data={this.dataExample}>
           <DataTableColumn dataKey='task'>Task</DataTableColumn>
           <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>
@@ -109,7 +103,7 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable rows={this.state.sortableDataExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
+        <DataTable data={this.state.sortableDataExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
           <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
           <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
         </DataTable>
@@ -134,7 +128,7 @@ class DataTablePage extends React.Component {
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
-            <DataTable rows={this.state.paginateData}>
+            <DataTable data={this.state.paginateData}>
               <DataTableColumn dataKey='task'>Task</DataTableColumn>
               <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
             </DataTable>

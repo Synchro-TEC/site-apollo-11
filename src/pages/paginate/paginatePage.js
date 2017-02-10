@@ -8,32 +8,54 @@ class PaginatePage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.initialDataForPaginateExample = generateData();
-    this.state = { paginateData: this.initialDataForPaginateExample}
-  }
-
-  componentDidMount() {
-    let oldData = this.state.paginateData;
-    this.setState({paginateData: oldData.slice(0,5)});
+    this.dataToPaginateAList = [
+      {task: 'Task 1', priority: 'Critical'},
+      {task: 'Task 2', priority: 'Critical'},
+      {task: 'Task 3', priority: 'Low'},
+      {task: 'Task 4', priority: 'High'},
+      {task: 'Task 5', priority: 'Medium'},
+      {task: 'Task 6', priority: 'High'},
+      {task: 'Task 7', priority: 'Critical'},
+      {task: 'Task 8', priority: 'Low'},
+      {task: 'Task 9', priority: 'Medium'},
+      {task: 'Task 10', priority: 'Critical'},
+      {task: 'Task 11', priority: 'High'},
+      {task: 'Task 12', priority: 'Critical'},
+      {task: 'Task 13', priority: 'Medium'},
+      {task: 'Task 14', priority: 'Critical'},
+      {task: 'Task 15', priority: 'Low'},
+      {task: 'Task 16', priority: 'Medium'},
+      {task: 'Task 17', priority: 'High'},
+      {task: 'Task 18', priority: 'Medium'},
+      {task: 'Task 19', priority: 'Low'},
+      {task: 'Task 20', priority: 'Critical'}
+    ];
+    this.dataToPowerfullPaginate = generateData();
+    this.state = {
+      dataToPaginateAList: this.dataToPaginateAList.slice(0,5),
+      dataToPowerfullPaginate: this.dataToPowerfullPaginate.slice(0,5),
+    }
   }
 
   doPaginateFilter(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    let filteredData = this.initialDataForPaginateExample.slice(startOfSlice, endOfSlice);
+    let filteredData = this.dataToPaginateAList.slice(startOfSlice, endOfSlice);
     return filteredData;
   }
 
   paginateAction(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataToPaginateAList: this.doPaginateFilter(paginateInfo)});
+  }
+
+  powerfullPaginateAction(paginateInfo) {
+    this.setState({dataToPowerfullPaginate: this.doPaginateFilter(paginateInfo)});
   }
 
   render() {
 
-    let itemsOfPaginate = this.state.paginateData.map((task, i) => {
-      return (
-        <li key={i} style={{'marginBottom': '4px'}}> {task.task} </li>
-      );
+    let itemsOfPaginate = this.state.dataToPaginateAList.map((task, i) => {
+      return <li key={i} style={{'marginBottom': '4px'}}> {task.task} - {task.priority}</li>;
     });
 
     return (
@@ -46,6 +68,11 @@ class PaginatePage extends React.Component {
               can configure how much records for page you wants. By default,
               the number of records for page is ten.
             </h6>
+            <p>
+              To the paginate works correctly, you have to "slice" your data
+              according your number of recordsForPage. This is necessary to the initial
+              load show the desired quantity.
+            </p>
           </div>
         </div>
         <div className='sv-row'>
@@ -91,8 +118,11 @@ class PaginatePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              totalSizeOfData={generateData().length}
-              onSelectASpecifPage={() => {}}
+              totalSizeOfData={this.dataToPowerfullPaginate.length}
+              recordsForPage={5}
+              onNextPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+              onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+              onSelectASpecifPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
             />
           </div>
         </div>
@@ -128,7 +158,7 @@ class PaginatePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              totalSizeOfData={this.initialDataForPaginateExample.length}
+              totalSizeOfData={this.dataToPaginateAList.length}
               recordsForPage={5}
               onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
               onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
