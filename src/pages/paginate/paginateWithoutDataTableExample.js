@@ -1,4 +1,5 @@
 import React from 'react';
+import {Paginate} from 'apollo-11';
 
 class PaginateWithoutDataTableExample extends React.Component {
 
@@ -26,11 +27,11 @@ class PaginateWithoutDataTableExample extends React.Component {
       {task: 'Task 19', priority: 'Low'},
       {task: 'Task 20', priority: 'Critical'},
     ];
-    // The initial slice mencioned before (same value of recordsForPage)
-    this.state = {paginateData: this.dataForPaginateExample.slice(0,5)}
+    // The initial slice mencioned before (same value of recordsByPage)
+    this.state = {dataFilteredByPaginate: this.dataForPaginateExample.slice(0,5)}
   }
 
-  doPaginateFilter(paginateInfo) {
+  doPaginate(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
     let filteredData = this.dataForPaginateExample.slice(startOfSlice, endOfSlice);
@@ -39,22 +40,22 @@ class PaginateWithoutDataTableExample extends React.Component {
 
   //Function to execute when user go to next page
   executingOnNextPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   //Function to execute when user go to previous page
   executingOnPreviousPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   //Function to execute when user select a specific page
   executingOnSelectASpecificPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   render() {
 
-    let itemsOfPaginate = this.state.paginateData.map((task, i) => {
+    let itemsOfPaginate = this.state.dataFilteredByPaginate.map((task, i) => {
       return <li key={i}> {task.task} - {task.priority} </li>;
     });
 
@@ -64,11 +65,11 @@ class PaginateWithoutDataTableExample extends React.Component {
           {itemsOfPaginate}
         </ul>
         <Paginate
-          totalSizeOfData={this.dataForPaginateExample.length}
-          recordsForPage={5}
           onNextPage={(paginateInfo) => this.executingOnNextPage(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.executingOnPreviousPage(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.executingOnSelectASpecificPage(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={this.dataForPaginateExample.length}
         />
       </div>
     );

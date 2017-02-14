@@ -4,13 +4,14 @@ import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
 import {generateData} from '../../utils/generateData';
 import _sortBy from 'lodash/sortBy';
+import _cloneDeep from 'lodash/cloneDeep';
 
 class DataTablePage extends React.Component {
 
   constructor() {
     super();
-    this.initialDataForPaginateExample = generateData();
-    this.dataExample = [
+    this.dataForDataTableWithPaginateExample = generateData();
+    this.dataForSimpleDataTableExample = [
       {task: 'Task 1', priority: 'Critical'},
       {task: 'Task 2', priority: 'Low'},
       {task: 'Task 3',  priority: 'Medium'},
@@ -18,39 +19,47 @@ class DataTablePage extends React.Component {
       {task: 'Task 5',  priority: 'Critical'},
     ];
     this.state = {
-      sortableDataExample: [
-        {task: 'Task 2', priority: 'Critical'},
-        {task: 'Task 1', priority: 'Low'},
-        {task: 'Task 3',  priority: 'Medium'},
-        {task: 'Task 5', priority: 'High'},
-        {task: 'Task 4',  priority: 'Critical'},
+      dataForSortableColumnDataTableExample: [
+        {task: 'Task 1', priority: 'Low', startDate: '28/08/2002'},
+        {task: 'Task 2', priority: 'Critical', startDate: '13/05/1996'},
+        {task: 'Task 3',  priority: 'Medium', startDate: '31/01/2010'},
+        {task: 'Task 4',  priority: 'Critical', startDate: '14/02/2017'},
+        {task: 'Task 5', priority: 'High', startDate: '14/01/2016'},
       ],
-      paginateData: this.initialDataForPaginateExample.slice(0,5),
+      dataFilteredByPaginate: this.dataForDataTableWithPaginateExample.slice(0,5),
     };
   }
 
-  doPaginateFilter(paginateInfo) {
+  doPaginate(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    let filteredData = this.initialDataForPaginateExample.slice(startOfSlice, endOfSlice);
+    let filteredData = this.dataForDataTableWithPaginateExample.slice(startOfSlice, endOfSlice);
     return filteredData;
   }
 
   paginateAction(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   executeSort(sortInfo) {
-    let oldStateData = this.state.sortableDataExample;
+    let clone = _cloneDeep(this.state.dataForSortableColumnDataTableExample);
     let sortedData;
 
     if(sortInfo.direction === 'asc') {
-      sortedData = _sortBy(oldStateData, [ (o) => { return o[sortInfo.columnKey]; }]);
+      sortedData = _sortBy(clone, (obj) => {
+        if(sortInfo.columnKey === 'startDate') {
+          let dateToConvert = obj[sortInfo.columnKey];
+          let convertedDate = dateToConvert.replace(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/, '$3/$2/$1');
+          return new Date(convertedDate);
+        } else {
+          return obj[sortInfo.columnKey];
+        }
+      });
     } else {
-      sortedData = oldStateData.reverse();
+      sortedData = clone.reverse();
     }
 
-    this.setState({sortableDataExample: sortedData});
+    this.setState({dataForSortableColumnDataTableExample: sortedData});
   }
 
   render() {
@@ -78,7 +87,7 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable data={this.dataExample}>
+        <DataTable data={this.dataForSimpleDataTableExample}>
           <DataTableColumn dataKey='task'>Task</DataTableColumn>
           <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>
@@ -86,7 +95,7 @@ class DataTablePage extends React.Component {
           <div className='sv-column'>
             <ShowCode>
               <PrismCode className='language-js'>
-                {require('!raw-loader!./configurationWithoutSortExample.js')}
+                {require('!raw-loader!./simpleDataTableExample.js')}
               </PrismCode>
             </ShowCode>
           </div>
@@ -103,9 +112,10 @@ class DataTablePage extends React.Component {
             </p>
           </div>
         </div>
-        <DataTable data={this.state.sortableDataExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
+        <DataTable data={this.state.dataForSortableColumnDataTableExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
           <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
           <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
+          <DataTableColumn dataKey='startDate' sortable>Start Date</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
@@ -128,7 +138,7 @@ class DataTablePage extends React.Component {
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
-            <DataTable data={this.state.paginateData}>
+            <DataTable data={this.state.dataFilteredByPaginate}>
               <DataTableColumn dataKey='task'>Task</DataTableColumn>
               <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
             </DataTable>
@@ -137,11 +147,11 @@ class DataTablePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              recordsForPage={5}
-              totalSizeOfData={this.initialDataForPaginateExample.length}
               onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
               onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
               onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+              recordsByPage={5}
+              totalSizeOfData={this.dataForDataTableWithPaginateExample.length}
             />
           </div>
         </div>

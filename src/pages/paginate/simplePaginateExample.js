@@ -15,10 +15,10 @@ class SimplePaginateExample extends React.Component {
     return (
       <div>
         <Paginate
-          recordsForPage={15}
-          totalSizeOfData={yourData.length}
           onNextPage={(paginateInfo) => this.executingOnNextPage(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.executingOnPreviousPage(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={yourData.length}
         />
       </div>
     );

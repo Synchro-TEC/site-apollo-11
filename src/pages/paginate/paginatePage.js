@@ -37,7 +37,7 @@ class PaginatePage extends React.Component {
     }
   }
 
-  doPaginateFilter(paginateInfo) {
+  doPaginate(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
     let filteredData = this.dataToPaginateAList.slice(startOfSlice, endOfSlice);
@@ -45,11 +45,11 @@ class PaginatePage extends React.Component {
   }
 
   paginateAction(paginateInfo) {
-    this.setState({dataToPaginateAList: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataToPaginateAList: this.doPaginate(paginateInfo)});
   }
 
   powerfullPaginateAction(paginateInfo) {
-    this.setState({dataToPaginateWithOptions: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataToPaginateWithOptions: this.doPaginate(paginateInfo)});
   }
 
   render() {
@@ -65,12 +65,12 @@ class PaginatePage extends React.Component {
             <h3> Paginate </h3>
             <h6 className='sv-vertical-marged'>
               You can choose a simple or a paginate with options, in both choices you
-              can configure how much records for page you wants. By default,
-              the number of records for page is ten.
+              can configure how much records by page you wants. By default,
+              this one is ten.
             </h6>
             <p>
               To the paginate works correctly, you have to "slice" your data
-              according your number of recordsForPage. This is necessary to the initial
+              according your number of recordsByPage. This is necessary to the initial
               load show the desired quantity.
             </p>
           </div>
@@ -118,11 +118,11 @@ class PaginatePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              totalSizeOfData={this.dataToPaginateWithOptions.length}
-              recordsForPage={5}
               onNextPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
               onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
               onSelectASpecifPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+              recordsByPage={5}
+              totalSizeOfData={this.dataToPaginateWithOptions.length}
             />
           </div>
         </div>
@@ -158,11 +158,11 @@ class PaginatePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Paginate
-              totalSizeOfData={this.dataToPaginateAList.length}
-              recordsForPage={5}
               onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
               onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
               onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+              recordsByPage={5}
+              totalSizeOfData={this.dataToPaginateAList.length}
             />
           </div>
         </div>

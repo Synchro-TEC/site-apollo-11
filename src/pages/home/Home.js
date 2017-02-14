@@ -2,9 +2,7 @@ import React from 'react';
 
 const HomePage = () => (
   <div>
-    <div className='col dm-hero sv-bg-color--blue-800'>
-
-    </div>
+    <div className='col dm-hero sv-bg-color--blue-800'/>
     <div className='dm-home-content'>
       <div className='sv-row'>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {DataTable, DataTableColumn} from 'apollo-11';
 
-const yourData = [
+const dataForDataTableExample = [
   {task: 'Task 1', priority: 'Critical'},
   {task: 'Task 2', priority: 'Low'},
   {task: 'Task 3', priority: 'Medium'},
@@ -14,7 +14,7 @@ class ConfigurationWithoutSortExample extends React.Component {
   render() {
     return (
       <div>
-        <DataTable data={yourData}>
+        <DataTable data={dataForDataTableExample}>
           <DataTableColumn dataKey='task'>Task</DataTableColumn>
           <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
         </DataTable>

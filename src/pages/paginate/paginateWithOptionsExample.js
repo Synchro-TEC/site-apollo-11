@@ -5,7 +5,7 @@ class PaginateWithOptionsExample extends React.Component {
 
   constructor() {
     super();
-    this.exampleOfData = [
+    this.dataForPaginateExample = [
       {task: 'Task 1', priority: 'Critical'},
       {task: 'Task 2', priority: 'Critical'},
       {task: 'Task 3', priority: 'Low'},
@@ -28,40 +28,41 @@ class PaginateWithOptionsExample extends React.Component {
       {task: 'Task 20', priority: 'Critical'},
       //And more...
     ];
-    // The initial slice mencioned before (same value of recordsForPage)
-    this.state = {paginateData: this.exampleOfData.slice(0,5)}
+    // The initial slice mencioned before (same value of recordsByPage)
+    this.state = {dataFilteredByPaginate: this.dataForPaginateExample.slice(0,5)}
   }
 
-  doPaginateFilter(paginateInfo) {
+  doPaginate(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    let filteredData = this.exampleOfData.slice(startOfSlice, endOfSlice);
+    let filteredData = this.dataForPaginateExample.slice(startOfSlice, endOfSlice);
     return filteredData;
   }
 
   //Function to execute when user go to next page
   executingOnNextPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   //Function to execute when user go to previous page
   executingOnPreviousPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   //Function to execute when user select a specific page
   executingOnSelectASpecificPage(paginateInfo) {
-    this.setState({paginateData: this.doPaginateFilter(paginateInfo)});
+    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
   }
 
   render() {
     return (
       <div>
         <Paginate
-          recordsForPage={5}
           onNextPage={(paginateInfo) => this.executingOnNextPage(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.executingOnPreviousPage(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.executingOnSelectASpecificPage(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={this.dataForPaginateExample.length}
         />
       </div>
     );
