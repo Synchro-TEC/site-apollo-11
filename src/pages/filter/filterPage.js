@@ -34,8 +34,13 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <h3>Filter</h3>
             <h6 className='sv-vertical-marged'>
-              Filter is a customizable search filter. You can choose a filter with filter options or just a single filter.
+              You can choose a simple or a filter options, in both choices you
+              can pass a callback to property <b>onClearAll</b> to execute when user clear the fields.
             </h6>
+            <p>
+              When you have fields that are different of select, radio or checkbox you need to
+              pass a callback to the onClearAll property.
+            </p>
             <h5 className='bold'>
               Filter with options
             </h5>
@@ -189,4 +194,3 @@ class FilterPage extends React.Component {
 FilterPage.displayName = 'FilterPage';
 
 export default FilterPage;
-
