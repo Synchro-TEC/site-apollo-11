@@ -21,7 +21,6 @@ const App = () => (
 
     <Route component={TemplateDocs} path='/docs'>
       <IndexRoute component={DocsHomePage} />
-
       <Route component={HermesPage} path='hermes' />
       <Route component={LaunchWindowPage} path='launch-window' />
       <Route component={FilterPage} path='filter' />

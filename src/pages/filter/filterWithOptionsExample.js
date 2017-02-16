@@ -7,18 +7,18 @@ class FilterWithOptionsExample extends React.Component {
     super(props);
   }
 
-  search(values) {
+  applyingFilter(values) {
     // Do something with values of filter options and search
   }
 
-  clearFields() {
+  cleaningFields() {
     // Function to execute when user clear all fields
   }
 
   render() {
     return (
       <div>
-        <Filter name='searchValue' onSearch={(values) => this.search(values)} onClearAll={() => this.clearFields()}>
+        <Filter name='searchValue' onApplyFilter={(values) => this.applyingFilter(values)} onClearAll={() => this.cleaningFields()}>
           <div className='sv-row--with-gutter'>
             <div className='sv-column'>
               <label>

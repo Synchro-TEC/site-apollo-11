@@ -1,6 +1,5 @@
 import React from 'react';
 import {DataTable, DataTableColumn, Paginate} from 'apollo-11';
-import {generateData} from '../../utils/generateData';
 
 class DataTableWithPaginateExample extends React.Component {
 

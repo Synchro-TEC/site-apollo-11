@@ -16,15 +16,16 @@ class FilterPage extends React.Component {
   }
 
   search(values) {
-    this.setState({
-      prettyValuesForFilterWithOptions: values,
-    });
+    this.setState({prettyValuesForFilterWithOptions: values});
   }
 
-  onSearchWhenEnter(value) {
-    this.setState({
-      prettyValueForSingleFilter: value,
-    });
+  onSearchByEnter(value) {
+    console.log(value);
+    this.setState({prettyValueForSingleFilter: value});
+  }
+
+  apllyingFilter(value) {
+    console.log(value);
   }
 
   render() {
@@ -54,7 +55,7 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSearch'
-                    onSearch={(obj) => this.search(obj)}
+                    onApplyFilter={(values) => this.apllyingFilter(values)}
                     placeholder="I'm a filter with filter options!">
               <div className='sv-row--with-gutter'>
                 <div className='sv-column'>
@@ -155,7 +156,7 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSingleSearch'
-                    onSearch={(value) => this.onSearchWhenEnter(value)}
+                    onSearchByEnter={(value) => this.onSearchByEnter(value)}
                     placeholder="I'm just a single filter!" />
           </div>
         </div>
@@ -166,24 +167,6 @@ class FilterPage extends React.Component {
                 {require('!raw-loader!./simpleFilterExample.js')}
               </PrismCode>
             </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row sv-no-margins'>
-          <div className='sv-column'>
-            <p>
-              This configuration will return something like that:
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <div className='dm-code-container'>
-              <pre>
-                <PrismCode className='language-js'>
-                  {require('!raw-loader!./simpleFilterReturnExample.js')}
-                </PrismCode>
-              </pre>
-            </div>
           </div>
         </div>
       </div>
