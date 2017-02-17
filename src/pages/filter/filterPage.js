@@ -8,13 +8,9 @@ import ShowCode from '../../components/ShowCode';
 
 class FilterPage extends React.Component {
 
-  onFilter(value) {
-    console.log(value);
-  }
+  onFilter(value) {}
 
-  apllyingFilter(value) {
-    console.log(value);
-  }
+  apllyingFilter(values) {}
 
   render() {
     return (
