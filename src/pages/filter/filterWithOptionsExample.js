@@ -7,7 +7,7 @@ class FilterWithOptionsExample extends React.Component {
     super(props);
   }
 
-  applyingFilter(values) {
+  doingTheFiltering(values) {
     // Do something with values of filter options and search
   }
 
@@ -18,7 +18,14 @@ class FilterWithOptionsExample extends React.Component {
   render() {
     return (
       <div>
-        <Filter name='searchValue' onApplyFilter={(values) => this.applyingFilter(values)} onClearAll={() => this.cleaningFields()}>
+        <Filter
+            applyFilterButtonLabel='The value to applyFilter button'
+            cancelButtonLabel='The value to cancel button'
+            clearAllButtonLabel='The value to clearAll button'
+            filterButtonLabel='The value to filter button'
+            name='searchValue'
+            onClearAll={() => this.cleaningFields()}
+            onFilter={(values) => this.doingTheFiltering(values)}>
           <div className='sv-row--with-gutter'>
             <div className='sv-column'>
               <label>

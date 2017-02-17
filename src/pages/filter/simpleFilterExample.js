@@ -3,14 +3,14 @@ import { Filter } from 'apollo-11';
 
 class SimpleFilterExample extends React.Component {
 
-  searchByEnter(value) {
+  doingTheFiltering(value) {
     // Do something with the value of filter
   }
 
   render() {
     return (
       <div>
-        <Filter name='simpleSearch' onSearchByEnter={(value) => this.searchByEnter(value)}/>
+        <Filter name='simpleSearch' onFilter={(value) => this.doingTheFiltering(value)}/>
       </div>
     );
   }

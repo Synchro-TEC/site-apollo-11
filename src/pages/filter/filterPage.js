@@ -7,21 +7,9 @@ import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
 
 class FilterPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      prettyValuesForFilterWithOptions: {},
-      prettyValueForSingleFilter: {},
-    }
-  }
 
-  search(values) {
-    this.setState({prettyValuesForFilterWithOptions: values});
-  }
-
-  onSearchByEnter(value) {
+  onFilter(value) {
     console.log(value);
-    this.setState({prettyValueForSingleFilter: value});
   }
 
   apllyingFilter(value) {
@@ -46,17 +34,18 @@ class FilterPage extends React.Component {
               Filter with options
             </h5>
             <p>
-              In a filter with options, you can build the options the way you want, as long you choose between checkbox,
-              radio or select input types. All this types need a name, included the filter component. If you want a set of
-              options for a checkbox, just give to options the same name. The name of a field will be your key in return.
+              In a filter with options, you can build the options the way you want as long this
+              types have a name, included the filter component. If you want a set of options for
+              a checkbox, just give to options the same name. The name of a field will be your key
+              in return.
             </p>
           </div>
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSearch'
-                    onApplyFilter={(values) => this.apllyingFilter(values)}
-                    placeholder="I'm a filter with filter options!">
+                    onFilter={(values) => this.apllyingFilter(values)}
+                    placeholder="I'm a filter with options!">
               <div className='sv-row--with-gutter'>
                 <div className='sv-column'>
                   <label>
@@ -156,7 +145,7 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSingleSearch'
-                    onSearchByEnter={(value) => this.onSearchByEnter(value)}
+                    onFilter={(value) => this.onFilter(value)}
                     placeholder="I'm just a single filter!" />
           </div>
         </div>
