@@ -2,15 +2,75 @@
  * Created by gnf on 11/01/17.
  */
 import React from 'react';
-import { Filter } from 'apollo-11';
+import { Filter, DataTable, DataTableColumn, Paginate } from 'apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
+import _cloneDeep from 'lodash/cloneDeep';
+import axios from 'axios';
 
 class FilterPage extends React.Component {
 
-  onFilter(value) {}
+  constructor() {
+    super();
+    this.immutableData = [];
+    this.state = {data: [], dataForAdvancedFilter: []};
+  }
 
-  apllyingFilter(values) {}
+  componentDidMount() {
+    this.getData('http://localhost:3000/tasks', {});
+  }
+
+  getData(url, params) {
+    axios.get(url, params).then((response) => {
+      this.immutableData = response.data;
+      this.setState({
+        data: response.data.slice(0,10),
+        dataForAdvancedFilter: response.data.slice(0,10),
+      });
+    });
+  }
+
+  simpleFilter(value) {
+    let result = axios.get('http://localhost:3000/tasks', {
+      params: {
+        description_like: value,
+      },
+    })
+    .then((response) => {
+      this.setState({data: response.data.slice(0,10)});
+    });
+  }
+
+  advancedFilter(values) {
+    let result = axios.get('http://localhost:3000/tasks', {
+      params: {
+        description_like: values.valueOfSearch,
+        priority: values.priority,
+        note: values.note,
+      },
+    })
+    .then((response) => {
+      this.setState({dataForAdvancedFilter: response.data.slice(0,10)});
+    });
+  }
+
+  paginateAction(paginateInfo) {
+    let data = this.state.data;
+    let startOfSlice = paginateInfo.offset;
+    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
+    this.setState({
+      data: this.immutableData.slice(startOfSlice, endOfSlice),
+    });
+  }
+
+  paginateActionForAdvancedFilter(paginateInfo) {
+    let data = this.state.data;
+    let startOfSlice = paginateInfo.offset;
+    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
+    this.setState({
+      dataForAdvancedFilter: this.immutableData.slice(startOfSlice, endOfSlice),
+    });
+  }
 
   render() {
     return (
@@ -40,17 +100,19 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSearch'
-                    onFilter={(values) => this.apllyingFilter(values)}
+                    onFilter={(values) => this.advancedFilter(values)}
                     placeholder="I'm a filter with options!">
               <div className='sv-row--with-gutter'>
                 <div className='sv-column'>
                   <label>
-                    <span>Gender:</span>
+                    <span>Priority:</span>
                     <div className='sv-select'>
-                      <select name='gender'>
-                        <option value=''>Please, select</option>
-                        <option value='M'>Male</option>
-                        <option value='F'>Female</option>
+                      <select name='priority'>
+                        <option value=''/>
+                        <option value='Critical'>Critical</option>
+                        <option value='High'>High</option>
+                        <option value='Medium'>Medium</option>
+                        <option value='Low'>Low</option>
                       </select>
                       <label><i className='fa fa-angle-down fa-fw'/></label>
                     </div>
@@ -72,6 +134,10 @@ class FilterPage extends React.Component {
                   </label>
                 </div>
               </div>
+              <label>
+                <span> Note </span>
+                <input name='note' type='text'/>
+              </label>
               <label>
                 <span>Age</span>
               </label>
@@ -99,6 +165,22 @@ class FilterPage extends React.Component {
             </Filter>
           </div>
         </div>
+        <div className='sv-vertical-marged-50'>
+          <DataTable data={this.state.dataForAdvancedFilter}>
+            <DataTableColumn dataKey='task'>Task</DataTableColumn>
+            <DataTableColumn dataKey='description'>Descrição</DataTableColumn>
+            <DataTableColumn dataKey='note'>Nota</DataTableColumn>
+            <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
+            <DataTableColumn dataKey='startDate'>Start Date</DataTableColumn>
+            <DataTableColumn dataKey='completeDate'>Complete Date</DataTableColumn>
+          </DataTable>
+        </div>
+        <Paginate
+          onNextPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
+          totalSizeOfData={50}
+        />
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>
@@ -141,10 +223,26 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSingleSearch'
-                    onFilter={(value) => this.onFilter(value)}
+                    onFilter={(value) => this.simpleFilter(value)}
                     placeholder="I'm just a single filter!" />
           </div>
         </div>
+        <div className='sv-vertical-marged-50'>
+          <DataTable data={this.state.data}>
+            <DataTableColumn dataKey='task'>Task</DataTableColumn>
+            <DataTableColumn dataKey='description'>Descrição</DataTableColumn>
+            <DataTableColumn dataKey='note'>Nota</DataTableColumn>
+            <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
+            <DataTableColumn dataKey='startDate'>Start Date</DataTableColumn>
+            <DataTableColumn dataKey='completeDate'>Complete Date</DataTableColumn>
+          </DataTable>
+        </div>
+        <Paginate
+          onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          totalSizeOfData={50}
+        />
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>

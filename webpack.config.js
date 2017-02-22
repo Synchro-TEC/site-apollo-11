@@ -26,7 +26,12 @@ module.exports = env => {
     bail: env.prod,
     devServer: {
       inline: true,
-      contentBase: './dist'
+      contentBase: './dist',
+    },
+    resolve: {
+      alias: {
+        react: path.resolve('./node_modules/react'),
+      },
     },
     module: {
       loaders: [

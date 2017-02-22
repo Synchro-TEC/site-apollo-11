@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-11": "file:../apollo-11",
+    "axios": "^0.15.3",
     "react": "^15.4.1",
-    "react-addons-update": "^15.4.1",
     "react-addons-pure-render-mixin": "^15.4.1",
+    "react-addons-update": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-prism": "^4.0.0",
     "react-pure-render": "^1.0.2",
