@@ -11,6 +11,7 @@ import LaunchWindowPage from './pages/launchWindow/launchWindowPage';
 import FilterPage from './pages/filter/filterPage';
 import DataTablePage from './pages/dataTable/dataTablePage';
 import PaginatePage from './pages/paginate/paginatePage';
+import PowerTablePage from './pages/PowerTable/PowerTablePage';
 
 const App = () => (
   <Router history={hashHistory}>
@@ -26,6 +27,7 @@ const App = () => (
       <Route component={FilterPage} path='filter' />
       <Route component={DataTablePage} path='data-table' />
       <Route component={PaginatePage} path='paginate' />
+      <Route component={PowerTablePage} path='power-table' />
     </Route>
   </Router>
 );
