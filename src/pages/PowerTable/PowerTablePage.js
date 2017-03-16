@@ -14,7 +14,7 @@ class PowerTablePage extends React.Component {
   render() {
     return (
       <div>
-        <PowerTable dataUrl='http://localhost:3000/users' itensInViewPort={16} rowHeight={39.466}>
+        <PowerTable dataUrl='http://localhost:3000/users' itensInViewPort={16} rowHeight={39}>
           <PowerColumn columnTitle='Codigo' dataKey='id' />
           <PowerColumn columnTitle='Nome' dataKey='firstName' searchable />
           <PowerColumn columnTitle='Papel' dataKey='papel' searchable />
