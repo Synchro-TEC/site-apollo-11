@@ -25,7 +25,7 @@ class FilterPage extends React.Component {
       this.immutableData = response.data;
       this.setState({
         data: response.data.slice(0,10),
-        dataForAdvancedFilter: response.data.slice(0,10),
+        dataForAdvancedFilter: response.data,
       });
     });
   }
@@ -33,7 +33,7 @@ class FilterPage extends React.Component {
   simpleFilter(value) {
     let result = axios.get('http://localhost:3000/tasks', {
       params: {
-        description_like: value,
+        firstName_like: value,
       },
     })
     .then((response) => {
@@ -41,16 +41,29 @@ class FilterPage extends React.Component {
     });
   }
 
+  convertToUADateToCompare(dateToConvert) {
+    if(dateToConvert) {
+      const regExp = new RegExp('([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})');
+      return new Date(dateToConvert.replace(regExp, '$2/$1/$3'));
+    }
+  }
+
   advancedFilter(values) {
+    let convertedBornDate = this.convertToUADateToCompare(values.bornDate);
+    let convertedDiedDate = this.convertToUADateToCompare(values.diedDate);
+    //gte - Greater than or equal to
+    //lte - Less than or equal to
     let result = axios.get('http://localhost:3000/tasks', {
       params: {
-        description_like: values.valueOfSearch,
-        priority: values.priority,
-        note: values.note,
+        firstName_like: values.valueOfSearch,
+        email_like: values.email,
+        gender: values.gender,
+        from: values.from,
+        bornYear_gte: parseInt(values.bornDate.slice(6,10)),
+        diedYear_lte: parseInt(values.diedDate.slice(6,10)),
       },
-    })
-    .then((response) => {
-      this.setState({dataForAdvancedFilter: response.data.slice(0,10)});
+    }).then((response) => {
+      this.setState({dataForAdvancedFilter: response.data});
     });
   }
 
@@ -101,86 +114,79 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <Filter name='valueOfSearch'
                     onFilter={(values) => this.advancedFilter(values)}
-                    placeholder="I'm a filter with options!">
-              <div className='sv-row--with-gutter'>
-                <div className='sv-column'>
-                  <label>
-                    <span>Priority:</span>
-                    <div className='sv-select'>
-                      <select name='priority'>
-                        <option value=''/>
-                        <option value='Critical'>Critical</option>
-                        <option value='High'>High</option>
-                        <option value='Medium'>Medium</option>
-                        <option value='Low'>Low</option>
-                      </select>
-                      <label><i className='fa fa-angle-down fa-fw'/></label>
-                    </div>
-                  </label>
+                    placeholder='Search for first name'>
+              <label>
+                <div className='sv-row--with-gutter'>
+                  <div className='sv-column'>
+                    <span>From:</span>
+                    <select name='from' style={{'width': '100%'}}>
+                      <option value=''/>
+                      <option value='Italy'>Italy</option>
+                      <option value='United States'>United States</option>
+                      <option value='Australia'>Australia</option>
+                      <option value='Russia'>Russia</option>
+                      <option value='Polony'>Polony</option>
+                      <option value='Netherlands'>Netherlands</option>
+                    </select>
+                  </div>
+                  <div className='sv-column'>
+                    <label>
+                      <span> Email: </span>
+                      <input name='email' style={{'width': '100%'}} type='text'/>
+                    </label>
+                  </div>
                 </div>
-                <div className='sv-column'>
-                  <label>
-                    <span>Type:</span>
-                    <div className='sv-select'>
-                      <select name='type'>
-                        <option value=''/>
-                        <option value='Master'>Master</option>
-                        <option value='Senior'>Senior</option>
-                      </select>
-                      <label>
-                        <i className='fa fa-angle-down fa-fw'/>
-                      </label>
-                    </div>
-                  </label>
+              </label>
+              <label>
+                <span> Date between: </span>
+                <div className='sv-row--with-gutter'>
+                  <div className='sv-column'>
+                    <label>
+                      <div className='sv-select'>
+                        <input name='bornDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
+                        <label> <i className='fa fa-calendar'/> </label>
+                      </div>
+                    </label>
+                  </div>
+                  <div className='sv-column'>
+                    <label>
+                      <div className='sv-select'>
+                        <input name='diedDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
+                        <label> <i className='fa fa-calendar'/> </label>
+                      </div>
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <label>
-                <span> Note </span>
-                <input name='note' type='text'/>
               </label>
               <label>
-                <span>Age</span>
+                <span>Gender:</span>
               </label>
               <label>
-                <input name='radioName' type='radio'  value='15' /> 15
+                <input name='gender' type='radio' value='Male' /> Male
               </label>
               <label>
-                <input name='radioName' type='radio'  value='25' /> 25
-              </label>
-              <label>
-                <input name='radioName' type='radio' value='50' /> 50
-              </label>
-              <label>
-                <span>Worldly goods</span>
-              </label>
-              <label>
-                <input defaultValue='bikeValue' name='checkBoxName' type='checkBox' /> Have a bike
-              </label>
-              <label>
-                <input defaultValue='carValue' name='checkBoxName' type='checkbox' /> Have a car
-              </label>
-              <label>
-                <input defaultValue='videoGameValue' name='checkBoxName' type='checkbox' /> Have a videogame
+                <input name='gender' type='radio' value='Female' /> Female
               </label>
             </Filter>
           </div>
         </div>
         <div className='sv-vertical-marged-50'>
           <DataTable data={this.state.dataForAdvancedFilter}>
-            <DataTableColumn dataKey='task'>Task</DataTableColumn>
-            <DataTableColumn dataKey='description'>Descrição</DataTableColumn>
-            <DataTableColumn dataKey='note'>Nota</DataTableColumn>
-            <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
-            <DataTableColumn dataKey='startDate'>Start Date</DataTableColumn>
-            <DataTableColumn dataKey='completeDate'>Complete Date</DataTableColumn>
+            <DataTableColumn dataKey='firstName'>First Name</DataTableColumn>
+            <DataTableColumn dataKey='lastName'>Last Name</DataTableColumn>
+            <DataTableColumn dataKey='email'>Email</DataTableColumn>
+            <DataTableColumn dataKey='from'>From</DataTableColumn>
+            <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
+            <DataTableColumn dataKey='bornDate'>Born Date</DataTableColumn>
+            <DataTableColumn dataKey='diedDate'>Died Date</DataTableColumn>
           </DataTable>
         </div>
-        <Paginate
+        {/* <Paginate
           onNextPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           totalSizeOfData={50}
-        />
+        /> */}
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>
@@ -229,12 +235,13 @@ class FilterPage extends React.Component {
         </div>
         <div className='sv-vertical-marged-50'>
           <DataTable data={this.state.data}>
-            <DataTableColumn dataKey='task'>Task</DataTableColumn>
-            <DataTableColumn dataKey='description'>Descrição</DataTableColumn>
-            <DataTableColumn dataKey='note'>Nota</DataTableColumn>
-            <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
-            <DataTableColumn dataKey='startDate'>Start Date</DataTableColumn>
-            <DataTableColumn dataKey='completeDate'>Complete Date</DataTableColumn>
+            <DataTableColumn dataKey='firstName'>First Name</DataTableColumn>
+            <DataTableColumn dataKey='lastName'>Last Name</DataTableColumn>
+            <DataTableColumn dataKey='email'>Email</DataTableColumn>
+            <DataTableColumn dataKey='from'>From</DataTableColumn>
+            <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
+            <DataTableColumn dataKey='bornDate'>Born Date</DataTableColumn>
+            <DataTableColumn dataKey='diedDate'>Died Date</DataTableColumn>
           </DataTable>
         </div>
         <Paginate
