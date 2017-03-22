@@ -49,18 +49,52 @@ class FilterPage extends React.Component {
   }
 
   advancedFilter(values) {
-    let convertedBornDate = this.convertToUADateToCompare(values.bornDate);
-    let convertedDiedDate = this.convertToUADateToCompare(values.diedDate);
-    //gte - Greater than or equal to
-    //lte - Less than or equal to
+    let convertedFirstDate = this.convertToUADateToCompare(values.firstDate);
+    let convertedWeddingDayDate = this.convertToUADateToCompare(values.weddingDay);
+    let wordlyGoods = values.wordlyGoods;
+    let hadABike, hadACar, hadAMac, hadAHelicopter = false;
+    let firstDateNumber;
+    let weddingDayNumber;
+    let wordlyGoodsString;
+
+    if(convertedFirstDate && convertedWeddingDayDate) {
+      firstDateNumber = convertedFirstDate.getTime();
+      weddingDayNumber = convertedWeddingDayDate.getTime();
+    }
+
+    if(wordlyGoods) {
+      debugger;
+      for(let i = 0; i<wordlyGoods.length; i++) {
+        switch (wordlyGoods[i]) {
+            case 'Bike': hadABike = true;
+              break;
+
+            case 'Car': hadACar = true;
+              break;
+
+            case 'Helicopter': hadAHelicopter = true;
+              break;
+
+            case 'Mac': hadAMac = true;
+              break;
+        }
+      }
+    }
+
     let result = axios.get('http://localhost:3000/tasks', {
       params: {
         firstName_like: values.valueOfSearch,
         email_like: values.email,
         gender: values.gender,
         from: values.from,
-        bornYear_gte: parseInt(values.bornDate.slice(6,10)),
-        diedYear_lte: parseInt(values.diedDate.slice(6,10)),
+        firstDateNumber_gte: firstDateNumber,
+        weddingDayNumber_lte: weddingDayNumber,
+        wordlyGoods: wordlyGoodsString,
+        hadAHelicopter: hadAHelicopter,
+        hadABike: hadABike,
+        hadACar: hadACar,
+        hadAMac: hadAMac,
+        _sort: 'firstDateNumber',
       },
     }).then((response) => {
       this.setState({dataForAdvancedFilter: response.data});
@@ -71,9 +105,7 @@ class FilterPage extends React.Component {
     let data = this.state.data;
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    this.setState({
-      data: this.immutableData.slice(startOfSlice, endOfSlice),
-    });
+    this.setState({data: this.immutableData.slice(startOfSlice, endOfSlice)});
   }
 
   paginateActionForAdvancedFilter(paginateInfo) {
@@ -143,7 +175,7 @@ class FilterPage extends React.Component {
                   <div className='sv-column'>
                     <label>
                       <div className='sv-select'>
-                        <input name='bornDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
+                        <input name='firstDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
                         <label> <i className='fa fa-calendar'/> </label>
                       </div>
                     </label>
@@ -151,7 +183,7 @@ class FilterPage extends React.Component {
                   <div className='sv-column'>
                     <label>
                       <div className='sv-select'>
-                        <input name='diedDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
+                        <input name='weddingDay' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
                         <label> <i className='fa fa-calendar'/> </label>
                       </div>
                     </label>
@@ -167,18 +199,34 @@ class FilterPage extends React.Component {
               <label>
                 <input name='gender' type='radio' value='Female' /> Female
               </label>
+              <label>
+                <span>Wordly goods</span>
+              </label>
+              <label>
+                <input name='wordlyGoods' type='checkbox' value='Bike' /> Bike
+              </label>
+              <label>
+                <input name='wordlyGoods' type='checkbox' value='Car' /> Car
+              </label>
+              <label>
+                <input name='wordlyGoods' type='checkbox' value='Helicopter' /> Helicopter
+              </label>
+              <label>
+                <input name='wordlyGoods' type='checkbox' value='Mac' /> Mac
+              </label>
             </Filter>
           </div>
         </div>
-        <div className='sv-vertical-marged-50'>
+        <div>
           <DataTable data={this.state.dataForAdvancedFilter}>
             <DataTableColumn dataKey='firstName'>First Name</DataTableColumn>
             <DataTableColumn dataKey='lastName'>Last Name</DataTableColumn>
             <DataTableColumn dataKey='email'>Email</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-            <DataTableColumn dataKey='bornDate'>Born Date</DataTableColumn>
-            <DataTableColumn dataKey='diedDate'>Died Date</DataTableColumn>
+            <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
+            <DataTableColumn dataKey='weddingDay'>Wedding day</DataTableColumn>
+            <DataTableColumn dataKey='wordlyGoods'>Wordly Goods</DataTableColumn>
           </DataTable>
         </div>
         {/* <Paginate
