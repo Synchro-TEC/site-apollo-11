@@ -5,15 +5,21 @@ import React from 'react';
 import { Filter, DataTable, DataTableColumn, Paginate } from 'apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
-import _cloneDeep from 'lodash/cloneDeep';
 import axios from 'axios';
+import _isEmpty from 'lodash/isEmpty';
 
 class FilterPage extends React.Component {
 
   constructor() {
     super();
     this.immutableData = [];
-    this.state = {data: [], dataForAdvancedFilter: [], sizeOfData: 0};
+    this.state = {
+      data: [],
+      dataForAdvancedFilter: [],
+      sizeOfData: 0,
+      firstDateValue: null,
+      weddingDayValue: null,
+    };
   }
 
   componentDidMount() {
@@ -50,13 +56,11 @@ class FilterPage extends React.Component {
   }
 
   advancedFilter(values) {
+    this.refs.paginateForAdvancedFilter.reset();
     let convertedFirstDate = this.convertToUADateToCompare(values.firstDate);
     let convertedWeddingDayDate = this.convertToUADateToCompare(values.weddingDay);
     let wordlyGoods = values.wordlyGoods;
-    let hadABike, hadACar, hadAMac, hadAHelicopter = false;
-    let firstDateNumber;
-    let weddingDayNumber;
-    let wordlyGoodsString;
+    let hadABike, hadACar, hadAMac, hadAHelicopter, firstDateNumber, weddingDayNumber, wordlyGoodsString;
 
     if(convertedFirstDate && convertedWeddingDayDate) {
       firstDateNumber = convertedFirstDate.getTime();
@@ -81,27 +85,38 @@ class FilterPage extends React.Component {
       }
     }
 
-    let result = axios.get('http://localhost:3000/tasks', {
-      params: {
-        firstName_like: values.valueOfSearch,
-        email_like: values.email,
-        gender: values.gender,
-        from: values.from,
-        firstDateNumber_gte: firstDateNumber,
-        weddingDayNumber_lte: weddingDayNumber,
-        wordlyGoods: wordlyGoodsString,
-        hadAHelicopter: hadAHelicopter,
-        hadABike: hadABike,
-        hadACar: hadACar,
-        hadAMac: hadAMac,
-        _sort: 'firstDateNumber',
-      },
-    }).then((response) => {
-      this.setState({
-        dataForAdvancedFilter: response.data.slice(0,10),
-        sizeOfData: response.data.length,
+    let result = {};
+
+    if(!_isEmpty(values)) {
+      result = axios.get('http://localhost:3000/tasks', {
+        params: {
+          firstName_like: values.valueOfSearch,
+          email_like: values.email,
+          gender: values.gender,
+          from: values.from,
+          firstDateNumber_gte: firstDateNumber,
+          weddingDayNumber_lte: weddingDayNumber,
+          wordlyGoods: wordlyGoodsString,
+          hadAHelicopter: hadAHelicopter,
+          hadABike: hadABike,
+          hadACar: hadACar,
+          hadAMac: hadAMac,
+          _sort: 'firstDateNumber',
+        },
+      }).then((response) => {
+        this.setState({
+          dataForAdvancedFilter: response.data.slice(0,10),
+          sizeOfData: response.data.length,
+        });
       });
-    });
+    } else {
+      result = axios.get('http://localhost:3000/tasks').then((response) => {
+        this.setState({
+          dataForAdvancedFilter: response.data.slice(0,10),
+          sizeOfData: response.data.length,
+        });
+      });
+    }
   }
 
   paginateAction(paginateInfo) {
@@ -236,6 +251,7 @@ class FilterPage extends React.Component {
           onNextPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
+          ref='paginateForAdvancedFilter'
           totalSizeOfData={this.state.sizeOfData}
         />
         <div className='sv-row'>
