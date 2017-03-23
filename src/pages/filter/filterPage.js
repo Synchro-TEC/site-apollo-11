@@ -13,7 +13,7 @@ class FilterPage extends React.Component {
   constructor() {
     super();
     this.immutableData = [];
-    this.state = {data: [], dataForAdvancedFilter: []};
+    this.state = {data: [], dataForAdvancedFilter: [], sizeOfData: 0};
   }
 
   componentDidMount() {
@@ -25,7 +25,8 @@ class FilterPage extends React.Component {
       this.immutableData = response.data;
       this.setState({
         data: response.data.slice(0,10),
-        dataForAdvancedFilter: response.data,
+        sizeOfData: response.data.length,
+        dataForAdvancedFilter: response.data.slice(0,10),
       });
     });
   }
@@ -63,20 +64,19 @@ class FilterPage extends React.Component {
     }
 
     if(wordlyGoods) {
-      debugger;
       for(let i = 0; i<wordlyGoods.length; i++) {
         switch (wordlyGoods[i]) {
-            case 'Bike': hadABike = true;
-              break;
+          case 'Bike': hadABike = true;
+            break;
 
-            case 'Car': hadACar = true;
-              break;
+          case 'Car': hadACar = true;
+            break;
 
-            case 'Helicopter': hadAHelicopter = true;
-              break;
+          case 'Helicopter': hadAHelicopter = true;
+            break;
 
-            case 'Mac': hadAMac = true;
-              break;
+          case 'Mac': hadAMac = true;
+            break;
         }
       }
     }
@@ -97,7 +97,10 @@ class FilterPage extends React.Component {
         _sort: 'firstDateNumber',
       },
     }).then((response) => {
-      this.setState({dataForAdvancedFilter: response.data});
+      this.setState({
+        dataForAdvancedFilter: response.data.slice(0,10),
+        sizeOfData: response.data.length,
+      });
     });
   }
 
@@ -229,12 +232,12 @@ class FilterPage extends React.Component {
             <DataTableColumn dataKey='wordlyGoods'>Wordly Goods</DataTableColumn>
           </DataTable>
         </div>
-        {/* <Paginate
+        <Paginate
           onNextPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
-          totalSizeOfData={50}
-        /> */}
+          totalSizeOfData={this.state.sizeOfData}
+        />
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>
