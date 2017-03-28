@@ -91,6 +91,7 @@ class FilterPage extends React.Component {
       result = axios.get('http://localhost:3000/tasks', {
         params: {
           name_like: values.valueOfSearch,
+          email_like: values.email,
           gender: values.gender,
           from: values.from,
           firstDateNumber_gte: firstDateNumber,
@@ -232,6 +233,7 @@ class FilterPage extends React.Component {
         <div>
           <DataTable data={this.state.dataForAdvancedFilter}>
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
+            <DataTableColumn dataKey='email'>Email address</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
             <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
@@ -295,6 +297,7 @@ class FilterPage extends React.Component {
         <div className='sv-vertical-marged-50'>
           <DataTable data={this.state.data}>
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
+            <DataTableColumn dataKey='email'>Email address</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
             <DataTableColumn dataKey='bornDate'>Born Date</DataTableColumn>

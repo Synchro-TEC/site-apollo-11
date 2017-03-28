@@ -8,11 +8,9 @@ class UserTestsPage extends React.Component {
   constructor() {
     super();
     this.immutableData = [];
-    this.dataWhenSearch = [];
     this.state = {
       dataForSimulateAPaginate: [],
       sizeOfData: 0,
-      isSearching: false,
     };
   }
 
@@ -39,15 +37,19 @@ class UserTestsPage extends React.Component {
 
   advancedFilter(values) {
     this.refs.paginateForAdvancedFilter.reset();
-    this.setState({ isSearching: values.valueOfSearch !== '' || Object.keys(values).length > 1 });
-    let convertedFirstDate = this.convertToUADateToCompare(values.firstDate);
-    let convertedWeddingDayDate = this.convertToUADateToCompare(values.weddingDay);
     let wordlyGoods = values.wordlyGoods;
-    let hadABike, hadACar, hadAMac, hadAHelicopter, firstDateNumber, weddingDayNumber, wordlyGoodsString;
+    let hadABike,
+        hadACar,
+        hadAMac,
+        hadAHelicopter,
+        firstDateNumber,
+        weddingDayNumber,
+        wordlyGoodsString;
 
-    if(convertedFirstDate && convertedWeddingDayDate) {
-      firstDateNumber = convertedFirstDate.getTime();
-      weddingDayNumber = convertedWeddingDayDate.getTime();
+    if(this.convertToUADateToCompare(values.firstDate) &&
+       this.convertToUADateToCompare(values.weddingDay)) {
+      firstDateNumber = this.convertToUADateToCompare(values.firstDate).getTime();
+      weddingDayNumber = this.convertToUADateToCompare(values.weddingDay).getTime();
     }
 
     if(wordlyGoods) {
@@ -68,10 +70,8 @@ class UserTestsPage extends React.Component {
       }
     }
 
-    let result = {};
-
     if(!_isEmpty(values)) {
-      result = axios.get('http://localhost:3000/tasks', {
+      axios.get('http://localhost:3000/tasks', {
         params: {
           name_like: values.valueOfSearch,
           gender: values.gender,
@@ -86,14 +86,14 @@ class UserTestsPage extends React.Component {
           _sort: 'firstDateNumber',
         },
       }).then((response) => {
-        this.dataWhenSearch = response.data;
+        this.immutableData = response.data;
         this.setState({
           dataForSimulateAPaginate: response.data.slice(0,10),
           sizeOfData: response.data.length,
         });
       });
     } else {
-      result = axios.get('http://localhost:3000/tasks').then((response) => {
+      axios.get('http://localhost:3000/tasks').then((response) => {
         this.setState({
           dataForSimulateAPaginate: response.data.slice(0,10),
           sizeOfData: response.data.length,
@@ -107,9 +107,7 @@ class UserTestsPage extends React.Component {
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
 
     this.setState({
-      dataForSimulateAPaginate: this.state.isSearching ?
-        this.dataWhenSearch.slice(startOfSlice, endOfSlice):
-        this.immutableData.slice(startOfSlice, endOfSlice),
+      dataForSimulateAPaginate: this.immutableData.slice(startOfSlice, endOfSlice),
     });
   }
 
