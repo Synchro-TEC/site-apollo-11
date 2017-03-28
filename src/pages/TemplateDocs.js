@@ -17,6 +17,7 @@ function TemplateDocs(props) {
           <li><Link activeClassName='active' to='docs/data-table'>Data Table</Link></li>
           <li><Link activeClassName='active' to='docs/paginate'>Paginate</Link></li>
           <li><Link activeClassName='active' to='docs/power-table'>Power Table</Link></li>
+          <li><Link activeClassName='active' to='docs/user-tests'>User tests</Link></li>
         </ul>
 
         <div className='dm-syntec'>
