@@ -14,11 +14,9 @@ class FilterPage extends React.Component {
     super();
     this.immutableData = [];
     this.state = {
-      data: [],
-      dataForAdvancedFilter: [],
+      dataForFilterWithoutOptions: [],
+      dataForFilterWithOptions: [],
       sizeOfData: 0,
-      firstDateValue: null,
-      weddingDayValue: null,
     };
   }
 
@@ -30,21 +28,21 @@ class FilterPage extends React.Component {
     axios.get(url, params).then((response) => {
       this.immutableData = response.data;
       this.setState({
-        data: response.data.slice(0,10),
+        dataForFilterWithoutOptions: response.data.slice(0,10),
         sizeOfData: response.data.length,
-        dataForAdvancedFilter: response.data.slice(0,10),
+        dataForFilterWithOptions: response.data.slice(0,10),
       });
     });
   }
 
   simpleFilter(value) {
     let result = axios.get('http://localhost:3000/tasks', {
-      params: {
-        name_like: value,
-      },
-    })
-    .then((response) => {
-      this.setState({data: response.data.slice(0,10)});
+      params: { name_like: value },
+    }).then((response) => {
+      this.setState({
+        dataForFilterWithoutOptions: response.data.slice(0,10),
+        sizeOfData: response.data.length,
+      });
     });
   }
 
@@ -57,14 +55,19 @@ class FilterPage extends React.Component {
 
   advancedFilter(values) {
     this.refs.paginateForAdvancedFilter.reset();
-    let convertedFirstDate = this.convertToUADateToCompare(values.firstDate);
-    let convertedWeddingDayDate = this.convertToUADateToCompare(values.weddingDay);
     let wordlyGoods = values.wordlyGoods;
-    let hadABike, hadACar, hadAMac, hadAHelicopter, firstDateNumber, weddingDayNumber, wordlyGoodsString;
+    let hadABike,
+        hadACar,
+        hadAMac,
+        hadAHelicopter,
+        firstDateNumber,
+        weddingDayNumber,
+        wordlyGoodsString;
 
-    if(convertedFirstDate && convertedWeddingDayDate) {
-      firstDateNumber = convertedFirstDate.getTime();
-      weddingDayNumber = convertedWeddingDayDate.getTime();
+    if(this.convertToUADateToCompare(values.firstDate) &&
+       this.convertToUADateToCompare(values.weddingDay)) {
+      firstDateNumber = this.convertToUADateToCompare(values.firstDate).getTime();
+      weddingDayNumber = this.convertToUADateToCompare(values.weddingDay).getTime();
     }
 
     if(wordlyGoods) {
@@ -85,13 +88,10 @@ class FilterPage extends React.Component {
       }
     }
 
-    let result = {};
-
     if(!_isEmpty(values)) {
-      result = axios.get('http://localhost:3000/tasks', {
+      axios.get('http://localhost:3000/tasks', {
         params: {
           name_like: values.valueOfSearch,
-          email_like: values.email,
           gender: values.gender,
           from: values.from,
           firstDateNumber_gte: firstDateNumber,
@@ -104,34 +104,35 @@ class FilterPage extends React.Component {
           _sort: 'firstDateNumber',
         },
       }).then((response) => {
+        this.immutableData = response.data;
         this.setState({
-          dataForAdvancedFilter: response.data.slice(0,10),
+          dataForFilterWithOptions: response.data.slice(0,10),
           sizeOfData: response.data.length,
         });
       });
     } else {
-      result = axios.get('http://localhost:3000/tasks').then((response) => {
+      axios.get('http://localhost:3000/tasks').then((response) => {
         this.setState({
-          dataForAdvancedFilter: response.data.slice(0,10),
+          dataForFilterWithOptions: response.data.slice(0,10),
           sizeOfData: response.data.length,
         });
       });
     }
   }
 
-  paginateAction(paginateInfo) {
-    let data = this.state.data;
-    let startOfSlice = paginateInfo.offset;
-    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    this.setState({data: this.immutableData.slice(startOfSlice, endOfSlice)});
-  }
-
-  paginateActionForAdvancedFilter(paginateInfo) {
-    let data = this.state.data;
+  paginateActionForFilterWithoutOptions(paginateInfo) {
     let startOfSlice = paginateInfo.offset;
     let endOfSlice = paginateInfo.offset + paginateInfo.limit;
     this.setState({
-      dataForAdvancedFilter: this.immutableData.slice(startOfSlice, endOfSlice),
+      dataForFilterWithoutOptions: this.immutableData.slice(startOfSlice, endOfSlice),
+    });
+  }
+
+  paginateActionForFilterWithOptions(paginateInfo) {
+    let startOfSlice = paginateInfo.offset;
+    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
+    this.setState({
+      dataForFilterWithOptions: this.immutableData.slice(startOfSlice, endOfSlice),
     });
   }
 
@@ -231,9 +232,8 @@ class FilterPage extends React.Component {
           </div>
         </div>
         <div>
-          <DataTable data={this.state.dataForAdvancedFilter}>
+          <DataTable data={this.state.dataForFilterWithOptions}>
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
-            <DataTableColumn dataKey='email'>Email address</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
             <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
@@ -242,9 +242,9 @@ class FilterPage extends React.Component {
           </DataTable>
         </div>
         <Paginate
-          onNextPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
-          onPreviousPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
-          onSelectASpecifPage={(paginateInfo) => this.paginateActionForAdvancedFilter(paginateInfo)}
+          onNextPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
           ref='paginateForAdvancedFilter'
           totalSizeOfData={this.state.sizeOfData}
         />
@@ -294,21 +294,19 @@ class FilterPage extends React.Component {
                     placeholder="I'm just a single filter!" />
           </div>
         </div>
-        <div className='sv-vertical-marged-50'>
-          <DataTable data={this.state.data}>
-            <DataTableColumn dataKey='name'>Name</DataTableColumn>
-            <DataTableColumn dataKey='email'>Email address</DataTableColumn>
-            <DataTableColumn dataKey='from'>From</DataTableColumn>
-            <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-            <DataTableColumn dataKey='bornDate'>Born Date</DataTableColumn>
-            <DataTableColumn dataKey='diedDate'>Died Date</DataTableColumn>
-          </DataTable>
-        </div>
+        <DataTable data={this.state.dataForFilterWithoutOptions}>
+          <DataTableColumn dataKey='name'>Name</DataTableColumn>
+          <DataTableColumn dataKey='from'>From</DataTableColumn>
+          <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
+          <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
+          <DataTableColumn dataKey='weddingDay'>Wedding Day</DataTableColumn>
+          <DataTableColumn dataKey='wordlyGoods'>Wordly Goods</DataTableColumn>
+        </DataTable>
         <Paginate
-          onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-          onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-          onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-          totalSizeOfData={50}
+          onNextPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
+          totalSizeOfData={this.state.sizeOfData}
         />
         <div className='sv-row'>
           <div className='sv-column'>
