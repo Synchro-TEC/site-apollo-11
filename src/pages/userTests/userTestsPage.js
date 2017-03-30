@@ -126,16 +126,20 @@ class UserTestsPage extends React.Component {
   render() {
     return (
       <div className='dm-content'>
+        <ul className='sv-breadcrumb'>
+          <li><a href='#'><i className='fa fa-home fa-fw'/></a></li>
+          <li><a href='#'><i className='fa fa-male fa-fw'/>Users</a></li>
+        </ul>
+        <hr/>
         <div className='sv-row'>
           <div className='sv-column'>
-            <h3>Filter</h3>
-            <Filter name='valueOfSearch'
+            <Filter name='valueOfSearch'                    
                     onFilter={(values) => this.advancedFilter(values)}
                     placeholder='Search for name...'>
               <label>
                 <span> From: </span>
                 <div className='sv-select'>
-                  <select name='from' style={{'width': '100%'}}>
+                  <select name='from'>
                     <option value=''/>
                     <option value='Italy'>Italy</option>
                     <option value='United States'>United States</option>
@@ -158,10 +162,11 @@ class UserTestsPage extends React.Component {
                         <input
                           name='weddingDayGTE'
                           placeholder='dd/mm/yyyy'
-                          style={{'width': '100%'}}
                           type='text'
                         />
-                        <label> <i className='fa fa-calendar'/> </label>
+                        <label>
+                          <i className='fa fa-calendar'/>
+                        </label>
                       </div>
                     </label>
                   </div>
@@ -171,10 +176,11 @@ class UserTestsPage extends React.Component {
                         <input
                           name='weddingDayLTE'
                           placeholder='dd/mm/yyyy'
-                          style={{'width': '100%'}}
                           type='text'
                         />
-                        <label> <i className='fa fa-calendar'/> </label>
+                        <label>
+                          <i className='fa fa-calendar'/>
+                        </label>
                       </div>
                     </label>
                   </div>

@@ -181,7 +181,7 @@ class FilterPage extends React.Component {
               <label>
                 <span> From: </span>
                 <div className='sv-select'>
-                  <select name='from' style={{'width': '100%'}}>
+                  <select name='from'>
                     <option value=''/>
                     <option value='Italy'>Italy</option>
                     <option value='United States'>United States</option>
@@ -204,7 +204,6 @@ class FilterPage extends React.Component {
                         <input
                           name='weddingDayGTE'
                           placeholder='dd/mm/yyyy'
-                          style={{'width': '100%'}}
                           type='text'
                         />
                         <label>
@@ -219,7 +218,6 @@ class FilterPage extends React.Component {
                         <input
                           name='weddingDayLTE'
                           placeholder='dd/mm/yyyy'
-                          style={{'width': '100%'}}
                           type='text'
                          />
                         <label>
