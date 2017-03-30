@@ -21,7 +21,12 @@ class FilterPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getData('http://localhost:3000/tasks', {});
+    this.getData('http://localhost:3000/tasks', {
+      params: {
+        _sort: 'weddingDayNumber',
+        _order: 'DESC',
+      },
+    });
   }
 
   getData(url, params) {
@@ -55,24 +60,30 @@ class FilterPage extends React.Component {
 
   advancedFilter(values) {
     this.refs.paginateForAdvancedFilter.reset();
-    let wordlyGoods = values.wordlyGoods;
+    let worldlyGoods = values.worldlyGoods;
+    let convertedWeddingDayGTE = this.convertToUADateToCompare(values.weddingDayGTE);
+    let convertedWeddingDayLTE = this.convertToUADateToCompare(values.weddingDayLTE);
+
     let hadABike,
         hadACar,
         hadAMac,
         hadAHelicopter,
-        firstDateNumber,
-        weddingDayNumber,
-        wordlyGoodsString;
+        weddingDayGTENumber,
+        weddingDayLTENumber,
+        worldlyGoodsString;
 
-    if(this.convertToUADateToCompare(values.firstDate) &&
-       this.convertToUADateToCompare(values.weddingDay)) {
-      firstDateNumber = this.convertToUADateToCompare(values.firstDate).getTime();
-      weddingDayNumber = this.convertToUADateToCompare(values.weddingDay).getTime();
+    if(convertedWeddingDayGTE && !convertedWeddingDayLTE) {
+      weddingDayGTENumber = convertedWeddingDayGTE.getTime();
+    } else if(convertedWeddingDayLTE && !convertedWeddingDayGTE) {
+      weddingDayLTENumber = convertedWeddingDayLTE.getTime();
+    } else if(convertedWeddingDayGTE && convertedWeddingDayLTE) {
+      weddingDayGTENumber = convertedWeddingDayGTE.getTime();
+      weddingDayLTENumber = convertedWeddingDayLTE.getTime();
     }
 
-    if(wordlyGoods) {
-      for(let i = 0; i<wordlyGoods.length; i++) {
-        switch (wordlyGoods[i]) {
+    if(worldlyGoods) {
+      for(let i = 0; i<worldlyGoods.length; i++) {
+        switch (worldlyGoods[i]) {
           case 'Bike': hadABike = true;
             break;
 
@@ -94,14 +105,15 @@ class FilterPage extends React.Component {
           name_like: values.valueOfSearch,
           gender: values.gender,
           from: values.from,
-          firstDateNumber_gte: firstDateNumber,
-          weddingDayNumber_lte: weddingDayNumber,
-          wordlyGoods: wordlyGoodsString,
+          weddingDayNumber_gte: weddingDayGTENumber,
+          weddingDayNumber_lte: weddingDayLTENumber,
+          worldlyGoods: worldlyGoodsString,
           hadAHelicopter: hadAHelicopter,
           hadABike: hadABike,
           hadACar: hadACar,
           hadAMac: hadAMac,
-          _sort: 'firstDateNumber',
+          _sort: 'weddingDayNumber',
+          _order: 'DESC',
         },
       }).then((response) => {
         this.immutableData = response.data;
@@ -184,21 +196,35 @@ class FilterPage extends React.Component {
                 </div>
               </label>
               <label>
-                <span> Date between: </span>
+                <span> Wedding day between: </span>
                 <div className='sv-row--with-gutter'>
                   <div className='sv-column'>
                     <label>
                       <div className='sv-select'>
-                        <input name='firstDate' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
-                        <label> <i className='fa fa-calendar'/> </label>
+                        <input
+                          name='weddingDayGTE'
+                          placeholder='dd/mm/yyyy'
+                          style={{'width': '100%'}}
+                          type='text'
+                        />
+                        <label>
+                          <i className='fa fa-calendar'/>
+                        </label>
                       </div>
                     </label>
                   </div>
                   <div className='sv-column'>
                     <label>
                       <div className='sv-select'>
-                        <input name='weddingDay' placeholder='dd/mm/yyyy' style={{'width': '100%'}} type='text' />
-                        <label> <i className='fa fa-calendar'/> </label>
+                        <input
+                          name='weddingDayLTE'
+                          placeholder='dd/mm/yyyy'
+                          style={{'width': '100%'}}
+                          type='text'
+                         />
+                        <label>
+                          <i className='fa fa-calendar'/>
+                        </label>
                       </div>
                     </label>
                   </div>
@@ -214,19 +240,19 @@ class FilterPage extends React.Component {
                 <input name='gender' type='radio' value='Female' /> Female
               </label>
               <label>
-                <span>Wordly goods</span>
+                <span>Worldly goods</span>
               </label>
               <label>
-                <input name='wordlyGoods' type='checkbox' value='Bike' /> Bike
+                <input name='worldlyGoods' type='checkbox' value='Bike' /> Bike
               </label>
               <label>
-                <input name='wordlyGoods' type='checkbox' value='Car' /> Car
+                <input name='worldlyGoods' type='checkbox' value='Car' /> Car
               </label>
               <label>
-                <input name='wordlyGoods' type='checkbox' value='Helicopter' /> Helicopter
+                <input name='worldlyGoods' type='checkbox' value='Helicopter' /> Helicopter
               </label>
               <label>
-                <input name='wordlyGoods' type='checkbox' value='Mac' /> Mac
+                <input name='worldlyGoods' type='checkbox' value='Mac' /> Mac
               </label>
             </Filter>
           </div>
@@ -236,9 +262,8 @@ class FilterPage extends React.Component {
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-            <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
             <DataTableColumn dataKey='weddingDay'>Wedding day</DataTableColumn>
-            <DataTableColumn dataKey='wordlyGoods'>Wordly Goods</DataTableColumn>
+            <DataTableColumn dataKey='worldlyGoods'>Worldly goods</DataTableColumn>
           </DataTable>
         </div>
         <Paginate
@@ -298,9 +323,8 @@ class FilterPage extends React.Component {
           <DataTableColumn dataKey='name'>Name</DataTableColumn>
           <DataTableColumn dataKey='from'>From</DataTableColumn>
           <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-          <DataTableColumn dataKey='firstDate'>First Date</DataTableColumn>
           <DataTableColumn dataKey='weddingDay'>Wedding Day</DataTableColumn>
-          <DataTableColumn dataKey='wordlyGoods'>Wordly Goods</DataTableColumn>
+          <DataTableColumn dataKey='worldlyGoods'>Worldly Goods</DataTableColumn>
         </DataTable>
         <Paginate
           onNextPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
