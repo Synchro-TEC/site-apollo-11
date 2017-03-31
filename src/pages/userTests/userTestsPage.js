@@ -133,7 +133,7 @@ class UserTestsPage extends React.Component {
         <hr/>
         <div className='sv-row'>
           <div className='sv-column'>
-            <Filter name='valueOfSearch'                    
+            <Filter name='valueOfSearch'
                     onFilter={(values) => this.advancedFilter(values)}
                     placeholder='Search for name...'>
               <label>
@@ -214,7 +214,7 @@ class UserTestsPage extends React.Component {
           </div>
         </div>
         <div>
-          <DataTable data={this.state.dataForSimulateAPaginate}>
+          <DataTable className='sv-table with--hover with--borders with--stripes' data={this.state.dataForSimulateAPaginate}>
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
