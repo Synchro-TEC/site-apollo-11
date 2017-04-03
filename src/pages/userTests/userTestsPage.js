@@ -15,7 +15,7 @@ class UserTestsPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getData('http://localhost:3000/tasks', {
+    this.getData('http://172.29.0.8:3000/tasks', {
       params: {
         _sort: 'weddingDayNumber',
         _order: 'DESC',
@@ -82,7 +82,7 @@ class UserTestsPage extends React.Component {
     }
 
     if(!_isEmpty(values)) {
-      axios.get('http://localhost:3000/tasks', {
+      axios.get('http://172.29.0.8:3000/tasks', {
         params: {
           name_like: values.valueOfSearch,
           gender: values.gender,
@@ -125,12 +125,7 @@ class UserTestsPage extends React.Component {
 
   render() {
     return (
-      <div className='dm-content'>
-        <ul className='sv-breadcrumb'>
-          <li><a href='#'><i className='fa fa-home fa-fw'/></a></li>
-          <li><a href='#'><i className='fa fa-male fa-fw'/>Users</a></li>
-        </ul>
-        <hr/>
+      <div className='dm-content'>        
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSearch'
