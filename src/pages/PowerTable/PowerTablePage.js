@@ -21,7 +21,7 @@ class PowerTablePage extends React.Component {
           <PowerColumn columnTitle='Descrição' dataKey='text' searchable />
           <PowerColumn columnTitle='Endereço' dataKey='address' searchable />
           <PowerColumn columnTitle='Preço' dataKey='price' formatter={this.printPrice} />
-          <PowerColumn columnTitle='Quantidade' dataKey='quantity' dataType='numeric' />
+          <PowerColumn columnTitle='Quantidade' dataKey='quantity' dataType='numeric' searchable />
           <PowerColumn columnTitle='Total' formatter={this.printTotal} />
         </PowerTable>
       </div>
