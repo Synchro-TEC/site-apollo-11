@@ -15,7 +15,8 @@ class UserTestsPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getData('http://172.29.0.8:3000/tasks', {
+    debugger;
+    this.getData('http://172.29.0.9:3000/tasks', {
       params: {
         _sort: 'weddingDayNumber',
         _order: 'DESC',
@@ -24,6 +25,7 @@ class UserTestsPage extends React.Component {
   }
 
   getData(url, params) {
+
     axios.get(url, params).then((response) => {
       this.immutableData = response.data;
       this.setState({
@@ -41,6 +43,7 @@ class UserTestsPage extends React.Component {
   }
 
   advancedFilter(values) {
+    debugger;
     this.refs.paginateForAdvancedFilter.reset();
     let worldlyGoods = values.worldlyGoods;
     let convertedWeddingDayGTE = this.convertToUADateToCompare(values.weddingDayGTE);
@@ -82,7 +85,7 @@ class UserTestsPage extends React.Component {
     }
 
     if(!_isEmpty(values)) {
-      axios.get('http://172.29.0.8:3000/tasks', {
+      axios.get('http://172.29.0.9:3000/tasks', {
         params: {
           name_like: values.valueOfSearch,
           gender: values.gender,
@@ -105,7 +108,7 @@ class UserTestsPage extends React.Component {
         });
       });
     } else {
-      axios.get('http://localhost:3000/tasks').then((response) => {
+      axios.get('http://172.29.0.9:3000/tasks').then((response) => {
         this.setState({
           dataForSimulateAPaginate: response.data.slice(0,10),
           sizeOfData: response.data.length,
@@ -125,7 +128,7 @@ class UserTestsPage extends React.Component {
 
   render() {
     return (
-      <div className='dm-content'>        
+      <div className='dm-content'>
         <div className='sv-row'>
           <div className='sv-column'>
             <Filter name='valueOfSearch'

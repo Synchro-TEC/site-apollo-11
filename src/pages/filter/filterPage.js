@@ -2,53 +2,79 @@
  * Created by gnf on 11/01/17.
  */
 import React from 'react';
-import { Filter, DataTable, DataTableColumn, Paginate } from 'apollo-11';
+import { Filter, DataTable, DataTableColumn } from 'apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
 import axios from 'axios';
 import _isEmpty from 'lodash/isEmpty';
+import _filter from 'lodash/filter';
+import _assign from 'lodash/assign';
 
 class FilterPage extends React.Component {
 
   constructor() {
     super();
-    this.immutableData = [];
-    this.state = {
-      dataForFilterWithoutOptions: [],
-      dataForFilterWithOptions: [],
-      sizeOfData: 0,
-    };
-  }
-
-  componentDidMount() {
-    this.getData('http://localhost:3000/tasks', {
-      params: {
-        _sort: 'weddingDayNumber',
-        _order: 'DESC',
+    this.immutableData = [
+      {
+        name: 'Lorraine Barros',
+        from: 'Russia',
+        gender: 'Female',
+        weddingDay: '02/03/2017',
+        worldlyGoods: 'Bike, Car, Helicopter, Mac',
+        hadABike: true,
+        hadACar: true,
+        hadAHelicopter: true,
+        hadAMac: true,
       },
-    });
-  }
-
-  getData(url, params) {
-    axios.get(url, params).then((response) => {
-      this.immutableData = response.data;
-      this.setState({
-        dataForFilterWithoutOptions: response.data.slice(0,10),
-        sizeOfData: response.data.length,
-        dataForFilterWithOptions: response.data.slice(0,10),
-      });
-    });
-  }
-
-  simpleFilter(value) {
-    let result = axios.get('http://localhost:3000/tasks', {
-      params: { name_like: value },
-    }).then((response) => {
-      this.setState({
-        dataForFilterWithoutOptions: response.data.slice(0,10),
-        sizeOfData: response.data.length,
-      });
-    });
+      {
+        name: 'Núbia Xavier',
+        from: 'United States',
+        gender: 'Female',
+        weddingDay: '28/02/2010',
+        worldlyGoods: 'Helicopter',
+        hadAHelicopter: true,
+        hadAMac: false,
+        hadABike: false,
+        hadACar: false,
+      },
+      {
+        name: 'Vitória Braga Filho',
+        from: 'Australia',
+        gender: 'Female',
+        weddingDay: '08/02/2005',
+        worldlyGoods: 'Bike',
+        hadABike: true,
+        hadAMac: false,
+        hadACar: false,
+        hadAHelicopter: false,
+      },
+      {
+        name: 'Ladislau Braga',
+        from: 'Netherlands',
+        gender: 'Male',
+        weddingDay: '10/01/2000',
+        hadABike: true,
+        hadAMac: true,
+        hadAHelicopter: false,
+        hadACar: false,
+        worldlyGoods: 'Bike, Mac',
+      },
+      {
+        name: 'Pedro Saraiva',
+        from: 'Italy',
+        gender: 'Male',
+        weddingDay: '07/07/1996',
+        worldlyGoods: 'Bike, Car, Helicopter',
+        hadABike: true,
+        hadACar: true,
+        hadAHelicopter: true,
+        hadAMac: false,
+      },
+    ];
+    this.state = {
+      dataForFilterWithoutOptions: this.immutableData,
+      dataFoundByFilterWithOptions: this.immutableData,
+    };
   }
 
   convertToUADateToCompare(dateToConvert) {
@@ -58,94 +84,95 @@ class FilterPage extends React.Component {
     }
   }
 
-  advancedFilter(values) {
-    this.refs.paginateForAdvancedFilter.reset();
-    let worldlyGoods = values.worldlyGoods;
-    let convertedWeddingDayGTE = this.convertToUADateToCompare(values.weddingDayGTE);
-    let convertedWeddingDayLTE = this.convertToUADateToCompare(values.weddingDayLTE);
+  mountWordlyGoodsObject(filterValues) {
+    let worldlyGoodsObject = {
+      hadABike: false,
+      hadACar: false,
+      hadAMac: false,
+      hadAHelicopter: false,
+    };
 
-    let hadABike,
-        hadACar,
-        hadAMac,
-        hadAHelicopter,
-        weddingDayGTENumber,
-        weddingDayLTENumber,
-        worldlyGoodsString;
-
-    if(convertedWeddingDayGTE && !convertedWeddingDayLTE) {
-      weddingDayGTENumber = convertedWeddingDayGTE.getTime();
-    } else if(convertedWeddingDayLTE && !convertedWeddingDayGTE) {
-      weddingDayLTENumber = convertedWeddingDayLTE.getTime();
-    } else if(convertedWeddingDayGTE && convertedWeddingDayLTE) {
-      weddingDayGTENumber = convertedWeddingDayGTE.getTime();
-      weddingDayLTENumber = convertedWeddingDayLTE.getTime();
-    }
-
-    if(worldlyGoods) {
-      for(let i = 0; i<worldlyGoods.length; i++) {
-        switch (worldlyGoods[i]) {
-          case 'Bike': hadABike = true;
-            break;
-
-          case 'Car': hadACar = true;
-            break;
-
-          case 'Helicopter': hadAHelicopter = true;
-            break;
-
-          case 'Mac': hadAMac = true;
-            break;
-        }
+    for(let i = 0; i<filterValues.worldlyGoods.length; i++) {
+      switch (filterValues.worldlyGoods[i]) {
+        case 'Bike':
+          worldlyGoodsObject.hadABike = true;
+        break;
+        case 'Car':
+          worldlyGoodsObject.hadACar = true;
+        break;
+        case 'Mac':
+          worldlyGoodsObject.hadAMac = true;
+        break;
+        case 'Helicopter':
+          worldlyGoodsObject.hadAHelicopter = true;
+        break;
       }
     }
+    return worldlyGoodsObject;
+  }
+
+  findDatesLessThan(date) {
+    return _filter(this.immutableData, (item) => {
+      return date >= this.convertToUADateToCompare(item.weddingDay);
+    });
+  }
+
+  findDatesGreaterThan(date) {
+    return _filter(this.immutableData, (item) => {
+      return date <= this.convertToUADateToCompare(item.weddingDay);
+    });
+  }
+
+  findDatesBetween(dateLTE, dateGTE) {
+    return _filter(this.immutableData, (item) => {
+      let itemWeddingDay = this.convertToUADateToCompare(item.weddingDay);
+      return dateGTE <= itemWeddingDay && dateLTE >= itemWeddingDay;
+    });
+  }
+
+  prepareFilter(values) {
+    let filterValues = {};
+    for(let property in values) {
+      switch (property) {
+        case 'from':
+          filterValues.from = values.from;
+        break;
+        case 'gender':
+          filterValues.gender = values.gender;
+        break;
+        case 'worldlyGoods':
+          filterValues = _assign(filterValues, this.mountWordlyGoodsObject(values));
+        break;
+      }
+    }
+    return filterValues;
+  }
+
+  doAdvancedFilter(values) {
+    let { weddingDayGTE, weddingDayLTE } = values;
+    let foundData;
 
     if(!_isEmpty(values)) {
-      axios.get('http://localhost:3000/tasks', {
-        params: {
-          name_like: values.valueOfSearch,
-          gender: values.gender,
-          from: values.from,
-          weddingDayNumber_gte: weddingDayGTENumber,
-          weddingDayNumber_lte: weddingDayLTENumber,
-          worldlyGoods: worldlyGoodsString,
-          hadAHelicopter: hadAHelicopter,
-          hadABike: hadABike,
-          hadACar: hadACar,
-          hadAMac: hadAMac,
-          _sort: 'weddingDayNumber',
-          _order: 'DESC',
-        },
-      }).then((response) => {
-        this.immutableData = response.data;
-        this.setState({
-          dataForFilterWithOptions: response.data.slice(0,10),
-          sizeOfData: response.data.length,
-        });
-      });
+      let filterValues = this.prepareFilter(values);
+      if(weddingDayGTE && !weddingDayLTE) {
+        foundData = this.findDatesGreaterThan(this.convertToUADateToCompare(weddingDayGTE));
+      } else if(weddingDayLTE && !weddingDayGTE) {
+        foundData = this.findDatesLessThan(this.convertToUADateToCompare(weddingDayLTE));
+      } else if(weddingDayGTE && weddingDayLTE) {
+        foundData = this.findDatesBetween(
+          this.convertToUADateToCompare(weddingDayLTE),
+          this.convertToUADateToCompare(weddingDayGTE)
+        );
+      }
+      if(foundData && filterValues) {
+        foundData = _filter(foundData, filterValues);
+      } else {
+        foundData = _filter(this.immutableData, filterValues);
+      }
     } else {
-      axios.get('http://localhost:3000/tasks').then((response) => {
-        this.setState({
-          dataForFilterWithOptions: response.data.slice(0,10),
-          sizeOfData: response.data.length,
-        });
-      });
+      foundData = this.immutableData;
     }
-  }
-
-  paginateActionForFilterWithoutOptions(paginateInfo) {
-    let startOfSlice = paginateInfo.offset;
-    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    this.setState({
-      dataForFilterWithoutOptions: this.immutableData.slice(startOfSlice, endOfSlice),
-    });
-  }
-
-  paginateActionForFilterWithOptions(paginateInfo) {
-    let startOfSlice = paginateInfo.offset;
-    let endOfSlice = paginateInfo.offset + paginateInfo.limit;
-    this.setState({
-      dataForFilterWithOptions: this.immutableData.slice(startOfSlice, endOfSlice),
-    });
+    this.setState({ dataFoundByFilterWithOptions: foundData });
   }
 
   render() {
@@ -175,8 +202,8 @@ class FilterPage extends React.Component {
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
-            <Filter name='valueOfSearch'
-                    onFilter={(values) => this.advancedFilter(values)}
+            <Filter name='name'
+                    onFilter={(values) => this.doAdvancedFilter(values)}
                     placeholder='Search for name...'>
               <label>
                 <span> From: </span>
@@ -256,7 +283,7 @@ class FilterPage extends React.Component {
           </div>
         </div>
         <div>
-          <DataTable data={this.state.dataForFilterWithOptions}>
+          <DataTable data={this.state.dataFoundByFilterWithOptions}>
             <DataTableColumn dataKey='name'>Name</DataTableColumn>
             <DataTableColumn dataKey='from'>From</DataTableColumn>
             <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
@@ -264,13 +291,6 @@ class FilterPage extends React.Component {
             <DataTableColumn dataKey='worldlyGoods'>Worldly goods</DataTableColumn>
           </DataTable>
         </div>
-        <Paginate
-          onNextPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
-          onPreviousPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
-          onSelectASpecifPage={(paginateInfo) => this.paginateActionForFilterWithOptions(paginateInfo)}
-          ref='paginateForAdvancedFilter'
-          totalSizeOfData={this.state.sizeOfData}
-        />
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>
@@ -324,12 +344,6 @@ class FilterPage extends React.Component {
           <DataTableColumn dataKey='weddingDay'>Wedding Day</DataTableColumn>
           <DataTableColumn dataKey='worldlyGoods'>Worldly Goods</DataTableColumn>
         </DataTable>
-        <Paginate
-          onNextPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
-          onPreviousPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
-          onSelectASpecifPage={(paginateInfo) => this.paginateActionForFilterWithoutOptions(paginateInfo)}
-          totalSizeOfData={this.state.sizeOfData}
-        />
         <div className='sv-row'>
           <div className='sv-column'>
             <ShowCode>
