@@ -72,18 +72,32 @@ class FilterPage extends React.Component {
       },
     ];
     this.state = {
-      dataForFilterWithoutOptions: this.immutableData,
+      dataFoundByFilterWithoutOptions: this.immutableData,
       dataFoundByFilterWithOptions: this.immutableData,
     };
   }
 
-  convertToUADateToCompare(dateToConvert) {
+
+  /**
+   * toDate - description
+   * Converte uma data dd/mm/aaaa para um tipo date
+   * @param  {type} dateToConvert description
+   * @return {type}               description
+   */
+  toDate(dateToConvert) {
     if(dateToConvert) {
       const regExp = new RegExp('([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})');
       return new Date(dateToConvert.replace(regExp, '$2/$1/$3'));
     }
   }
 
+
+  /**
+   * mountWordlyGoodsObject - description
+   * Monta um objeto com variaveis booleanas baseando-se nos valores de worldlyGoods
+   * @param  {type} filterValues description
+   * @return {type}              description
+   */
   mountWordlyGoodsObject(filterValues) {
     let worldlyGoodsObject = {
       hadABike: false,
@@ -108,30 +122,53 @@ class FilterPage extends React.Component {
         break;
       }
     }
+
     return worldlyGoodsObject;
   }
 
-  findDatesLessThan(date) {
+
+  /**
+   * findDatesLesserThan - description
+   * Retorna dados filtrados por uma data menor do que a recebida
+   * @param  {type} date description
+   * @return {type}      description
+   */
+  findDatesLesserThan(date) {
     return _filter(this.immutableData, (item) => {
-      return date >= this.convertToUADateToCompare(item.weddingDay);
+      return date >= this.toDate(item.weddingDay);
     });
   }
 
+  /**
+   * findDatesGreaterThan - description
+   * Retorna dados filtrados por uma data maior do que a recebida
+   * @param  {type} date description
+   * @return {type}      description
+   */
   findDatesGreaterThan(date) {
     return _filter(this.immutableData, (item) => {
-      return date <= this.convertToUADateToCompare(item.weddingDay);
+      return date <= this.toDate(item.weddingDay);
     });
   }
 
+
+  /**
+   * findDatesBetween - description
+   * Retorna dados filtrados por duas datas
+   * @param  {type} dateLTE description
+   * @param  {type} dateGTE description
+   * @return {type}         description
+   */
   findDatesBetween(dateLTE, dateGTE) {
     return _filter(this.immutableData, (item) => {
-      let itemWeddingDay = this.convertToUADateToCompare(item.weddingDay);
+      let itemWeddingDay = this.toDate(item.weddingDay);
       return dateGTE <= itemWeddingDay && dateLTE >= itemWeddingDay;
     });
   }
 
   prepareFilter(values) {
     let filterValues = {};
+
     for(let property in values) {
       switch (property) {
         case 'from':
@@ -145,6 +182,7 @@ class FilterPage extends React.Component {
         break;
       }
     }
+
     return filterValues;
   }
 
@@ -154,17 +192,18 @@ class FilterPage extends React.Component {
 
     if(!_isEmpty(values)) {
       let filterValues = this.prepareFilter(values);
-      if(weddingDayGTE && !weddingDayLTE) {
-        foundData = this.findDatesGreaterThan(this.convertToUADateToCompare(weddingDayGTE));
-      } else if(weddingDayLTE && !weddingDayGTE) {
-        foundData = this.findDatesLessThan(this.convertToUADateToCompare(weddingDayLTE));
-      } else if(weddingDayGTE && weddingDayLTE) {
-        foundData = this.findDatesBetween(
-          this.convertToUADateToCompare(weddingDayLTE),
-          this.convertToUADateToCompare(weddingDayGTE)
-        );
+      let comparableDateGTE = this.toDate(weddingDayGTE);
+      let comparableDateLTE = this.toDate(weddingDayLTE);
+
+      if(comparableDateGTE && !comparableDateLTE) {
+        foundData = this.findDatesGreaterThan(comparableDateGTE);
+      } else if(comparableDateLTE && !comparableDateGTE) {
+        foundData = this.findDatesLesserThan(comparableDateLTE);
+      } else {
+        foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);
       }
-      if(foundData && filterValues) {
+
+      if(!_isEmpty(foundData)) {
         foundData = _filter(foundData, filterValues);
       } else {
         foundData = _filter(this.immutableData, filterValues);
@@ -172,7 +211,16 @@ class FilterPage extends React.Component {
     } else {
       foundData = this.immutableData;
     }
+
     this.setState({ dataFoundByFilterWithOptions: foundData });
+  }
+
+  simpleFilter(value) {
+    let foundData = _filter(this.immutableData, (item) => {
+      return item.name.includes(value);
+    });
+    
+    this.setState({ dataFoundByFilterWithoutOptions: foundData });
   }
 
   render() {
@@ -214,7 +262,6 @@ class FilterPage extends React.Component {
                     <option value='United States'>United States</option>
                     <option value='Australia'>Australia</option>
                     <option value='Russia'>Russia</option>
-                    <option value='Polony'>Polony</option>
                     <option value='Netherlands'>Netherlands</option>
                   </select>
                   <label>
@@ -337,7 +384,7 @@ class FilterPage extends React.Component {
                     placeholder="I'm just a single filter!" />
           </div>
         </div>
-        <DataTable data={this.state.dataForFilterWithoutOptions}>
+        <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
           <DataTableColumn dataKey='name'>Name</DataTableColumn>
           <DataTableColumn dataKey='from'>From</DataTableColumn>
           <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
