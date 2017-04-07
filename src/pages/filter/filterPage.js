@@ -179,6 +179,8 @@ class FilterPage extends React.Component {
         break;
         case 'worldlyGoods':
           filterValues = _assign(filterValues, this.mountWordlyGoodsObject(values));
+        case 'name':
+          filterValues.name = values.name;
         break;
       }
     }
@@ -219,7 +221,7 @@ class FilterPage extends React.Component {
     let foundData = _filter(this.immutableData, (item) => {
       return item.name.includes(value);
     });
-    
+
     this.setState({ dataFoundByFilterWithoutOptions: foundData });
   }
 
