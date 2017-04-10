@@ -179,13 +179,30 @@ class FilterPage extends React.Component {
         break;
         case 'worldlyGoods':
           filterValues = _assign(filterValues, this.mountWordlyGoodsObject(values));
-        case 'name':
-          filterValues.name = values.name;
         break;
       }
     }
 
     return filterValues;
+  }
+
+
+  /**
+   * findByName - description
+   * Busca pelo nome no array recebido e retorna o array filtrado caso o nome passado
+   * nao seja vazio, caso seja, os dados são retornados sem filtro
+   * @param  {type} name description
+   * @param  {type} data description
+   * @return {type}      description
+   */
+  findByName(name, data) {
+    if(name && name !== '') {
+      return _filter(data, (item) => {
+        return item.name.includes(name);
+      });
+    } else {
+      return data;
+    }
   }
 
   doAdvancedFilter(values) {
@@ -206,9 +223,11 @@ class FilterPage extends React.Component {
       }
 
       if(!_isEmpty(foundData)) {
+        foundData = this.findByName(values.name, foundData);
         foundData = _filter(foundData, filterValues);
       } else {
-        foundData = _filter(this.immutableData, filterValues);
+        foundData = this.findByName(values.name, this.immutableData);
+        foundData = _filter(foundData, filterValues);
       }
     } else {
       foundData = this.immutableData;
