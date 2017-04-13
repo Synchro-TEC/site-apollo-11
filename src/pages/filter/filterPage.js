@@ -16,59 +16,59 @@ class FilterPage extends React.Component {
     super();
     this.immutableData = [
       {
-        name: 'Lorraine Barros',
-        from: 'Russia',
-        gender: 'Female',
-        weddingDay: '02/03/2017',
-        worldlyGoods: 'Bike, Car, Helicopter, Mac',
-        hadABike: true,
-        hadACar: true,
-        hadAHelicopter: true,
-        hadAMac: true,
+        nome: 'Lorraine Barros',
+        nacionalidade: 'Rússia',
+        sexo: 'Feminino',
+        diaDoCasamento: '02/03/2017',
+        bens: 'Bicicleta, carro, helicóptero, mac',
+        temUmaBicicleta: true,
+        temUmCarro: true,
+        temUmHelicoptero: true,
+        temUmMac: true,
       },
       {
-        name: 'Núbia Xavier',
-        from: 'United States',
-        gender: 'Female',
-        weddingDay: '28/02/2010',
-        worldlyGoods: 'Helicopter',
-        hadAHelicopter: true,
-        hadAMac: false,
-        hadABike: false,
-        hadACar: false,
+        nome: 'Núbia Xavier',
+        nacionalidade: 'Estados Unidos',
+        sexo: 'Feminino',
+        diaDoCasamento: '28/02/2010',
+        bens: 'Helicóptero',
+        temUmHelicoptero: true,
+        temUmMac: false,
+        temUmaBicicleta: false,
+        temUmCarro: false,
       },
       {
-        name: 'Vitória Braga Filho',
-        from: 'Australia',
-        gender: 'Female',
-        weddingDay: '08/02/2005',
-        worldlyGoods: 'Bike',
-        hadABike: true,
-        hadAMac: false,
-        hadACar: false,
-        hadAHelicopter: false,
+        nome: 'Vitória Braga Filho',
+        nacionalidade: 'Austrália',
+        sexo: 'Feminino',
+        diaDoCasamento: '08/02/2005',
+        bens: 'Bicicleta',
+        temUmaBicicleta: true,
+        temUmMac: false,
+        temUmCarro: false,
+        temUmHelicoptero: false,
       },
       {
-        name: 'Ladislau Braga',
-        from: 'Netherlands',
-        gender: 'Male',
-        weddingDay: '10/01/2000',
-        hadABike: true,
-        hadAMac: true,
-        hadAHelicopter: false,
-        hadACar: false,
-        worldlyGoods: 'Bike, Mac',
+        nome: 'Ladislau Braga',
+        nacionalidade: 'Nova Zelândia',
+        sexo: 'Masculino',
+        diaDoCasamento: '10/01/2000',
+        temUmaBicicleta: true,
+        temUmMac: true,
+        temUmHelicoptero: false,
+        temUmCarro: false,
+        bens: 'Bicicleta, mac',
       },
       {
-        name: 'Pedro Saraiva',
-        from: 'Italy',
-        gender: 'Male',
-        weddingDay: '07/07/1996',
-        worldlyGoods: 'Bike, Car, Helicopter',
-        hadABike: true,
-        hadACar: true,
-        hadAHelicopter: true,
-        hadAMac: false,
+        nome: 'Pedro Saraiva',
+        nacionalidade: 'Itália',
+        sexo: 'Masculino',
+        diaDoCasamento: '07/07/1996',
+        bens: 'Bicicleta, carro, helicóptero',
+        temUmaBicicleta: true,
+        temUmCarro: true,
+        temUmHelicoptero: true,
+        temUmMac: false,
       },
     ];
     this.state = {
@@ -94,36 +94,36 @@ class FilterPage extends React.Component {
 
   /**
    * mountWordlyGoodsObject - description
-   * Monta um objeto com variaveis booleanas baseando-se nos valores de worldlyGoods
+   * Monta um objeto com variaveis booleanas baseando-se nos valores de bens
    * @param  {type} filterValues description
    * @return {type}              description
    */
   mountWordlyGoodsObject(filterValues) {
-    let worldlyGoodsObject = {
-      hadABike: false,
-      hadACar: false,
-      hadAMac: false,
-      hadAHelicopter: false,
+    let bens = {
+      temUmaBicicleta: false,
+      temUmCarro: false,
+      temUmMac: false,
+      temUmHelicoptero: false,
     };
 
-    for(let i = 0; i<filterValues.worldlyGoods.length; i++) {
-      switch (filterValues.worldlyGoods[i]) {
-        case 'Bike':
-          worldlyGoodsObject.hadABike = true;
+    for(let i = 0; i<filterValues.bens.length; i++) {
+      switch (filterValues.bens[i]) {
+        case 'bicicleta':
+          bens.temUmaBicicleta = true;
         break;
-        case 'Car':
-          worldlyGoodsObject.hadACar = true;
+        case 'carro':
+          bens.temUmCarro = true;
         break;
-        case 'Mac':
-          worldlyGoodsObject.hadAMac = true;
+        case 'mac':
+          bens.temUmMac = true;
         break;
-        case 'Helicopter':
-          worldlyGoodsObject.hadAHelicopter = true;
+        case 'helicóptero':
+          bens.temUmHelicoptero = true;
         break;
       }
     }
 
-    return worldlyGoodsObject;
+    return bens;
   }
 
 
@@ -135,7 +135,7 @@ class FilterPage extends React.Component {
    */
   findDatesLesserThan(date) {
     return _filter(this.immutableData, (item) => {
-      return date >= this.toDate(item.weddingDay);
+      return date >= this.toDate(item.diaDoCasamento);
     });
   }
 
@@ -147,7 +147,7 @@ class FilterPage extends React.Component {
    */
   findDatesGreaterThan(date) {
     return _filter(this.immutableData, (item) => {
-      return date <= this.toDate(item.weddingDay);
+      return date <= this.toDate(item.diaDoCasamento);
     });
   }
 
@@ -161,7 +161,7 @@ class FilterPage extends React.Component {
    */
   findDatesBetween(dateLTE, dateGTE) {
     return _filter(this.immutableData, (item) => {
-      let itemWeddingDay = this.toDate(item.weddingDay);
+      let itemWeddingDay = this.toDate(item.diaDoCasamento);
       return dateGTE <= itemWeddingDay && dateLTE >= itemWeddingDay;
     });
   }
@@ -171,13 +171,13 @@ class FilterPage extends React.Component {
 
     for(let property in values) {
       switch (property) {
-        case 'from':
-          filterValues.from = values.from;
+        case 'nacionalidade':
+          filterValues.nacionalidade = values.nacionalidade;
         break;
-        case 'gender':
-          filterValues.gender = values.gender;
+        case 'sexo':
+          filterValues.sexo = values.sexo;
         break;
-        case 'worldlyGoods':
+        case 'bens':
           filterValues = _assign(filterValues, this.mountWordlyGoodsObject(values));
         break;
       }
@@ -195,10 +195,10 @@ class FilterPage extends React.Component {
    * @param  {type} data description
    * @return {type}      description
    */
-  findByName(name, data) {
-    if(name && name !== '') {
+  findByName(nome, data) {
+    if(nome && nome !== '') {
       return _filter(data, (item) => {
-        return item.name.includes(name);
+        return item.nome.includes(nome);
       });
     } else {
       return data;
@@ -206,13 +206,13 @@ class FilterPage extends React.Component {
   }
 
   doAdvancedFilter(values) {
-    let { weddingDayGTE, weddingDayLTE } = values;
+    let { diaDoCasamentoGTE, diaDoCasamentoLTE } = values;
     let foundData;
 
     if(!_isEmpty(values)) {
       let filterValues = this.prepareFilter(values);
-      let comparableDateGTE = this.toDate(weddingDayGTE);
-      let comparableDateLTE = this.toDate(weddingDayLTE);
+      let comparableDateGTE = this.toDate(diaDoCasamentoGTE);
+      let comparableDateLTE = this.toDate(diaDoCasamentoLTE);
 
       if(comparableDateGTE && !comparableDateLTE) {
         foundData = this.findDatesGreaterThan(comparableDateGTE);
@@ -223,10 +223,10 @@ class FilterPage extends React.Component {
       }
 
       if(!_isEmpty(foundData)) {
-        foundData = this.findByName(values.name, foundData);
+        foundData = this.findByName(values.nome, foundData);
         foundData = _filter(foundData, filterValues);
       } else {
-        foundData = this.findByName(values.name, this.immutableData);
+        foundData = this.findByName(values.nome, this.immutableData);
         foundData = _filter(foundData, filterValues);
       }
     } else {
@@ -238,7 +238,7 @@ class FilterPage extends React.Component {
 
   simpleFilter(value) {
     let foundData = _filter(this.immutableData, (item) => {
-      return item.name.includes(value);
+      return item.nome.includes(value);
     });
 
     this.setState({ dataFoundByFilterWithoutOptions: foundData });
@@ -249,41 +249,43 @@ class FilterPage extends React.Component {
       <div className='dm-content'>
         <div className='sv-row'>
           <div className='sv-column'>
-            <h3>Filter</h3>
+            <h3>Filtro</h3>
             <h6 className='sv-vertical-marged'>
-              You can choose a simple or a filter options, in both choices you
-              can pass a callback to property <b>onClearAll</b> to execute when user clear the fields.
+              No filtro, você possui duas configurações: um filtro simples ou com opções.
             </h6>
             <p>
-              When you have fields that are different of select, radio or checkbox you need to
-              pass a callback to the onClearAll property.
+              Em ambas as opções, você tem a possibilidade de passar uma propriedade
+              para o componente que será um callback que retorna o valor do filtro quando o usuário
+              limpa os campos, o nome dessa propriedade é <b>onClearAll</b>.
+              Se optar pelo filtro com opções e estas forem diferentes de select, radio, ou checkbox
+              você terá obrigatoriamente que passar um callback para a propriedade mencionada anteriormente.
             </p>
             <h5 className='bold'>
-              Filter with options
+              Filtro com opções
             </h5>
             <p>
-              In a filter with options, you can build the options the way you want as long this
-              types have a name, included the filter component. If you want a set of options for
-              a checkbox, just give to options the same name. The name of a field will be your key
-              in return.
+              Você pode configurá-las do jeito que quiser, desde que cada
+              input possua a propriedade "name", inclusive o componente filtro.
+              Se você deseja um conjunto de opções para um checkbox, basta dar à estas opções o mesmo nome.
+              O nome de um input, será a sua chave no objeto retornado.
             </p>
           </div>
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
-            <Filter name='name'
+            <Filter name='nome'
                     onFilter={(values) => this.doAdvancedFilter(values)}
-                    placeholder='Search for name...'>
+                    placeholder='Buscar por nome...'>
               <label>
-                <span> From: </span>
+                <span> Nacionalidade: </span>
                 <div className='sv-select'>
-                  <select name='from'>
+                  <select name='nacionalidade'>
                     <option value=''/>
-                    <option value='Italy'>Italy</option>
-                    <option value='United States'>United States</option>
-                    <option value='Australia'>Australia</option>
-                    <option value='Russia'>Russia</option>
-                    <option value='Netherlands'>Netherlands</option>
+                    <option value='Itália'>Itália</option>
+                    <option value='Estados Unidos'>Estados Unidos</option>
+                    <option value='Austrália'>Austrália</option>
+                    <option value='Rússia'>Rússia</option>
+                    <option value='Nova Zelândia'>Nova Zelândia</option>
                   </select>
                   <label>
                     <i className='fa fa-angle-down fa-fw'/>
@@ -291,13 +293,13 @@ class FilterPage extends React.Component {
                 </div>
               </label>
               <label>
-                <span> Wedding day between: </span>
+                <span> Dia de casamento entre: </span>
                 <div className='sv-row--with-gutter'>
                   <div className='sv-column'>
                     <label>
                       <div className='sv-select'>
                         <input
-                          name='weddingDayGTE'
+                          name='diaDoCasamentoGTE'
                           placeholder='dd/mm/yyyy'
                           type='text'
                         />
@@ -311,7 +313,7 @@ class FilterPage extends React.Component {
                     <label>
                       <div className='sv-select'>
                         <input
-                          name='weddingDayLTE'
+                          name='diaDoCasamentoLTE'
                           placeholder='dd/mm/yyyy'
                           type='text'
                          />
@@ -324,39 +326,39 @@ class FilterPage extends React.Component {
                 </div>
               </label>
               <label>
-                <span>Gender:</span>
+                <span>Sexo:</span>
               </label>
               <label>
-                <input name='gender' type='radio' value='Male' /> Male
+                <input name='sexo' type='radio' value='Masculino' /> Masculino
               </label>
               <label>
-                <input name='gender' type='radio' value='Female' /> Female
+                <input name='sexo' type='radio' value='Feminino' /> Feminino
               </label>
               <label>
-                <span>Worldly goods</span>
+                <span>Bens materiais: </span>
               </label>
               <label>
-                <input name='worldlyGoods' type='checkbox' value='Bike' /> Bike
+                <input name='bens' type='checkbox' value='bicicleta' /> Bicicleta
               </label>
               <label>
-                <input name='worldlyGoods' type='checkbox' value='Car' /> Car
+                <input name='bens' type='checkbox' value='carro' /> Carro
               </label>
               <label>
-                <input name='worldlyGoods' type='checkbox' value='Helicopter' /> Helicopter
+                <input name='bens' type='checkbox' value='helicóptero' /> Helicóptero
               </label>
               <label>
-                <input name='worldlyGoods' type='checkbox' value='Mac' /> Mac
+                <input name='bens' type='checkbox' value='mac' /> Mac
               </label>
             </Filter>
           </div>
         </div>
         <div>
           <DataTable data={this.state.dataFoundByFilterWithOptions}>
-            <DataTableColumn dataKey='name'>Name</DataTableColumn>
-            <DataTableColumn dataKey='from'>From</DataTableColumn>
-            <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-            <DataTableColumn dataKey='weddingDay'>Wedding day</DataTableColumn>
-            <DataTableColumn dataKey='worldlyGoods'>Worldly goods</DataTableColumn>
+            <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
+            <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
+            <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
+            <DataTableColumn dataKey='diaDoCasamento'>Dia do Casamento</DataTableColumn>
+            <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
           </DataTable>
         </div>
         <div className='sv-row'>
@@ -402,15 +404,15 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <Filter name='valueOfSingleSearch'
                     onFilter={(value) => this.simpleFilter(value)}
-                    placeholder="I'm just a single filter!" />
+                    placeholder='Sou apenas um filtro simples!' />
           </div>
         </div>
         <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
-          <DataTableColumn dataKey='name'>Name</DataTableColumn>
-          <DataTableColumn dataKey='from'>From</DataTableColumn>
-          <DataTableColumn dataKey='gender'>Gender</DataTableColumn>
-          <DataTableColumn dataKey='weddingDay'>Wedding Day</DataTableColumn>
-          <DataTableColumn dataKey='worldlyGoods'>Worldly Goods</DataTableColumn>
+          <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
+          <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
+          <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
+          <DataTableColumn dataKey='diaDoCasamento'>Dia do casamento</DataTableColumn>
+          <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
