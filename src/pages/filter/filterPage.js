@@ -251,14 +251,15 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <h3>Filtro</h3>
             <h6 className='sv-vertical-marged'>
-              No filtro, você possui duas configurações: um filtro simples ou com opções.
+              Existem duas configurações: um filtro com opções ou um filtro simples.
             </h6>
             <p>
               Em ambas as opções, você tem a possibilidade de passar uma propriedade
-              para o componente que será um callback que retorna o valor do filtro quando o usuário
-              limpa os campos, o nome dessa propriedade é <b>onClearAll</b>.
-              Se optar pelo filtro com opções e estas forem diferentes de select, radio, ou checkbox
-              você terá obrigatoriamente que passar um callback para a propriedade mencionada anteriormente.
+              que será um callback. Quando o filtro é aplicado, a propriedade
+              chamada <b>onFilter</b> retorna um objeto com o estado atual do filtro. Quando os campos são limpos,
+              a propriedade chamada <b> onClearAll </b> executa um callback opcional passado pelo usuário.
+              Se você optar pelo filtro com opções e as opções forem diferentes de select, radio ou checkbox,
+              se fará obrigatório um callback para a propriedade onClearAll.
             </p>
             <h5 className='bold'>
               Filtro com opções
@@ -373,7 +374,8 @@ class FilterPage extends React.Component {
         <div className='sv-row sv-no-margins'>
           <div className='sv-column'>
             <p>
-              This configuration will return something like that:
+              Se o usuário busca por exemplo, o italiano "Pedro Saraiva" que possui
+              uma bicicleta, um carro e um helicóptero, o objeto de retorno seria:
             </p>
           </div>
         </div>
@@ -392,11 +394,11 @@ class FilterPage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <h5 className='bold'>
-              Filter without options
+              Filtro simples
             </h5>
             <p>
-              In a filter without options, you can get back the value of search value. The search works when enter
-              is pressed.
+              Você obterá apenas o valor atual do campo de busca
+              retornado pela propriedade onFilter dita acima.
             </p>
           </div>
         </div>

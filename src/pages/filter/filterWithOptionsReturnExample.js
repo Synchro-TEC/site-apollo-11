@@ -1,11 +1,10 @@
-let result = {
-  searchValue: 'searching',
-  gender: 'M',
-  type: 'Master',
-  radioName: '15',
-  checkBoxName: [
-    'bikeValue',
-    'carValue',
-    'videoGameValue',
+let retornoDoFiltro = {
+  nome: 'Pedro Saraiva',
+  sexo: 'Masculino',
+  nacionalidade: 'Itália',
+  bens: [
+    'bicicleta',
+    'carro',
+    'helicóptero',
   ],
 };

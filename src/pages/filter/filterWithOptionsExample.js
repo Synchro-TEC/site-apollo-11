@@ -7,80 +7,99 @@ class FilterWithOptionsExample extends React.Component {
     super(props);
   }
 
-  doingTheFiltering(values) {
-    // Do something with values of filter options and search
+  filtrando(filterValues) {
+    // Faça algo com os valores do filtro.
   }
 
-  cleaningFields() {
-    // Function to execute when user clear all fields
+  limpandoCampos() {
+    // Função para executar quando o usuário limpa os campos.
   }
 
   render() {
     return (
       <div>
         <Filter
-            applyFilterButtonLabel='The value to applyFilter button'
-            cancelButtonLabel='The value to cancel button'
-            clearAllButtonLabel='The value to clearAll button'
-            filterButtonLabel='The value to filter button'
-            name='searchValue'
-            onClearAll={() => this.cleaningFields()}
-            onFilter={(values) => this.doingTheFiltering(values)}>
-          <div className='sv-row--with-gutter'>
-            <div className='sv-column'>
+            applyFilterButtonLabel='O valor do botão aplicar filtro'
+            cancelButtonLabel='O valor do botão cancelar'
+            clearAllButtonLabel='O valor do botão limpar filtro'
+            filterButtonLabel='O valor do botão de opções do filtro'
+            name='nome'
+            onClearAll={() => this.limpandoCampos()}
+            onFilter={(filterValues) => this.filtrando(filterValues)}>
+          <label>
+            <span> Nacionalidade: </span>
+            <div className='sv-select'>
+              <select name='nacionalidade'>
+                <option value=''/>
+                <option value='Itália'>Itália</option>
+                <option value='Estados Unidos'>Estados Unidos</option>
+                <option value='Austrália'>Austrália</option>
+                <option value='Rússia'>Rússia</option>
+                <option value='Nova Zelândia'>Nova Zelândia</option>
+              </select>
               <label>
-                <span>Gender:</span>
-                <div className='sv-select'>
-                  <select name='gender'>
-                    <option value=''>Please, select</option>
-                    <option value='M'>Male</option>
-                    <option value='F'>Female</option>
-                  </select>
-                  <label><i className='fa fa-angle-down fa-fw'/></label>
-                </div>
+                <i className='fa fa-angle-down fa-fw'/>
               </label>
             </div>
-            <div className='sv-column'>
-              <label>
-                <span>Type:</span>
-                <div className='sv-select'>
-                  <select name='type'>
-                    <option value=''/>
-                    <option value='Master'>Master</option>
-                    <option value='Senior'>Senior</option>
-                  </select>
-                  <label>
-                    <i className='fa fa-angle-down fa-fw'/>
-                  </label>
-                </div>
-              </label>
+          </label>
+          <label>
+            <span> Dia de casamento entre: </span>
+            <div className='sv-row--with-gutter'>
+              <div className='sv-column'>
+                <label>
+                  <div className='sv-select'>
+                    <input
+                      name='diaDoCasamentoGTE'
+                      placeholder='dd/mm/yyyy'
+                      type='text'
+                    />
+                    <label>
+                      <i className='fa fa-calendar'/>
+                    </label>
+                  </div>
+                </label>
+              </div>
+              <div className='sv-column'>
+                <label>
+                  <div className='sv-select'>
+                    <input
+                      name='diaDoCasamentoLTE'
+                      placeholder='dd/mm/yyyy'
+                      type='text'
+                     />
+                    <label>
+                      <i className='fa fa-calendar'/>
+                    </label>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
-          <label>
-            <span>Age</span>
           </label>
           <label>
-            <input name='radioName' type='radio'  value='15' /> 15
+            <span>Sexo:</span>
           </label>
           <label>
-            <input name='radioName' type='radio'  value='25' /> 25
+            <input name='sexo' type='radio' value='Masculino' /> Masculino
           </label>
           <label>
-            <input name='radioName' type='radio' value='50' /> 50
+            <input name='sexo' type='radio' value='Feminino' /> Feminino
           </label>
           <label>
-            <span>Worldly goods</span>
+            <span>Bens materiais: </span>
           </label>
           <label>
-            <input defaultValue='bikeValue' name='checkBoxName' type='checkBox' /> Have a bike
+            <input name='bens' type='checkbox' value='bicicleta' /> Bicicleta
           </label>
           <label>
-            <input defaultValue='carValue' name='checkBoxName' type='checkbox' /> Have a car
+            <input name='bens' type='checkbox' value='carro' /> Carro
           </label>
           <label>
-            <input defaultValue='videoGameValue' name='checkBoxName' type='checkbox' /> Have a videogame
+            <input name='bens' type='checkbox' value='helicóptero' /> Helicóptero
           </label>
-        </Filter>
+          <label>
+            <input name='bens' type='checkbox' value='mac' /> Mac
+          </label>
+      </Filter>
       </div>
     );
   }
