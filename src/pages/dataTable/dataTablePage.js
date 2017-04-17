@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataTable, DataTableColumn, Paginate } from 'apollo-11';
 import { PrismCode } from 'react-prism';
+import { Link } from 'react-router';
 import ShowCode from '../../components/ShowCode';
 import {generateData} from '../../utils/generateData';
 import _sortBy from 'lodash/sortBy';
@@ -12,19 +13,19 @@ class DataTablePage extends React.Component {
     super();
     this.dataForDataTableWithPaginateExample = generateData();
     this.dataForSimpleDataTableExample = [
-      {task: 'Task 1', priority: 'Critical'},
-      {task: 'Task 2', priority: 'Low'},
-      {task: 'Task 3',  priority: 'Medium'},
-      {task: 'Task 4', priority: 'High'},
-      {task: 'Task 5',  priority: 'Critical'},
+      {tarefa: 'Tarefa 1', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 2', prioridade: 'Baixa'},
+      {tarefa: 'Tarefa 3', prioridade: 'Média'},
+      {tarefa: 'Tarefa 4', prioridade: 'Alta'},
+      {tarefa: 'Tarefa 5', prioridade: 'Crítica'},
     ];
     this.state = {
       dataForSortableColumnDataTableExample: [
-        {task: 'Task 1', priority: 'Low', startDate: '28/08/2002'},
-        {task: 'Task 2', priority: 'Critical', startDate: '13/05/1996'},
-        {task: 'Task 3',  priority: 'Medium', startDate: '31/01/2010'},
-        {task: 'Task 4',  priority: 'Critical', startDate: '14/02/2017'},
-        {task: 'Task 5', priority: 'High', startDate: '14/01/2016'},
+        {tarefa: 'Task 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002'},
+        {tarefa: 'Task 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996'},
+        {tarefa: 'Task 3',  prioridade: 'Média', dataDeInicio: '31/01/2010'},
+        {tarefa: 'Task 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017'},
+        {tarefa: 'Task 5', prioridade: 'Alta', dataDeInicio: '14/01/2016'},
       ],
       dataFilteredByPaginate: this.dataForDataTableWithPaginateExample.slice(0,5),
     };
@@ -69,27 +70,29 @@ class DataTablePage extends React.Component {
           <div className='sv-column'>
             <h3>Data Table</h3>
             <h6 className='sv-vertical-marged'>
-              Data Table is a component that build a table based in user configuration and have an option
-              to make a column sortable.
+              Monta uma tabela baseada na configuração do usuário, a tabela pode ter colunas
+              simples, ordenáveis e/ou estar em conjunto com o componente
+              <Link to='docs/paginate'> Paginate. </Link>
             </h6>
           </div>
         </div>
         <div className='sv-row'>
           <div className='sv-column'>
             <h5 className='bold'>
-              Simple data table column
+              Colunas simples
             </h5>
             <p>
-              The component waits an array of objects, but will be visible just the attributes that was configured in
-              a DataTableColumn component. For example, you have an object with the fields "name" and "age" and wants this
-              values in your DataTable, so will need to configure two columns with this values. The child of DataTableColumn
-              is the header cell.
+              O componente espera um array de objetos, mas só serão visíveis na tabela os atributos que estão configurados
+              no componente <b> DataTableColumn</b>. Por exemplo, se você tem um objeto com os campos "nome" e "idade" e
+              deseja que estes valores apareçam no DataTable, você precisará configurar duas colunas adicionando à dois
+              componentes DataTableColumn uma propriedade chamada <b> dataKey </b> com as respectivas chaves
+              do objeto. O filho do componente DataTableColumn será o título da célula na tabela.
             </p>
           </div>
         </div>
         <DataTable data={this.dataForSimpleDataTableExample}>
-          <DataTableColumn dataKey='task'>Task</DataTableColumn>
-          <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
+          <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
@@ -103,19 +106,20 @@ class DataTablePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <h5 className='bold'>
-              Sortable data table column
+              Colunas ordenáveis
             </h5>
             <p>
-              If you want a column with sort option, just add a property to your DataTableColumn named <b>sortable</b>.
-              The DataTable now have a property named "onSort", this property is a callback where
-              you can get an object with the value of <b>columnKey</b> and the <b> direction</b> of the sort.
+              Se você deseja uma coluna que tenha opção de ordenação, basta adicionar ao DataTableColumn
+              uma propriedade chamada <b> sortable</b>. Agora, o DataTable tem uma propriedade chamada <b> onSort </b>
+              que recebe um callback e retorna um objeto com a coluna que esta sendo ordenada e a direção.
+              Lembrando que apenas uma coluna pode ser ordenada por vez.
             </p>
           </div>
         </div>
         <DataTable data={this.state.dataForSortableColumnDataTableExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
-          <DataTableColumn dataKey='task' sortable>Task</DataTableColumn>
-          <DataTableColumn dataKey='priority' sortable>Priority</DataTableColumn>
-          <DataTableColumn dataKey='startDate' sortable>Start Date</DataTableColumn>
+          <DataTableColumn dataKey='tarefa' sortable>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='prioridade' sortable>Prioridade</DataTableColumn>
+          <DataTableColumn dataKey='dataDeInicio' sortable>Data de inicio</DataTableColumn>
         </DataTable>
         <div className='sv-row'>
           <div className='sv-column'>
@@ -129,10 +133,11 @@ class DataTablePage extends React.Component {
         <div className='sv-row'>
           <div className='sv-column'>
             <h5 className='bold'>
-              DataTable with paginate
+              Com Paginate
             </h5>
             <p>
-              You have option to use DataTable with the Paginate component, whether it simple or with options.
+              Sendo configurado com colunas simples ou ordenáveis, o DataTable pode ser utilizado
+              com o componente <Link to='docs/paginate'> Paginate</Link>.
             </p>
           </div>
         </div>

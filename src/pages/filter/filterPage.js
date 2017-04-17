@@ -249,7 +249,7 @@ class FilterPage extends React.Component {
       <div className='dm-content'>
         <div className='sv-row'>
           <div className='sv-column'>
-            <h3>Filtro</h3>
+            <h3>Filter</h3>
             <h6 className='sv-vertical-marged'>
               Existem duas configurações: um filtro com opções ou um filtro simples.
             </h6>
