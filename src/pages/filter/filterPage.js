@@ -247,168 +247,137 @@ class FilterPage extends React.Component {
   render() {
     return (
       <div className='dm-content'>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h3>Filter</h3>
-            <h6 className='sv-vertical-marged'>
-              Monta um filtro baseado na configuração do usuário, o filtro pode ter opções ou não.
-            </h6>
-            <p>
-              Em ambas as opções, você tem a possibilidade de passar uma propriedade
-              que será um callback. Quando o filtro é aplicado, a propriedade
-              chamada <b>onFilter</b> retorna um objeto com o estado atual do filtro. Quando os campos são limpos,
-              a propriedade chamada <b> onClearAll </b> executa um callback caso ele exista.
-              Se você optar pelo filtro com opções e as opções forem diferentes de select, radio ou checkbox,
-              se fará obrigatório um callback para a propriedade onClearAll.
-            </p>
-            <h5 className='bold'>
-              Filtro com opções
-            </h5>
-            <p>
-              Você pode configurá-las do jeito que quiser, desde que cada
-              input possua a propriedade "name", inclusive o componente filtro.
-              Se você deseja um conjunto de opções para um checkbox, basta dar às opções o mesmo nome.
-              O nome de um input será a sua chave no objeto retornado.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Filter name='nome'
-                    onFilter={(values) => this.doAdvancedFilter(values)}
-                    placeholder='Buscar por nome...'>
+        <h3>Filter</h3>
+        <p>
+          Quando o filtro é aplicado, a propriedade chamada <b>onFilter</b> retorna um objeto com o
+          estado atual do filtro. Quando os campos são limpos, a propriedade chamada <b> onClearAll </b>
+          executa um callback caso este exista. Se você optar pelo filtro com opções e as estas forem
+          diferentes de select, radio ou checkbox, se fará obrigatório um callback para a propriedade
+          onClearAll.
+        </p>
+        <h5 className='bold'>
+          Filtro com opções
+        </h5>
+        <p>
+          Você pode configurá-las do jeito que quiser, desde que cada
+          input possua a propriedade "name", inclusive o componente filtro.
+          Se você deseja um conjunto de opções para um checkbox, basta dar às opções o mesmo nome.
+          O nome de um input será a sua chave no objeto retornado.
+        </p>
+        <Filter name='nome'
+          onFilter={(values) => this.doAdvancedFilter(values)}
+          placeholder='Buscar por nome...'>
+          <label>
+            <span> Nacionalidade: </span>
+            <div className='sv-select'>
+              <select name='nacionalidade'>
+                <option value=''/>
+                <option value='Itália'>Itália</option>
+                <option value='Estados Unidos'>Estados Unidos</option>
+                <option value='Austrália'>Austrália</option>
+                <option value='Rússia'>Rússia</option>
+                <option value='Nova Zelândia'>Nova Zelândia</option>
+              </select>
               <label>
-                <span> Nacionalidade: </span>
-                <div className='sv-select'>
-                  <select name='nacionalidade'>
-                    <option value=''/>
-                    <option value='Itália'>Itália</option>
-                    <option value='Estados Unidos'>Estados Unidos</option>
-                    <option value='Austrália'>Austrália</option>
-                    <option value='Rússia'>Rússia</option>
-                    <option value='Nova Zelândia'>Nova Zelândia</option>
-                  </select>
-                  <label>
-                    <i className='fa fa-angle-down fa-fw'/>
-                  </label>
-                </div>
+                <i className='fa fa-angle-down fa-fw'/>
               </label>
-              <label>
-                <span> Dia de casamento entre: </span>
-                <div className='sv-row--with-gutter'>
-                  <div className='sv-column'>
-                    <label>
-                      <div className='sv-select'>
-                        <input
-                          name='diaDoCasamentoGTE'
-                          placeholder='dd/mm/yyyy'
-                          type='text'
-                        />
-                        <label>
-                          <i className='fa fa-calendar'/>
-                        </label>
-                      </div>
-                    </label>
-                  </div>
-                  <div className='sv-column'>
-                    <label>
-                      <div className='sv-select'>
-                        <input
-                          name='diaDoCasamentoLTE'
-                          placeholder='dd/mm/yyyy'
-                          type='text'
-                         />
-                        <label>
-                          <i className='fa fa-calendar'/>
-                        </label>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </label>
-              <label>
-                <span>Sexo:</span>
-              </label>
-              <label>
-                <input name='sexo' type='radio' value='Masculino' /> Masculino
-              </label>
-              <label>
-                <input name='sexo' type='radio' value='Feminino' /> Feminino
-              </label>
-              <label>
-                <span>Bens materiais: </span>
-              </label>
-              <label>
-                <input name='bens' type='checkbox' value='bicicleta' /> Bicicleta
-              </label>
-              <label>
-                <input name='bens' type='checkbox' value='carro' /> Carro
-              </label>
-              <label>
-                <input name='bens' type='checkbox' value='helicóptero' /> Helicóptero
-              </label>
-              <label>
-                <input name='bens' type='checkbox' value='mac' /> Mac
-              </label>
-            </Filter>
-          </div>
-        </div>
-        <div>
-          <DataTable data={this.state.dataFoundByFilterWithOptions}>
-            <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
-            <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
-            <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
-            <DataTableColumn dataKey='diaDoCasamento'>Dia do Casamento</DataTableColumn>
-            <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
-          </DataTable>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./exemploDeFiltroComOpcoes.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row sv-no-margins'>
-          <div className='sv-column'>
-            <p>
-              Se o usuário busca por exemplo, o italiano "Pedro Saraiva" que possui
-              uma bicicleta, um carro e um helicóptero, o objeto de retorno seria:
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <div className='dm-code-container'>
-              <pre>
-                <PrismCode className='language-js'>
-                  {require('!raw-loader!./exemploDeRetornoDoFiltroComOpcoes.js')}
-                </PrismCode>
-              </pre>
             </div>
-          </div>
+          </label>
+          <label>
+            <span> Dia de casamento entre: </span>
+            <div className='sv-row--with-gutter'>
+              <div className='sv-column'>
+                <label>
+                  <div className='sv-select'>
+                    <input
+                      name='diaDoCasamentoGTE'
+                      placeholder='dd/mm/yyyy'
+                      type='text'
+                    />
+                    <label>
+                      <i className='fa fa-calendar'/>
+                    </label>
+                  </div>
+                </label>
+              </div>
+              <div className='sv-column'>
+                <label>
+                  <div className='sv-select'>
+                    <input
+                      name='diaDoCasamentoLTE'
+                      placeholder='dd/mm/yyyy'
+                      type='text'
+                     />
+                    <label>
+                      <i className='fa fa-calendar'/>
+                    </label>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </label>
+          <label>
+            <span>Sexo:</span>
+          </label>
+          <label>
+            <input name='sexo' type='radio' value='Masculino' /> Masculino
+          </label>
+          <label>
+            <input name='sexo' type='radio' value='Feminino' /> Feminino
+          </label>
+          <label>
+            <span>Bens materiais: </span>
+          </label>
+          <label>
+            <input name='bens' type='checkbox' value='bicicleta' /> Bicicleta
+          </label>
+          <label>
+            <input name='bens' type='checkbox' value='carro' /> Carro
+          </label>
+          <label>
+            <input name='bens' type='checkbox' value='helicóptero' /> Helicóptero
+          </label>
+          <label>
+            <input name='bens' type='checkbox' value='mac' /> Mac
+          </label>
+        </Filter>
+        <div className='sv-vertical-marged-15'/>
+        <DataTable data={this.state.dataFoundByFilterWithOptions}>
+          <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
+          <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
+          <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
+          <DataTableColumn dataKey='diaDoCasamento'>Dia do Casamento</DataTableColumn>
+          <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
+        </DataTable>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./exemploDeFiltroComOpcoes.js')}
+          </PrismCode>
+        </ShowCode>
+        <div className='sv-vertical-marged-25'/>
+        <p>
+          Se o usuário busca por exemplo, o italiano "Pedro Saraiva" que possui
+          uma bicicleta, um carro e um helicóptero, o objeto de retorno seria:
+        </p>
+        <div className='dm-code-container'>
+          <pre>
+            <PrismCode className='language-js'>
+              {require('!raw-loader!./exemploDeRetornoDoFiltroComOpcoes.js')}
+            </PrismCode>
+          </pre>
         </div>
-        <div className='sv-vertical-marged-50'/>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Filtro simples
-            </h5>
-            <p>
-              Com esta configuração, você obterá apenas o valor atual do campo de busca
-              retornado pela propriedade onFilter dita acima.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Filter name='valueOfSingleSearch'
-                    onFilter={(value) => this.simpleFilter(value)}
-                    placeholder='Buscar por nome...' />
-          </div>
-        </div>
+        <div className='sv-vertical-marged-25'/>
+        <h5 className='bold'>
+          Filtro simples
+        </h5>
+        <p>
+          Com esta configuração, você obterá apenas o valor atual do campo de busca
+          retornado pela propriedade onFilter mencionada acima.
+        </p>
+        <Filter name='valueOfSingleSearch'
+          onFilter={(value) => this.simpleFilter(value)}
+          placeholder='Buscar por nome...' />
+        <div className='sv-vertical-marged-15'/>
         <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
           <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
           <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
@@ -416,15 +385,11 @@ class FilterPage extends React.Component {
           <DataTableColumn dataKey='diaDoCasamento'>Dia do casamento</DataTableColumn>
           <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
         </DataTable>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./exemploDeFiltroSemOpcoes.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./exemploDeFiltroSemOpcoes.js')}
+          </PrismCode>
+        </ShowCode>        
       </div>
     );
   }

@@ -3,21 +3,18 @@ function getRandomDate(start, end) {
 }
 
 function generateData() {
-  let rows = [];
+  let data = [];
 
   for (let i = 1; i <= 130; i++) {
-    rows.push({
+    data.push({
       id: i,
-      task: 'Task ' + i,
-      complete: Math.min(100, Math.round(Math.random() * 110)) + '%',
-      priority: ['Critical', 'High', 'Medium', 'Low'][Math.floor((Math.random() * 3) + 1)],
-      issueType: ['Bug', 'Improvement', 'Epic', 'Story'][Math.floor((Math.random() * 3) + 1)],
-      startDate: getRandomDate(new Date(2015, 3, 1), new Date()),
-      completeDate: getRandomDate(new Date(), new Date(2016, 0, 1)),
+      tarefa: 'Tarefa ' + i,
+      prioridade: ['Crítica', 'Alta', 'Média', 'Baixa'][Math.floor((Math.random() * 4))],
+      dataDeInicio: getRandomDate(new Date(2015, 3, 1), new Date()),
     });
   }
 
-  return rows;
+  return data;
 }
 
 export { generateData };

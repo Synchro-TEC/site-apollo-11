@@ -64,14 +64,13 @@ class PaginatePage extends React.Component {
           <div className='sv-column'>
             <h3> Paginate </h3>
             <h6 className='sv-vertical-marged'>
-              You can choose a simple or a paginate with options, in both choices you
-              can configure how much records by page you wants. By default,
-              this one is ten.
+              Monta um paginador que pode ter um navegador de páginas ou não.
             </h6>
             <p>
-              To the paginate works correctly, you have to "slice" your data
-              according your number of recordsByPage. This is necessary to the initial
-              load show the desired quantity.
+              Será necessário dividir os dados de acordo com a quantidade desejada por página para o
+              carregamento inicial mostrar a quantidade configurada.
+              A propriedade <b> recordsByPage </b> apenas servirá para o componente realizar
+              os cálculos quando o usuário deixar a primeira página.
             </p>
           </div>
         </div>

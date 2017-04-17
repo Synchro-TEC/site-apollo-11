@@ -3,7 +3,7 @@ import { DataTable, DataTableColumn, Paginate } from 'apollo-11';
 import { PrismCode } from 'react-prism';
 import { Link } from 'react-router';
 import ShowCode from '../../components/ShowCode';
-import {generateData} from '../../utils/generateData';
+import { generateData } from '../../utils/generateData';
 import _sortBy from 'lodash/sortBy';
 import _cloneDeep from 'lodash/cloneDeep';
 
@@ -66,100 +66,63 @@ class DataTablePage extends React.Component {
   render() {
     return (
       <div className='dm-content'>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h3>Data Table</h3>
-            <h6 className='sv-vertical-marged'>
-              Monta uma tabela baseada na configuração do usuário, a tabela pode ter colunas
-              simples ou ordenáveis. O DataTable pode estar em conjunto com o componente
-              <Link to='docs/paginate'> Paginate. </Link>
-            </h6>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Colunas simples
-            </h5>
-            <p>
-              O componente espera um array de objetos, mas só serão visíveis na tabela os atributos que estão configurados
-              no componente <b> DataTableColumn</b>. Por exemplo, se você tem um objeto com os campos "nome" e "idade" e
-              deseja que estes valores apareçam no DataTable, você precisará configurar duas colunas adicionando à dois
-              componentes DataTableColumn uma propriedade chamada <b> dataKey </b> com as respectivas chaves
-              do objeto. O filho do componente DataTableColumn será o título da célula na tabela.
-            </p>
-          </div>
-        </div>
+        <h3>Data Table</h3>
+        <p>
+          O componente espera um array de objetos, mas só serão visíveis na tabela os atributos que estão configurados
+          no componente <b> DataTableColumn</b>. Por exemplo, se você tem um objeto com os campos "nome" e "idade" e
+          deseja que estes valores apareçam no DataTable, você precisará configurar duas colunas adicionando à dois
+          componentes DataTableColumn uma propriedade chamada <b> dataKey </b> com as respectivas chaves
+          do objeto. O filho do componente DataTableColumn será o título da célula na tabela.
+        </p>
+        <h5 className='bold'> Colunas simples </h5>
         <DataTable data={this.dataForSimpleDataTableExample}>
           <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
           <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
         </DataTable>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./exemploDeDataTableComColunaSimples.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Colunas ordenáveis
-            </h5>
-            <p>
-              Se você deseja uma coluna que tenha opção de ordenação, basta adicionar ao DataTableColumn
-              uma propriedade chamada <b> sortable</b>. Agora, o DataTable tem uma propriedade chamada <b> onSort </b>
-              que recebe um callback e retorna um objeto com a coluna que esta sendo ordenada e a direção.
-              Lembrando que apenas uma coluna pode ser ordenada por vez.
-            </p>
-          </div>
-        </div>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./exemploDeDataTableComColunaSimples.js')}
+          </PrismCode>
+        </ShowCode>
+        <div className='sv-vertical-marged-25'/>
+        <h5 className='bold'>
+          Colunas ordenáveis
+        </h5>
+        <p>
+          Se você deseja uma coluna que tenha opção de ordenação, basta adicionar ao DataTableColumn
+          uma propriedade chamada <b> sortable</b>. Agora, o DataTable tem uma propriedade chamada <b> onSort </b>
+          que recebe um callback e retorna um objeto com a coluna que esta sendo ordenada e a direção.
+          Lembrando que apenas uma coluna pode ser ordenada por vez.
+        </p>
         <DataTable data={this.state.dataForSortableColumnDataTableExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
           <DataTableColumn dataKey='tarefa' sortable>Tarefa</DataTableColumn>
           <DataTableColumn dataKey='prioridade' sortable>Prioridade</DataTableColumn>
           <DataTableColumn dataKey='dataDeInicio' sortable>Data de inicio</DataTableColumn>
         </DataTable>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./exemploDeDataTableComColunaOrdenavel.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Com Paginate
-            </h5>
-            <p>
-              Sendo configurado com colunas simples ou ordenáveis, o DataTable pode ser utilizado
-              com o componente <Link to='docs/paginate'> Paginate</Link>.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <DataTable data={this.state.dataFilteredByPaginate}>
-              <DataTableColumn dataKey='task'>Task</DataTableColumn>
-              <DataTableColumn dataKey='priority'>Priority</DataTableColumn>
-            </DataTable>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Paginate
-              onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              recordsByPage={5}
-              totalSizeOfData={this.dataForDataTableWithPaginateExample.length}
-            />
-          </div>
-        </div>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./exemploDeDataTableComColunaOrdenavel.js')}
+          </PrismCode>
+        </ShowCode>
+        <div className='sv-vertical-marged-25'/>
+        <h5 className='bold'>
+          Com Paginate
+        </h5>
+        <p>
+          Sendo configurado com colunas simples ou ordenáveis, o DataTable pode ser utilizado
+          com o componente <Link to='docs/paginate'> Paginate</Link>.
+        </p>
+        <DataTable data={this.state.dataFilteredByPaginate}>
+          <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
+        </DataTable>
+        <Paginate
+          onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={this.dataForDataTableWithPaginateExample.length}
+        />
         <ShowCode>
           <PrismCode className='language-js'>
             {require('!raw-loader!./exemploDeDataTableComPaginate.js')}
