@@ -366,7 +366,7 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <ShowCode>
               <PrismCode className='language-js'>
-                {require('!raw-loader!./filterWithOptionsExample.js')}
+                {require('!raw-loader!./exemploDeFiltroComOpcoes.js')}
               </PrismCode>
             </ShowCode>
           </div>
@@ -384,7 +384,7 @@ class FilterPage extends React.Component {
             <div className='dm-code-container'>
               <pre>
                 <PrismCode className='language-js'>
-                  {require('!raw-loader!./filterWithOptionsReturnExample.js')}
+                  {require('!raw-loader!./exemploDeRetornoDoFiltroComOpcoes.js')}
                 </PrismCode>
               </pre>
             </div>
@@ -397,7 +397,7 @@ class FilterPage extends React.Component {
               Filtro simples
             </h5>
             <p>
-              Você obterá apenas o valor atual do campo de busca
+              Com esta configuração, você obterá apenas o valor atual do campo de busca
               retornado pela propriedade onFilter dita acima.
             </p>
           </div>
@@ -406,7 +406,7 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <Filter name='valueOfSingleSearch'
                     onFilter={(value) => this.simpleFilter(value)}
-                    placeholder='Sou apenas um filtro simples!' />
+                    placeholder='Buscar por nome...' />
           </div>
         </div>
         <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
@@ -420,7 +420,7 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <ShowCode>
               <PrismCode className='language-js'>
-                {require('!raw-loader!./simpleFilterExample.js')}
+                {require('!raw-loader!./exemploDeFiltroSemOpcoes.js')}
               </PrismCode>
             </ShowCode>
           </div>

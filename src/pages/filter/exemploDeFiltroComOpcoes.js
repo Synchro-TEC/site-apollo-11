@@ -1,19 +1,21 @@
 import React from 'react';
 import { Filter } from 'apollo-11';
 
-class FilterWithOptionsExample extends React.Component {
+class ExemploDeFiltroComOpcoes extends React.Component {
 
   constructor(props){
     super(props);
   }
 
-  filtrando(filterValues) {
-    // Faça algo com os valores do filtro.
-  }
+  /**
+    * Função que recebe os valores do filtro.
+  */
+  filtrando(valoresDoFiltro) { }
 
-  limpandoCampos() {
-    // Função para executar quando o usuário limpa os campos.
-  }
+  /**
+    * Função para executar quando o usuário limpa os campos.
+  */
+  limpandoCampos() { }
 
   render() {
     return (
@@ -105,6 +107,6 @@ class FilterWithOptionsExample extends React.Component {
   }
 }
 
-FilterWithOptionsExample.displayName = 'FilterWithOptionsExample';
+ExemploDeFiltroComOpcoes.displayName = 'ExemploDeFiltroComOpcoes';
 
-export default FilterWithOptionsExample;
+export default ExemploDeFiltroComOpcoes;

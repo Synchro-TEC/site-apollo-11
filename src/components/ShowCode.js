@@ -23,7 +23,7 @@ class ShowCode extends React.Component {
           </pre>
         </div>
         <button className='dm-code-container__button' onClick={() => this.toggle()}>
-          {this.state.isShowing ? 'Hide Code': 'Show Code'}
+          {this.state.isShowing ? 'Esconder código': 'Mostrar código'}
         </button>
       </div>
     );
