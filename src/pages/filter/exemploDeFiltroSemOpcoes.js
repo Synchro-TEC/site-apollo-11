@@ -6,12 +6,12 @@ class ExemploDeFiltroSemOpcoes extends React.Component {
   /**
     * Função que recebe o valor do campo de busca.
   */
-  filtrando(valorDoCampoDeBusca) { }
+  filtrar(valorDoCampoDeBusca) { }
 
   render() {
     return (
       <div>
-        <Filter name='filtroSimples' onFilter={(valorDoCampoDeBusca) => this.filtrando(valorDoCampoDeBusca)}/>
+        <Filter name='filtroSimples' onFilter={(valorDoCampoDeBusca) => this.filtrar(valorDoCampoDeBusca)}/>
       </div>
     );
   }

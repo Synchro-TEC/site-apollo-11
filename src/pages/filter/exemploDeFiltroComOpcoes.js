@@ -10,12 +10,12 @@ class ExemploDeFiltroComOpcoes extends React.Component {
   /**
     * Função que recebe os valores do filtro.
   */
-  filtrando(valoresDoFiltro) { }
+  filtrar(valoresDoFiltro) { }
 
   /**
     * Função para executar quando o usuário limpa os campos.
   */
-  limpandoCampos() { }
+  limparCampos() { }
 
   render() {
     return (
@@ -26,8 +26,8 @@ class ExemploDeFiltroComOpcoes extends React.Component {
             clearAllButtonLabel='O valor do botão limpar filtro'
             filterButtonLabel='O valor do botão de opções do filtro'
             name='nome'
-            onClearAll={() => this.limpandoCampos()}
-            onFilter={(filterValues) => this.filtrando(filterValues)}>
+            onClearAll={() => this.limparCampos()}
+            onFilter={(valoresDoFiltro) => this.filtrar(valoresDoFiltro)}>
           <label>
             <span> Nacionalidade: </span>
             <div className='sv-select'>
@@ -108,5 +108,4 @@ class ExemploDeFiltroComOpcoes extends React.Component {
 }
 
 ExemploDeFiltroComOpcoes.displayName = 'ExemploDeFiltroComOpcoes';
-
 export default ExemploDeFiltroComOpcoes;

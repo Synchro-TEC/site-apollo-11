@@ -251,13 +251,13 @@ class FilterPage extends React.Component {
           <div className='sv-column'>
             <h3>Filter</h3>
             <h6 className='sv-vertical-marged'>
-              Existem duas configurações: um filtro com opções ou um filtro simples.
+              Monta um filtro baseado na configuração do usuário, o filtro pode ter opções ou não.
             </h6>
             <p>
               Em ambas as opções, você tem a possibilidade de passar uma propriedade
               que será um callback. Quando o filtro é aplicado, a propriedade
               chamada <b>onFilter</b> retorna um objeto com o estado atual do filtro. Quando os campos são limpos,
-              a propriedade chamada <b> onClearAll </b> executa um callback opcional passado pelo usuário.
+              a propriedade chamada <b> onClearAll </b> executa um callback caso ele exista.
               Se você optar pelo filtro com opções e as opções forem diferentes de select, radio ou checkbox,
               se fará obrigatório um callback para a propriedade onClearAll.
             </p>
@@ -267,8 +267,8 @@ class FilterPage extends React.Component {
             <p>
               Você pode configurá-las do jeito que quiser, desde que cada
               input possua a propriedade "name", inclusive o componente filtro.
-              Se você deseja um conjunto de opções para um checkbox, basta dar à estas opções o mesmo nome.
-              O nome de um input, será a sua chave no objeto retornado.
+              Se você deseja um conjunto de opções para um checkbox, basta dar às opções o mesmo nome.
+              O nome de um input será a sua chave no objeto retornado.
             </p>
           </div>
         </div>

@@ -71,7 +71,7 @@ class DataTablePage extends React.Component {
             <h3>Data Table</h3>
             <h6 className='sv-vertical-marged'>
               Monta uma tabela baseada na configuração do usuário, a tabela pode ter colunas
-              simples, ordenáveis e/ou estar em conjunto com o componente
+              simples ou ordenáveis. O DataTable pode estar em conjunto com o componente
               <Link to='docs/paginate'> Paginate. </Link>
             </h6>
           </div>
@@ -98,7 +98,7 @@ class DataTablePage extends React.Component {
           <div className='sv-column'>
             <ShowCode>
               <PrismCode className='language-js'>
-                {require('!raw-loader!./simpleDataTableExample.js')}
+                {require('!raw-loader!./exemploDeDataTableComColunaSimples.js')}
               </PrismCode>
             </ShowCode>
           </div>
@@ -125,7 +125,7 @@ class DataTablePage extends React.Component {
           <div className='sv-column'>
             <ShowCode>
               <PrismCode className='language-js'>
-                {require('!raw-loader!./dataTableWithSortExample.js')}
+                {require('!raw-loader!./exemploDeDataTableComColunaOrdenavel.js')}
               </PrismCode>
             </ShowCode>
           </div>
@@ -162,7 +162,7 @@ class DataTablePage extends React.Component {
         </div>
         <ShowCode>
           <PrismCode className='language-js'>
-            {require('!raw-loader!./dataTableWithPaginateExample.js')}
+            {require('!raw-loader!./exemploDeDataTableComPaginate.js')}
           </PrismCode>
         </ShowCode>
       </div>
