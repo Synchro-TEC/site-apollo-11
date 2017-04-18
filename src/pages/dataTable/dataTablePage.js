@@ -75,6 +75,10 @@ class DataTablePage extends React.Component {
           do objeto. O filho do componente DataTableColumn será o título da célula na tabela.
         </p>
         <h5 className='bold'> Colunas simples </h5>
+        <p>
+          Será necessário apenas configurar o DataTableColumn com a propriedade datakey correspondente à sua
+          chave no objeto, como mencionado acima.
+        </p>
         <DataTable data={this.dataForSimpleDataTableExample}>
           <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
           <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
@@ -89,10 +93,10 @@ class DataTablePage extends React.Component {
           Colunas ordenáveis
         </h5>
         <p>
-          Se você deseja uma coluna que tenha opção de ordenação, basta adicionar ao DataTableColumn
-          uma propriedade chamada <b> sortable</b>. Agora, o DataTable tem uma propriedade chamada <b> onSort </b>
-          que recebe um callback e retorna um objeto com a coluna que esta sendo ordenada e a direção.
-          Lembrando que apenas uma coluna pode ser ordenada por vez.
+          Se você deseja uma coluna que tenha opção de ordenação, será necessário passar uma propriedade a mais para o DataTableColumn,
+          chamada <b> sortable</b>. Dessa forma, o DataTable terá uma propriedade chamada <b> onSort </b>
+          que receberá um callback e retornará um objeto com a chave da coluna (valor do título da célula na tabela)
+          que esta sendo ordenada e a direção. Lembrando que, apenas uma coluna pode ser ordenada por vez.
         </p>
         <DataTable data={this.state.dataForSortableColumnDataTableExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
           <DataTableColumn dataKey='tarefa' sortable>Tarefa</DataTableColumn>

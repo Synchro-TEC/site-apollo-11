@@ -60,120 +60,84 @@ class PaginatePage extends React.Component {
 
     return (
       <div className='dm-content'>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h3> Paginate </h3>
-            <h6 className='sv-vertical-marged'>
-              Monta um paginador que pode ter um navegador de páginas ou não.
-            </h6>
-            <p>
-              Será necessário dividir os dados de acordo com a quantidade desejada por página para o
-              carregamento inicial mostrar a quantidade configurada.
-              A propriedade <b> recordsByPage </b> apenas servirá para o componente realizar
-              os cálculos quando o usuário deixar a primeira página.
-            </p>
-          </div>
+        <h3> Paginate </h3>
+        <h6 className='sv-vertical-marged'>
+          Monta um paginador que pode ter um navegador de páginas ou não.
+        </h6>
+        <p>
+          Será necessário dividir os dados de acordo com a quantidade desejada por página para o
+          carregamento inicial mostrar a quantidade configurada.
+          A propriedade <b> recordsByPage </b> apenas servirá para o componente realizar
+          os cálculos quando o usuário deixar a primeira página.
+        </p>
+        <h5 className='bold'>
+          Simple paginate
+        </h5>
+        <p>
+          A simple paginate have two properties to receive callbacks,
+          <b> onNextPage </b> and <b> onPreviousPage </b>
+          where you can get the value of currentPage, limit and offset when
+          these actions are triggered.
+        </p>
+        <div className='sv-vertical-marged-25'/>
+        <Paginate />
+        <div className='sv-vertical-marged-25'/>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./simplePaginateExample.js')}
+          </PrismCode>
+        </ShowCode>
+        <div className='sv-vertical-marged-25'/>
+        <h5 className='bold'>
+          Paginate with options
+        </h5>
+        <p>
+          If you want options to select a specif page, you have to add
+          a property to your component named <b>onSelectASpecifPage</b>. This property
+          will receive your callback function, and return the same information of
+          onNext and onPrevious explained before.
+        </p>
+        <div className='sv-vertical-marged-25'/>
+        <Paginate
+          onNextPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={this.dataToPaginateWithOptions.length}
+        />
+        <div className='sv-vertical-marged-25'/>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./paginateWithOptionsExample.js')}
+          </PrismCode>
+        </ShowCode>
+        <div className='sv-vertical-marged-25'/>
+        <h5 className='bold'>
+          Paginate is flexible
+        </h5>
+        <p>
+          You don't have to use the Paginate aways together with DataTable. Below,
+          the component was used in a single list.
+        </p>
+        <div className='sv-text-center'>
+          <ul>
+            {itemsOfPaginate}
+          </ul>
         </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Simple paginate
-            </h5>
-            <p>
-              A simple paginate have two properties to receive callbacks,
-              <b> onNextPage </b> and <b> onPreviousPage </b>
-              where you can get the value of currentPage, limit and offset when
-              these actions are triggered.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Paginate />
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./simplePaginateExample.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Paginate with options
-            </h5>
-            <p>
-              If you want options to select a specif page, you have to add
-              a property to your component named <b>onSelectASpecifPage</b>. This property
-              will receive your callback function, and return the same information of
-              onNext and onPrevious explained before.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Paginate
-              onNextPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
-              onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
-              onSelectASpecifPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
-              recordsByPage={5}
-              totalSizeOfData={this.dataToPaginateWithOptions.length}
-            />
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./paginateWithOptionsExample.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <h5 className='bold'>
-              Paginate is flexible
-            </h5>
-            <p>
-              You don't have to use the Paginate aways together with DataTable. Below,
-              the component was used in a single list.
-            </p>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <div className='sv-text-center'>
-              <ul>
-                {itemsOfPaginate}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <Paginate
-              onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
-              recordsByPage={5}
-              totalSizeOfData={this.dataToPaginateAList.length}
-            />
-          </div>
-        </div>
-        <div className='sv-row'>
-          <div className='sv-column'>
-            <ShowCode>
-              <PrismCode className='language-js'>
-                {require('!raw-loader!./paginateWithoutDataTableExample.js')}
-              </PrismCode>
-            </ShowCode>
-          </div>
-        </div>
+        <div className='sv-vertical-marged-25'/>
+        <Paginate
+          onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onPreviousPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          onSelectASpecifPage={(paginateInfo) => this.paginateAction(paginateInfo)}
+          recordsByPage={5}
+          totalSizeOfData={this.dataToPaginateAList.length}
+        />
+        <div className='sv-vertical-marged-25'/>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./paginateWithoutDataTableExample.js')}
+          </PrismCode>
+        </ShowCode>
       </div>
     );
   }
