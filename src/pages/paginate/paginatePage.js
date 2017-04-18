@@ -2,6 +2,7 @@ import React from 'react';
 import { Paginate, DataTable, DataTableColumn } from 'apollo-11';
 import { generateData } from '../../utils/generateData';
 import { PrismCode } from 'react-prism';
+import { Link } from 'react-router';
 import ShowCode from '../../components/ShowCode';
 
 class PaginatePage extends React.Component {
@@ -9,26 +10,26 @@ class PaginatePage extends React.Component {
   constructor(props) {
     super(props);
     this.dataToPaginateAList = [
-      {task: 'Task 1', priority: 'Critical'},
-      {task: 'Task 2', priority: 'Critical'},
-      {task: 'Task 3', priority: 'Low'},
-      {task: 'Task 4', priority: 'High'},
-      {task: 'Task 5', priority: 'Medium'},
-      {task: 'Task 6', priority: 'High'},
-      {task: 'Task 7', priority: 'Critical'},
-      {task: 'Task 8', priority: 'Low'},
-      {task: 'Task 9', priority: 'Medium'},
-      {task: 'Task 10', priority: 'Critical'},
-      {task: 'Task 11', priority: 'High'},
-      {task: 'Task 12', priority: 'Critical'},
-      {task: 'Task 13', priority: 'Medium'},
-      {task: 'Task 14', priority: 'Critical'},
-      {task: 'Task 15', priority: 'Low'},
-      {task: 'Task 16', priority: 'Medium'},
-      {task: 'Task 17', priority: 'High'},
-      {task: 'Task 18', priority: 'Medium'},
-      {task: 'Task 19', priority: 'Low'},
-      {task: 'Task 20', priority: 'Critical'},
+      {tarefa: 'Tarefa 1', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 2', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 3', prioridade: 'Baixa'},
+      {tarefa: 'Tarefa 4', prioridade: 'Alta'},
+      {tarefa: 'Tarefa 5', prioridade: 'Média'},
+      {tarefa: 'Tarefa 6', prioridade: 'Alta'},
+      {tarefa: 'Tarefa 7', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 8', prioridade: 'Baixa'},
+      {tarefa: 'Tarefa 9', prioridade: 'Média'},
+      {tarefa: 'Tarefa 10', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 11', prioridade: 'Alta'},
+      {tarefa: 'Tarefa 12', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 13', prioridade: 'Média'},
+      {tarefa: 'Tarefa 14', prioridade: 'Crítica'},
+      {tarefa: 'Tarefa 15', prioridade: 'Baixa'},
+      {tarefa: 'Tarefa 16', prioridade: 'Média'},
+      {tarefa: 'Tarefa 17', prioridade: 'Alta'},
+      {tarefa: 'Tarefa 18', prioridade: 'Média'},
+      {tarefa: 'Tarefa 19', prioridade: 'Baixa'},
+      {tarefa: 'Tarefa 20', prioridade: 'Crítica'},
     ];
     this.dataToPaginateWithOptions = generateData();
     this.state = {
@@ -54,48 +55,43 @@ class PaginatePage extends React.Component {
 
   render() {
 
-    let itemsOfPaginate = this.state.dataToPaginateAList.map((task, i) => {
-      return <li key={i} style={{'marginBottom': '4px'}}> {task.task} - {task.priority}</li>;
+    let itemsOfPaginate = this.state.dataToPaginateAList.map((tarefa, i) => {
+      return <li key={i} style={{'marginBottom': '4px'}}> {tarefa.tarefa} - {tarefa.prioridade} </li>;
     });
 
     return (
       <div className='dm-content'>
         <h3> Paginate </h3>
-        <h6 className='sv-vertical-marged'>
-          Monta um paginador que pode ter um navegador de páginas ou não.
-        </h6>
         <p>
           Será necessário dividir os dados de acordo com a quantidade desejada por página para o
           carregamento inicial mostrar a quantidade configurada.
-          A propriedade <b> recordsByPage </b> apenas servirá para o componente realizar
-          os cálculos quando o usuário deixar a primeira página.
+          A propriedade <b> recordsByPage </b> servirá para o componente retornar as informações
+          corretas quando uma das ações ocorrerem.
         </p>
         <h5 className='bold'>
-          Simple paginate
+          Paginador simples
         </h5>
         <p>
-          A simple paginate have two properties to receive callbacks,
-          <b> onNextPage </b> and <b> onPreviousPage </b>
-          where you can get the value of currentPage, limit and offset when
-          these actions are triggered.
+          Nessa configuração existem apenas duas ações, ir para uma próxima página ou para uma
+          página anterior. O componente possui duas propriedades para receber callbacks quando uma
+          dessas ações acontece: <b> onNextPage </b> e <b> onPreviousPage</b>.
         </p>
         <div className='sv-vertical-marged-25'/>
         <Paginate />
         <div className='sv-vertical-marged-25'/>
         <ShowCode>
           <PrismCode className='language-js'>
-            {require('!raw-loader!./simplePaginateExample.js')}
+            {require('!raw-loader!./exemploDePaginateSemOpcoes.js')}
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
         <h5 className='bold'>
-          Paginate with options
+          Paginador com opções
         </h5>
         <p>
-          If you want options to select a specif page, you have to add
-          a property to your component named <b>onSelectASpecifPage</b>. This property
-          will receive your callback function, and return the same information of
-          onNext and onPrevious explained before.
+          Se você quiser opções para selecionar as páginas,
+          basta adicionar ao componente uma propriedade chamada <b> onSelectASpecifPage</b>, que será
+          a própria propriedade que recebe o callback quando esta ação acontecer.
         </p>
         <div className='sv-vertical-marged-25'/>
         <Paginate
@@ -108,16 +104,16 @@ class PaginatePage extends React.Component {
         <div className='sv-vertical-marged-25'/>
         <ShowCode>
           <PrismCode className='language-js'>
-            {require('!raw-loader!./paginateWithOptionsExample.js')}
+            {require('!raw-loader!./exemploDePaginateComOpcoes.js')}
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
         <h5 className='bold'>
-          Paginate is flexible
+          Paginador flexível
         </h5>
         <p>
-          You don't have to use the Paginate aways together with DataTable. Below,
-          the component was used in a single list.
+          O Paginate não necessariamente precisa ser utilizado em conjunto ao
+          <Link to='docs/data-table'> DataTable</Link>. No exemplo abaixo, ele foi utilizado em uma lista simples.
         </p>
         <div className='sv-text-center'>
           <ul>
@@ -135,7 +131,7 @@ class PaginatePage extends React.Component {
         <div className='sv-vertical-marged-25'/>
         <ShowCode>
           <PrismCode className='language-js'>
-            {require('!raw-loader!./paginateWithoutDataTableExample.js')}
+            {require('!raw-loader!./exemploDePaginateSemDataTable.js')}
           </PrismCode>
         </ShowCode>
       </div>
