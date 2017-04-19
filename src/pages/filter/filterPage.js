@@ -77,7 +77,6 @@ class FilterPage extends React.Component {
     };
   }
 
-
   /**
    * toDate - description
    * Converte uma data dd/mm/aaaa para um tipo date
@@ -90,7 +89,6 @@ class FilterPage extends React.Component {
       return new Date(dateToConvert.replace(regExp, '$2/$1/$3'));
     }
   }
-
 
   /**
    * mountWordlyGoodsObject - description
@@ -224,11 +222,11 @@ class FilterPage extends React.Component {
 
       if(!_isEmpty(foundData)) {
         foundData = this.findByName(values.nome, foundData);
-        foundData = _filter(foundData, filterValues);
       } else {
         foundData = this.findByName(values.nome, this.immutableData);
-        foundData = _filter(foundData, filterValues);
       }
+
+      foundData = _filter(foundData, filterValues);
     } else {
       foundData = this.immutableData;
     }
@@ -251,7 +249,7 @@ class FilterPage extends React.Component {
         <p>
           Quando o filtro é aplicado, a propriedade chamada <b>onFilter</b> retorna um objeto com o
           estado atual do filtro. Quando os campos são limpos, a propriedade chamada <b> onClearAll </b>
-          executa um callback caso este exista. Se você optar pelo filtro com opções e as estas forem
+          executa um callback caso este exista. Se você optar pelo filtro com opções e estas forem
           diferentes de select, radio ou checkbox, se fará obrigatório um callback para a propriedade
           onClearAll.
         </p>
@@ -372,7 +370,8 @@ class FilterPage extends React.Component {
         </h5>
         <p>
           Com esta configuração, você obterá apenas o valor atual do campo de busca
-          retornado pela propriedade onFilter mencionada acima.
+          retornado pela propriedade onFilter mencionada acima. A busca acontece
+          quando o usuário começa a digitar.
         </p>
         <Filter name='valueOfSingleSearch'
           onFilter={(value) => this.simpleFilter(value)}
@@ -389,7 +388,7 @@ class FilterPage extends React.Component {
           <PrismCode className='language-js'>
             {require('!raw-loader!./exemploDeFiltroSemOpcoes.js')}
           </PrismCode>
-        </ShowCode>        
+        </ShowCode>
       </div>
     );
   }
