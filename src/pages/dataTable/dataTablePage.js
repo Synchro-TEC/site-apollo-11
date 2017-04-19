@@ -21,11 +21,11 @@ class DataTablePage extends React.Component {
     ];
     this.state = {
       dataForSortableColumnDataTableExample: [
-        {tarefa: 'Task 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002'},
-        {tarefa: 'Task 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996'},
-        {tarefa: 'Task 3',  prioridade: 'Média', dataDeInicio: '31/01/2010'},
-        {tarefa: 'Task 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017'},
-        {tarefa: 'Task 5', prioridade: 'Alta', dataDeInicio: '14/01/2016'},
+        {tarefa: 'Tarefa 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002'},
+        {tarefa: 'Tarefa 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996'},
+        {tarefa: 'Tarefa 3',  prioridade: 'Média', dataDeInicio: '31/01/2010'},
+        {tarefa: 'Tarefa 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017'},
+        {tarefa: 'Tarefa 5', prioridade: 'Alta', dataDeInicio: '14/01/2016'},
       ],
       dataFilteredByPaginate: this.dataForDataTableWithPaginateExample.slice(0,5),
     };
