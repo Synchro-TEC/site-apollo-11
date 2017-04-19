@@ -62,13 +62,13 @@ const HermesPage = (props) => {
       <div className='sv-vertical-marged-25'/>
       <ShowCode>
         <PrismCode className='language-js'>
-          {require('!raw-loader!./exemploDeContextosEPosicao.js')}
+          {require('!raw-loader!./exemploContextosEPosicao.js')}
         </PrismCode>
       </ShowCode>
     </div>
-  )
+  );
+
 };
 
 HermesPage.displayName = 'HermesPage';
-
 export default HermesPage;

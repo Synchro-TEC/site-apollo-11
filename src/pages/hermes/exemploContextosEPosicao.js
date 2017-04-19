@@ -5,7 +5,7 @@ var setContext = (context) => {
   Hermes.setContext(context);
 };
 
-class ExemploDeContextosEPosicao extends React.Component {
+class ExemploContextosEPosicao extends React.Component {
 
 	render() {
 		return (
@@ -23,5 +23,5 @@ class ExemploDeContextosEPosicao extends React.Component {
 
 }
 
-ExemploDeContextosEPosicao.displayName = 'ExemploDeContextosEPosicao';
-export default ExemploDeContextosEPosicao;
+ExemploContextosEPosicao.displayName = 'ExemploContextosEPosicao';
+export default ExemploContextosEPosicao;
