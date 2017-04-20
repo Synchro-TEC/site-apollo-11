@@ -11,13 +11,11 @@ function TemplateDocs(props) {
 
         <ul>
           <li><Link activeClassName='active' to='docs/hermes'>Hermes</Link></li>
-          <li><Link activeClassName='active' to='docs/launch-window'>Launch Window</Link></li>
-          <li><Link activeClassName='active' to='docs/colors'>Loader</Link></li>
           <li><Link activeClassName='active' to='docs/filter'>Filter</Link></li>
           <li><Link activeClassName='active' to='docs/data-table'>Data Table</Link></li>
           <li><Link activeClassName='active' to='docs/paginate'>Paginate</Link></li>
           <li><Link activeClassName='active' to='docs/power-table'>Power Table</Link></li>
-          <li><Link activeClassName='active' to='docs/user-tests'>User tests</Link></li>
+          {/* <li><Link activeClassName='active' to='docs/user-tests'>User tests</Link></li> */}
         </ul>
 
         <div className='dm-syntec'>
