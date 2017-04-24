@@ -20,7 +20,7 @@ class ExemploDePaginateSemOpcoes extends React.Component {
           onNextPage={(informacoesDoPaginate) => this.proximaPagina(informacoesDoPaginate)}
           onPreviousPage={(informacoesDoPaginate) => this.paginaAnterior(informacoesDoPaginate)}
           recordsByPage={5}
-          totalSizeOfData={yourData.length}
+          totalSizeOfData={seusDados.length}
         />
       </div>
     );

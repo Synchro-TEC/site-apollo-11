@@ -11,7 +11,7 @@ class ExemploDeFiltroSemOpcoes extends React.Component {
   render() {
     return (
       <div>
-        <Filter name='filtroSimples' onFilter={(valorDoCampoDeBusca) => this.filtrar(valorDoCampoDeBusca)}/>
+        <Filter onFilter={(valorDoCampoDeBusca) => this.filtrar(valorDoCampoDeBusca)}/>
       </div>
     );
   }

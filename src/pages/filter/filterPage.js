@@ -260,7 +260,7 @@ class FilterPage extends React.Component {
           Você pode configurá-las do jeito que quiser, desde que cada
           input possua a propriedade "name", inclusive o componente filtro.
           Se você deseja um conjunto de opções para um checkbox, basta dar às opções o mesmo nome.
-          O nome de um input será a sua chave no objeto retornado.
+          O nome de um input será a sua chave no objeto de retorno da propriedade onFilter.
         </p>
         <Filter name='nome'
           onFilter={(values) => this.doAdvancedFilter(values)}
@@ -292,7 +292,7 @@ class FilterPage extends React.Component {
                       placeholder='dd/mm/yyyy'
                       type='text'
                     />
-                    <label>
+                    <label style={{color: '#648391'}}>
                       <i className='fa fa-calendar'/>
                     </label>
                   </div>
@@ -306,7 +306,7 @@ class FilterPage extends React.Component {
                       placeholder='dd/mm/yyyy'
                       type='text'
                      />
-                    <label>
+                    <label style={{color: '#648391'}}>
                       <i className='fa fa-calendar'/>
                     </label>
                   </div>
@@ -370,10 +370,11 @@ class FilterPage extends React.Component {
         </h5>
         <p>
           Com esta configuração, você obterá apenas o valor atual do campo de busca
-          retornado pela propriedade onFilter mencionada acima. A busca acontece
-          quando o usuário começa a digitar.
+          retornado pela propriedade onFilter. A busca acontece quando o usuário começa a digitar.
+          Repare que, neste caso não se faz necessário nomear o filtro como fizemos no filtro
+          com opções.
         </p>
-        <Filter name='valueOfSingleSearch'
+        <Filter
           onFilter={(value) => this.simpleFilter(value)}
           placeholder='Buscar por nome...' />
         <div className='sv-vertical-marged-15'/>

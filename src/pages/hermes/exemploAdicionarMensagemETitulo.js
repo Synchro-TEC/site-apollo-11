@@ -1,11 +1,17 @@
 import React from 'react';
 import { Hermes } from 'apollo-11';
 
-var addMessage = () => {
+/**
+  * Função que adiciona uma mensagem.
+ */
+var adicionarMensagem = () => {
   Hermes.addMessage(`Mensagem ${Date.now()}`, true);
 };
 
-var changeTitle = () => {
+/**
+  * Função que adiciona ou altera o titulo da mensagem.
+ */
+var adicionarTitulo = () => {
   Hermes.setTitle(`Novo titulo ${Date.now()}`);
 };
 
@@ -15,8 +21,8 @@ class ExemploAdicionarMensagemETitulo extends React.Component {
 		return (
 			<div>
 				<Hermes />
-				<button className='sv-button small default marged' onClick={() => addMessage()}> Adicionar mensagem </button>
-				<button className='sv-button small default marged' onClick={() => changeTitle()}> Adicionar/Alterar titulo </button>
+				<button className='sv-button small default marged' onClick={() => adicionarMensagem()}> Adicionar mensagem </button>
+				<button className='sv-button small default marged' onClick={() => adicionarTitulo()}> Adicionar/Alterar titulo </button>
 			</div>
 		);
 	}

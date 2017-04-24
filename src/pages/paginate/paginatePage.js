@@ -66,7 +66,9 @@ class PaginatePage extends React.Component {
           Será necessário dividir os dados de acordo com a quantidade desejada por página para o
           carregamento inicial mostrar a quantidade configurada.
           A propriedade <b> recordsByPage </b> servirá para o componente retornar as informações
-          corretas quando uma das ações ocorrerem.
+          quando uma das ações ocorrerem. Em qualquer que seja a ação, as propriedades correspondentes
+          às ações retornaram um objeto com informações que são úteis para realizar a paginação: limit,
+          offset e página atual.
         </p>
         <h5 className='bold'>
           Paginador simples
