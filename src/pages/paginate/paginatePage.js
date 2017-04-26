@@ -67,7 +67,7 @@ class PaginatePage extends React.Component {
           carregamento inicial mostrar a quantidade configurada.
           A propriedade <b> recordsByPage </b> servirá para o componente retornar as informações
           quando uma das ações ocorrerem. Em qualquer que seja a ação, as propriedades correspondentes
-          às ações retornaram um objeto com informações que são úteis para realizar a paginação: limit,
+          às estas ações retornarão um objeto com informações que são úteis para realizar a paginação: limit,
           offset e página atual.
         </p>
         <h5 className='bold'>
@@ -93,7 +93,7 @@ class PaginatePage extends React.Component {
         <p>
           Se você quiser opções para selecionar as páginas,
           basta adicionar ao componente uma propriedade chamada <b> onSelectASpecifPage</b>, que será
-          a própria propriedade que recebe o callback quando esta ação acontecer.
+          a própria propriedade que recebe o callback.
         </p>
         <div className='sv-vertical-marged-25'/>
         <Paginate
