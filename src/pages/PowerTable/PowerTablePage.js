@@ -4,23 +4,25 @@ import ShowCode from '../../components/ShowCode';
 import { PrismCode } from 'react-prism';
 import _uniqueId from 'lodash/uniqueId';
 import axios from 'axios';
+import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable';
 
 class PowerTablePage extends React.Component {
 
   constructor(props) {
     super();
-    this.state = { data: [] };
+    this.data = generateDataForPowerTable();
+    // this.state = { data: [] };
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/users')
-      .then((response) => {
-        this.setState({ data: response.data });
-      });
+    // axios.get('http://localhost:3000/users')
+    //   .then((response) => {
+    //     this.setState({ data: response.data });
+    //   });
   }
 
   printPrice(row) {
-    return `R$ ${row.price}`;
+    return `R$ ${row.preco}`;
   }
 
   printPriceOnFilter(price) {
@@ -28,13 +30,13 @@ class PowerTablePage extends React.Component {
   }
 
   printTotal(row) {
-    return `R$ ${parseFloat(row.price * row.quantity).toFixed(2)}`;
+    return `R$ ${parseFloat(row.preco * row.quantidade).toFixed(2)}`;
   }
 
   render() {
     return (
       <div className='dm-content'>
-        <PowerTable
+        {/* <PowerTable
           fetch={{collection: this.state.data}}
           key={_uniqueId('PWT-')}
           pageSize={5}
@@ -53,20 +55,20 @@ class PowerTablePage extends React.Component {
             searchable />
           <PowerColumn columnTitle='Quantidade' dataKey='quantity' dataType='numeric' searchable />
           <PowerColumn columnTitle='Total' formatter={this.printTotal} />
-        </PowerTable>
+        </PowerTable> */}
         <h3> PowerTable </h3>
         <p>
           O componente irá montar uma tabela à partir dos dados recebidos. Essa
           tabela possui 3 funcionalidades: ordenação, filtro por um ou mais valor(es)
           específico(s) de um conjunto de valores e filtro com condição. É possível passar
           um formatador para uma coluna. Seja qual for a escolha, sempre será necessário
-          passar para o PowerTable quatro propriedades básicas: <b> fetch</b>, <b> key </b>
+          passar para o PowerTable quatro propriedades básicas: <b> fetch</b>, <b> key</b>,
           <b> pageSize</b> e <b> rowHeight </b>. A key será necessária para
           referência, o pageSize é o numero de registros desejados por página e
           rowHeight é a altura fixa de cada linha da tabela.
           O objeto <b>fetch</b> será explicado abaixo.
         </p>
-        <h5 className='bold'> O fetch </h5>
+        <h4 className='bold'> O fetch </h4>
         <p>
           O fetch é um objeto de configuração do componente onde é possivel
           especificar a url, o tipo de request, colunas do PowerTable
@@ -84,6 +86,7 @@ class PowerTablePage extends React.Component {
             </PrismCode>
           </pre>
         </div>
+        <div className='sv-vertical-marged-25'/>
         <h6> Fetch configurado </h6>
         <p>
           A propriedade <b> fetchUrl </b> especifica uma URL, <b> fetchMethod </b>
@@ -99,13 +102,10 @@ class PowerTablePage extends React.Component {
             </PrismCode>
           </pre>
         </div>
-        <h5 className='bold'> O PowerColumn </h5>
+        <div className='sv-vertical-marged-25'/>
+        <h4 className='bold'> O PowerColumn </h4>
         <p>
           O PowerColumn corresponde às colunas da tabela e possui as seguintes propriedades:
-          {/* <b> columnTitle </b> que será o titulo da célula na tabela, <b> dataKey </b>
-          que terá o valor da chave correspondente no objeto e <b> dataType </b>
-          que especifica qual o tipo de dado daquela coluna e aceita os tipos: <b> numeric</b>,
-          <b> text</b>,<b> date</b>. */}
         </p>
         <table className='sv-table with--hover'>
           <thead>
@@ -154,21 +154,57 @@ class PowerTablePage extends React.Component {
             </tr>
           </tbody>
         </table>
-        <h5 className='bold'> PowerTable com fetch simples </h5>
+        <h4 className='bold'> PowerTable com colunas simples </h4>
         <p>
-          Este é o tipo mais básico de configuração do componente, será necessário
-          passar o fetch básico para a propriedade <b> fetch </b> do componente,
-          <b> key </b> que poderá ser qualquer valor único e <b> pageSize </b>
-          que deverá ser um número.
+          Este é o tipo mais básico de configuração do componente, contendo
+          somente as propriedades necessárias explicadas acima.
         </p>
+        <PowerTable
+          fetch={{collection: this.data}}
+          key={_uniqueId('PWT-')}
+          pageSize={5}
+          rowHeight={39}>
+          <PowerColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric'/>
+          <PowerColumn columnTitle='Nome' dataKey='nome' />
+          <PowerColumn columnTitle='Papel' dataKey='papel' />
+          <PowerColumn columnTitle='Descrição' dataKey='descricao' />
+          <PowerColumn columnTitle='Endereço' dataKey='endereco' />
+        </PowerTable>
         <ShowCode>
           <PrismCode className='language-js'>
             {require('!raw-loader!./exemploDePowerTableComFetchSimples.js')}
           </PrismCode>
         </ShowCode>
-        <div className='sv-vertical-marged-15'/>
-        <h5 className='bold'> PowerTable com fetch configurado </h5>
-        <h5 className='bold'> Sem formatadores, com fetch simples </h5>
+        <h4 className='bold'> PowerTable com colunas configuradas </h4>
+        <p>
+          Neste exemplo, foram utilizadas as propriedades do PowerColumn
+          explicadas acima para configurar colunas.
+        </p>
+        <PowerTable
+          fetch={{collection: this.data}}
+          key={_uniqueId('PWT-')}
+          pageSize={5}
+          rowHeight={39}>
+          <PowerColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric' />
+          <PowerColumn columnTitle='Nome' dataKey='nome' searchable />
+          <PowerColumn columnTitle='Papel' dataKey='papel' searchable />
+          <PowerColumn columnTitle='Descrição' dataKey='descricao' searchable />
+          <PowerColumn columnTitle='Endereço' dataKey='endereco' searchable />
+          <PowerColumn
+            columnTitle='Preço'
+            dataKey='preco'
+            dataType='numeric'
+            formatter={this.printPrice}
+            formatterOnFilter={this.printPriceOnFilter}
+            searchable />
+          <PowerColumn columnTitle='Quantidade' dataKey='quantidade' dataType='numeric' searchable />
+          <PowerColumn columnTitle='Total' formatter={this.printTotal} />
+        </PowerTable>
+        <ShowCode>
+          <PrismCode className='language-js'>
+            {require('!raw-loader!./exemploDePowerTableComColunasConfiguradas.js')}
+          </PrismCode>
+        </ShowCode>
       </div>
     );
   }

@@ -4,46 +4,39 @@ import _uniqueId from 'lodash/uniqueId';
 
 const data = [
   {
-    'id': 5,
+    'codigo': 1,
     'nome': 'Ricardo',
     'endereco': '602 Oliveira Alameda',
     'papel': 'manager',
     'text': 'Voluptatem reprehenderit quia.',
   },
   {
-    'id': 6,
+    'codigo': 2,
     'nome': 'Sílvia',
     'endereco': '746 Isabela Travessa',
     'papel': 'admin',
     'descricao': 'Ea corrupti ut est occaecati et.',
   },
   {
-	  'id': 7,
+	  'codigo': 3,
 	  'nome': 'Ígor',
 	  'endereco': '4958 Souza Avenida',
 	  'papel': 'manager',
 	  'descricao': 'Ipsum impedit ipsam.',
   },
   {
-    'id': 8,
+    'codigo': 4,
     'nome': 'Eduarda',
     'endereco': '6490 Roberto Avenida',
     'papel': 'manager',
     'descricao': 'Et commodi eaque adipisci et tenetur et ratione consequatur ut.',
   },
   {
-    'id': 9,
+    'codigo': 5,
     'nome': 'Tertuliano',
     'endereco': '1191 Melo Ponte',
     'papel': 'admin',
     'descricao': 'Rerum alias reprehenderit non repudiandae.',
-  },
-  {
-  	'id': 10,
-  	'nome': 'Deneval',
-  	'endereco': '563 Ofélia Avenida',
-  	'papel': 'usuario',
-  	'descricao': 'Non optio excepturi soluta laudantium.',
   },
 ];
 
@@ -59,10 +52,10 @@ class ExemploDePowerTableComFetchSimples extends React.Component {
 	render() {
 		return (
 			<div>
-				<PowerTable	fetch={this.fetchSimples} key={_uniqueId()}	pageSize={20}>
-					<PowerColumn columnTitle='Id' dataKey='id'/>
+				<PowerTable	fetch={this.fetchSimples} key={_uniqueId()}	pageSize={20} rowHeight={39}>
+					<PowerColumn columnTitle='Id' dataKey='codigo' dataType='numeric'/>
 					<PowerColumn columnTitle='Nome' dataKey='nome'/>
-					<PowerColumn columnTitle='Papel' dataKey='papel' dataType='numeric' />
+					<PowerColumn columnTitle='Papel' dataKey='papel' />
 					<PowerColumn columnTitle='Descrição' dataKey='descricao'/>
 					<PowerColumn columnTitle='Endereço' dataKey='endereco'/>
 				</PowerTable>
