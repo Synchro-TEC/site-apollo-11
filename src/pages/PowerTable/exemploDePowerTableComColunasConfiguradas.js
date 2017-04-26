@@ -49,22 +49,22 @@ class ExemploDePowerTableComColunasConfiguradas extends React.Component {
   /**
    * Função que formata o preço na tabela.
   */
-  formatarPreco(row) {
-    return `R$ ${row.price}`;
+  formatarPreco(linha) {
+    return `R$ ${linha.preco}`;
   }
 
   /**
    * Função que formata o preço nas opções do filtro.
   */
-  formatarPrecoNasOpcoesDoFiltro(price) {
-    return `R$ ${price}`;
+  formatarPrecoNasOpcoesDoFiltro(preco) {
+    return `R$ ${preco}`;
   }
 
   /**
    * Função que retorna o valor do total para a coluna correspondente.
   */
-  formatarTotal(row) {
-    return `R$ ${parseFloat(row.price * row.quantity).toFixed(2)}`;
+  formatarTotal(linha) {
+    return `R$ ${parseFloat(linha.preco * linha.quantidade).toFixed(2)}`;
   }
 
 	render() {

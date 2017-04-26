@@ -41,7 +41,7 @@ function generateDataForPowerTable() {
 				'60618 Carvalho Rodovia',
 				'598 Macedo Alameda',
 			][Math.floor((Math.random() * 10))],
-      quantidade: Math.floor((Math.random() * 5)),
+      quantidade: Math.floor((Math.random() * 5) + 1),
       preco: (Math.random() * 1000).toFixed(2),
     });
   }

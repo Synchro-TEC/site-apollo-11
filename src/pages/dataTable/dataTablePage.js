@@ -74,7 +74,7 @@ class DataTablePage extends React.Component {
           componentes DataTableColumn uma propriedade chamada <b> dataKey </b> com as respectivas chaves
           do objeto. O filho do componente DataTableColumn será o título da célula na tabela.
         </p>
-        <h5 className='bold'> Colunas simples </h5>
+        <h4 className='bold'> Colunas simples </h4>
         <p>
           Será necessário apenas configurar o DataTableColumn com a propriedade datakey correspondente à sua
           chave no objeto, como mencionado acima.
@@ -89,9 +89,7 @@ class DataTablePage extends React.Component {
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
-        <h5 className='bold'>
-          Colunas ordenáveis
-        </h5>
+        <h4 className='bold'> Colunas ordenáveis </h4>
         <p>
           Se você deseja uma coluna que tenha opção de ordenação, será necessário passar uma propriedade a mais para o DataTableColumn,
           chamada <b> sortable</b>. Dessa forma, o DataTable terá uma propriedade chamada <b> onSort </b>
@@ -109,9 +107,7 @@ class DataTablePage extends React.Component {
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
-        <h5 className='bold'>
-          Com Paginate
-        </h5>
+        <h4 className='bold'> Com Paginate </h4>
         <p>
           Sendo configurado com colunas simples ou ordenáveis, o DataTable pode ser utilizado
           com o componente <Link to='docs/paginate'> Paginate</Link>.

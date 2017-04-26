@@ -70,9 +70,7 @@ class PaginatePage extends React.Component {
           às estas ações retornarão um objeto com informações que são úteis para realizar a paginação: limit,
           offset e página atual.
         </p>
-        <h5 className='bold'>
-          Paginador simples
-        </h5>
+        <h4 className='bold'> Paginate simples </h4>        
         <p>
           Nessa configuração existem apenas duas ações, ir para uma próxima página ou para uma
           página anterior. O componente possui duas propriedades para receber callbacks quando uma
@@ -87,9 +85,7 @@ class PaginatePage extends React.Component {
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
-        <h5 className='bold'>
-          Paginador com opções
-        </h5>
+        <h4 className='bold'> Paginate com opções </h4>
         <p>
           Se você quiser opções para selecionar as páginas,
           basta adicionar ao componente uma propriedade chamada <b> onSelectASpecifPage</b>, que será
@@ -110,9 +106,7 @@ class PaginatePage extends React.Component {
           </PrismCode>
         </ShowCode>
         <div className='sv-vertical-marged-25'/>
-        <h5 className='bold'>
-          Paginador flexível
-        </h5>
+        <h4 className='bold'> Paginate flexível </h4>
         <p>
           O Paginate não necessariamente precisa ser utilizado em conjunto ao
           <Link to='docs/data-table'> DataTable</Link>. No exemplo abaixo, ele foi utilizado em uma lista simples.
