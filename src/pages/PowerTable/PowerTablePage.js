@@ -61,8 +61,8 @@ class PowerTablePage extends React.Component {
           O componente irá montar uma tabela à partir dos dados recebidos. Essa
           tabela possui 3 funcionalidades: ordenação, filtro por um ou mais valor(es)
           específico(s) de um conjunto de valores e filtro com condição. É possível passar
-          um formatador para uma coluna. Seja qual for a escolha, sempre será necessário
-          passar para o PowerTable quatro propriedades básicas: <b> fetch</b>, <b> key</b>,
+          um formatador para uma coluna. Será necessário passar para o PowerTable
+          quatro propriedades básicas: <b> fetch</b>, <b> key</b>,
           <b> pageSize</b> e <b> rowHeight </b>. A key será necessária para
           referência, o pageSize é o numero de registros desejados por página e
           rowHeight é a altura fixa de cada linha da tabela.
