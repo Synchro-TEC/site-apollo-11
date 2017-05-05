@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter, DataTable, DataTableColumn, Paginate } from 'apollo-11';
+import { Filter, DataTable, DataTableColumn, Paginate } from 'syntec-apollo-11';
 import axios from 'axios';
 import _isEmpty from 'lodash/isEmpty';
 

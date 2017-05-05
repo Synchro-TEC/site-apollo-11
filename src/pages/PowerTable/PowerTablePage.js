@@ -1,5 +1,5 @@
 import React from 'react';
-import { PowerTable, PowerColumn } from 'apollo-11';
+import { PowerTable, PowerColumn } from 'syntec-apollo-11';
 import ShowCode from '../../components/ShowCode';
 import { PrismCode } from 'react-prism';
 import _uniqueId from 'lodash/uniqueId';

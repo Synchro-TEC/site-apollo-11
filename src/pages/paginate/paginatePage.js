@@ -1,8 +1,8 @@
 import React from 'react';
-import { Paginate, DataTable, DataTableColumn } from 'apollo-11';
+import { Paginate, DataTable, DataTableColumn } from 'syntec-apollo-11';
 import { generateData } from '../../utils/generateData';
 import { PrismCode } from 'react-prism';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
 
 class PaginatePage extends React.Component {
@@ -70,7 +70,7 @@ class PaginatePage extends React.Component {
           às estas ações retornarão um objeto com informações que são úteis para realizar a paginação: limit,
           offset e página atual.
         </p>
-        <h4 className='bold'> Paginate simples </h4>        
+        <h4 className='bold'> Paginate simples </h4>
         <p>
           Nessa configuração existem apenas duas ações, ir para uma próxima página ou para uma
           página anterior. O componente possui duas propriedades para receber callbacks quando uma

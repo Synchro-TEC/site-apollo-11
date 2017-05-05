@@ -18,7 +18,7 @@ module.exports = env => {
       application: './src/index.js',
     },
     output: {
-      path: './dist',
+      path: path.join(__dirname, 'dist'),
       filename: 'application.web.js',
     },
     // context: resolve(__dirname, 'src'),

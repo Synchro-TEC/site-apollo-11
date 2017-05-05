@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderSite from '../components/HeaderSite';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 function TemplateDocs(props) {
   return (
@@ -10,12 +10,12 @@ function TemplateDocs(props) {
       <aside className='dm-sidebar'>
 
         <ul>
-          <li><Link activeClassName='active' to='docs/hermes'>Hermes</Link></li>
-          <li><Link activeClassName='active' to='docs/filter'>Filter</Link></li>
-          <li><Link activeClassName='active' to='docs/data-table'>Data Table</Link></li>
-          <li><Link activeClassName='active' to='docs/paginate'>Paginate</Link></li>
-          <li><Link activeClassName='active' to='docs/power-table'>Power Table</Link></li>
-          {/* <li><Link activeClassName='active' to='docs/user-tests'>User tests</Link></li> */}
+          <li><NavLink activeClassName='active' to='hermes'>Hermes</NavLink></li>
+          <li><NavLink activeClassName='active' to='filter'>Filter</NavLink></li>
+          <li><NavLink activeClassName='active' to='data-table'>Data Table</NavLink></li>
+          <li><NavLink activeClassName='active' to='paginate'>Paginate</NavLink></li>
+          <li><NavLink activeClassName='active' to='power-table'>Power Table</NavLink></li>
+          {/* <li><NavLink activeClassName='active' to='docs/user-tests'>User tests</NavLink></li> */}
         </ul>
 
         <div className='dm-syntec'>

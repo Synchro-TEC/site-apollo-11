@@ -2,7 +2,7 @@
  * Created by gnf on 11/01/17.
  */
 import React from 'react';
-import { Filter, DataTable, DataTableColumn } from 'apollo-11';
+import { Filter, DataTable, DataTableColumn } from 'syntec-apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
 import axios from 'axios';

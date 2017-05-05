@@ -1,5 +1,5 @@
 import React from 'react';
-import { LaunchWindow } from 'apollo-11';
+import { LaunchWindow } from 'syntec-apollo-11';
 import {PrismCode} from 'react-prism';
 
 class LaunchWindowPage extends React.Component {

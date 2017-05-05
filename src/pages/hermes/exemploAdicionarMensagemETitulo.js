@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hermes } from 'apollo-11';
+import { Hermes } from 'syntec-apollo-11';
 
 /**
   * Função que adiciona uma mensagem.

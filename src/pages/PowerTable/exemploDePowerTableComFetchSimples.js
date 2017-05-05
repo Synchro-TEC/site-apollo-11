@@ -1,5 +1,5 @@
 import React from 'react';
-import { PowerTable, PowerColumn } from 'apollo-11';
+import { PowerTable, PowerColumn } from 'syntec-apollo-11';
 import _uniqueId from 'lodash/uniqueId';
 
 const data = [

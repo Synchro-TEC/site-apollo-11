@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataTable, DataTableColumn } from 'apollo-11';
+import { DataTable, DataTableColumn } from 'syntec-apollo-11';
 import _cloneDeep from 'lodash/cloneDeep';
 import _sortBy from 'lodash/sortBy';
 

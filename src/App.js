@@ -1,6 +1,10 @@
 import React from 'react';
-import {Router, Route, IndexRoute, hashHistory} from 'react-router';
-import Template from './pages/Template';
+import { Route } from 'react-router-dom';
+import createHashHistory from 'history/createHashHistory';
+import { Router } from 'react-router';
+
+const hashHistory = createHashHistory();
+
 import TemplateDocs from './pages/TemplateDocs';
 
 import HomePage from './pages/home/Home';
@@ -16,21 +20,20 @@ import UserTestsPage from './pages/userTests/userTestsPage';
 
 const App = () => (
   <Router history={hashHistory}>
-    <Route component={Template} path='/'>
-      <IndexRoute component={HomePage} />
-      <Route component={InstallPage} path='/install' />
-    </Route>
 
-    <Route component={TemplateDocs} path='/docs'>
-      <IndexRoute component={DocsHomePage} />
-      <Route component={HermesPage} path='hermes' />
-      <Route component={LaunchWindowPage} path='launch-window' />
-      <Route component={FilterPage} path='filter' />
-      <Route component={DataTablePage} path='data-table' />
-      <Route component={PaginatePage} path='paginate' />
-      <Route component={PowerTablePage} path='power-table' />
-      <Route component={UserTestsPage} path='user-tests' />
-    </Route>
+      <TemplateDocs>
+        <Route component={HomePage} exact path='/' />
+        <Route component={InstallPage} exact path='/install' />
+        <Route component={DocsHomePage} exact path='/docs' />
+        <Route component={HermesPage} exact path='/hermes' />
+        <Route component={LaunchWindowPage} exact path='/launch-window' />
+        <Route component={FilterPage} exact path='/filter' />
+        <Route component={DataTablePage} exact path='/data-table' />
+        <Route component={PaginatePage} exact path='/paginate' />
+        <Route component={PowerTablePage} exact path='/power-table' />
+        <Route component={UserTestsPage} exact path='/user-tests' />
+      </TemplateDocs>
+
   </Router>
 );
 

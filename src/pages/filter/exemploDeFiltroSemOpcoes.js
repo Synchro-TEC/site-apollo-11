@@ -1,5 +1,5 @@
 import React from 'react';
-import { Filter } from 'apollo-11';
+import { Filter } from 'syntec-apollo-11';
 
 class ExemploDeFiltroSemOpcoes extends React.Component {
 

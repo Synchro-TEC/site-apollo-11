@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 class HeaderSite extends React.Component {
 
@@ -11,17 +11,17 @@ class HeaderSite extends React.Component {
     return (
       <header className='dm-header'>
         <div className='dm-logo'>
-          <Link title='Back to home'  to='/'>
+          <NavLink title='Back to home'  to='/'>
             <img height='32px' src='logo-apollo.svg' width='auto' />
-          </Link>
+          </NavLink>
         </div>
 
         <div className='sv-text-right dm-menu'>
           <span className='sv-horizontal-marged-5'>
-           <Link activeClassName='active' to='docs'>Docs</Link>
+           <NavLink activeClassName='active' to='/docs'>Docs</NavLink>
           </span>
           <span className='sv-horizontal-marged-5'>
-            <Link activeClassName='active' to='install'>Getting Started</Link>
+            <NavLink activeClassName='active' to='/install'>Getting Started</NavLink>
           </span>
         </div>
         <div className='beta'>Beta</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paginate } from 'apollo-11';
+import { Paginate } from 'syntec-apollo-11';
 
 const dados = [
   { tarefa: 'Tarefa 1', prioridade: 'Crítica' },

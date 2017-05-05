@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paginate } from 'apollo-11';
+import { Paginate } from 'syntec-apollo-11';
 
 class ExemploDePaginateSemOpcoes extends React.Component {
 

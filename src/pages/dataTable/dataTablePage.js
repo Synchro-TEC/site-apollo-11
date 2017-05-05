@@ -1,7 +1,7 @@
 import React from 'react';
-import { DataTable, DataTableColumn, Paginate } from 'apollo-11';
+import { DataTable, DataTableColumn, Paginate } from 'syntec-apollo-11';
 import { PrismCode } from 'react-prism';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
 import { generateData } from '../../utils/generateData';
 import _sortBy from 'lodash/sortBy';
