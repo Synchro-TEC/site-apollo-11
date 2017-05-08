@@ -11,14 +11,6 @@ class PowerTablePage extends React.Component {
   constructor(props) {
     super();
     this.data = generateDataForPowerTable();
-    // this.state = { data: [] };
-  }
-
-  componentDidMount() {
-    // axios.get('http://localhost:3000/users')
-    //   .then((response) => {
-    //     this.setState({ data: response.data });
-    //   });
   }
 
   printPrice(row) {
@@ -36,34 +28,13 @@ class PowerTablePage extends React.Component {
   render() {
     return (
       <div className='dm-content'>
-        {/* <PowerTable
-          fetch={{collection: this.state.data}}
-          key={_uniqueId('PWT-')}
-          pageSize={5}
-          rowHeight={39}>
-          <PowerColumn columnTitle='Codigo' dataKey='id' dataType='numeric' />
-          <PowerColumn columnTitle='Nome' dataKey='firstName' searchable />
-          <PowerColumn columnTitle='Papel' dataKey='papel' searchable />
-          <PowerColumn columnTitle='Descrição' dataKey='text' searchable />
-          <PowerColumn columnTitle='Endereço' dataKey='address' searchable />
-          <PowerColumn
-            columnTitle='Preço'
-            dataKey='price'
-            dataType='numeric'
-            formatter={this.printPrice}
-            formatterOnFilter={this.printPriceOnFilter}
-            searchable />
-          <PowerColumn columnTitle='Quantidade' dataKey='quantity' dataType='numeric' searchable />
-          <PowerColumn columnTitle='Total' formatter={this.printTotal} />
-        </PowerTable> */}
         <h3> PowerTable </h3>
         <p>
-          O componente irá montar uma tabela à partir dos dados recebidos. Essa
-          tabela possui 3 funcionalidades: ordenação, filtro por um ou mais valor(es)
+          A tabela possui 3 funcionalidades: ordenação, filtro por um ou mais valor(es)
           específico(s) de um conjunto de valores e filtro com condição. É possível passar
           um formatador para uma coluna. Será necessário passar para o PowerTable
           quatro propriedades básicas: <b> fetch</b>, <b> key</b>,
-          <b> pageSize</b> e <b> rowHeight </b>. A key será necessária para
+          <b> pageSize</b> e <b> rowHeight</b>. A key será necessária para
           referência, o pageSize é o numero de registros desejados por página e
           rowHeight é a altura fixa de cada linha da tabela.
           O objeto <b>fetch</b> será explicado abaixo.
@@ -76,7 +47,7 @@ class PowerTablePage extends React.Component {
         </p>
         <h6> Fetch simples </h6>
         <p>
-          O fetch simples contém apenas o essencial para o PowerTable,
+          O fetch simples contém apenas o essencial para o PowerTable:
           os dados que serão consumidos. O objeto é montado assim:
         </p>
         <div className='dm-code-container'>
