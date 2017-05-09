@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataTable, DataTableColumn, Paginate } from 'syntec-apollo-11';
 import { PrismCode } from 'react-prism';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
 import { generateData } from '../../utils/generateData';
 import _sortBy from 'lodash/sortBy';
@@ -13,19 +13,19 @@ class DataTablePage extends React.Component {
     super();
     this.dataForDataTableWithPaginateExample = generateData();
     this.dataForSimpleDataTableExample = [
-      {tarefa: 'Tarefa 1', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 2', prioridade: 'Baixa'},
-      {tarefa: 'Tarefa 3', prioridade: 'Média'},
-      {tarefa: 'Tarefa 4', prioridade: 'Alta'},
-      {tarefa: 'Tarefa 5', prioridade: 'Crítica'},
+      { tarefa: 'Tarefa 1', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 2', prioridade: 'Baixa' },
+      { tarefa: 'Tarefa 3', prioridade: 'Média' },
+      { tarefa: 'Tarefa 4', prioridade: 'Alta' },
+      { tarefa: 'Tarefa 5', prioridade: 'Crítica' },
     ];
     this.state = {
       dataForSortableColumnDataTableExample: [
-        {tarefa: 'Tarefa 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002'},
-        {tarefa: 'Tarefa 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996'},
-        {tarefa: 'Tarefa 3',  prioridade: 'Média', dataDeInicio: '31/01/2010'},
-        {tarefa: 'Tarefa 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017'},
-        {tarefa: 'Tarefa 5', prioridade: 'Alta', dataDeInicio: '14/01/2016'},
+        { tarefa: 'Tarefa 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002' },
+        { tarefa: 'Tarefa 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996' },
+        { tarefa: 'Tarefa 3',  prioridade: 'Média', dataDeInicio: '31/01/2010' },
+        { tarefa: 'Tarefa 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017' },
+        { tarefa: 'Tarefa 5', prioridade: 'Alta', dataDeInicio: '14/01/2016' },
       ],
       dataFilteredByPaginate: this.dataForDataTableWithPaginateExample.slice(0,5),
     };
@@ -110,7 +110,7 @@ class DataTablePage extends React.Component {
         <h4 className='bold'> Com Paginate </h4>
         <p>
           Sendo configurado com colunas simples ou ordenáveis, o DataTable pode ser utilizado
-          com o componente <Link to='docs/paginate'> Paginate</Link>.
+          com o componente <NavLink activeClassName='active' to='paginate'> Paginate</NavLink>.
         </p>
         <DataTable data={this.state.dataFilteredByPaginate}>
           <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
@@ -133,4 +133,5 @@ class DataTablePage extends React.Component {
   }
 }
 
+DataTablePage.displayName = 'DataTablePage';
 export default DataTablePage;

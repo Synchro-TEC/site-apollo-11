@@ -20,5 +20,4 @@ const DocsHomePage = (props) => {
 };
 
 DocsHomePage.displayName = 'DocsHomePage';
-
 export default DocsHomePage;

@@ -25,5 +25,4 @@ const InstallPage = (props) => {
 };
 
 InstallPage.displayName = 'InstallPage';
-
 export default InstallPage;

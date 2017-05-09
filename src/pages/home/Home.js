@@ -51,4 +51,5 @@ const HomePage = () => (
   </div>
 );
 
+HomePage.displayName = 'HomePage';
 export default HomePage;

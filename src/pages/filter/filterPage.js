@@ -396,5 +396,4 @@ class FilterPage extends React.Component {
 }
 
 FilterPage.displayName = 'FilterPage';
-
 export default FilterPage;

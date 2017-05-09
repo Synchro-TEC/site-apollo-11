@@ -3,8 +3,8 @@ import { Filter } from 'syntec-apollo-11';
 
 class ExemploDeFiltroComOpcoes extends React.Component {
 
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
   }
 
   /**
@@ -21,13 +21,13 @@ class ExemploDeFiltroComOpcoes extends React.Component {
     return (
       <div>
         <Filter
-            applyFilterButtonLabel='O valor do botão aplicar filtro'
-            cancelButtonLabel='O valor do botão cancelar'
-            clearAllButtonLabel='O valor do botão limpar filtro'
-            filterButtonLabel='O valor do botão de opções do filtro'
-            name='nome'
-            onClearAll={() => this.limparCampos()}
-            onFilter={(valoresDoFiltro) => this.filtrar(valoresDoFiltro)}>
+          applyFilterButtonLabel='O valor do botão aplicar filtro'
+          cancelButtonLabel='O valor do botão cancelar'
+          clearAllButtonLabel='O valor do botão limpar filtro'
+          filterButtonLabel='O valor do botão de opções do filtro'
+          name='nome'
+          onClearAll={() => this.limparCampos()}
+          onFilter={(valoresDoFiltro) => this.filtrar(valoresDoFiltro)}>
           <label>
             <span> Nacionalidade: </span>
             <div className='sv-select'>
@@ -68,7 +68,7 @@ class ExemploDeFiltroComOpcoes extends React.Component {
                       name='diaDoCasamentoLTE'
                       placeholder='dd/mm/yyyy'
                       type='text'
-                     />
+                    />
                     <label>
                       <i className='fa fa-calendar'/>
                     </label>
@@ -101,7 +101,7 @@ class ExemploDeFiltroComOpcoes extends React.Component {
           <label>
             <input name='bens' type='checkbox' value='mac' /> Mac
           </label>
-      </Filter>
+        </Filter>
       </div>
     );
   }

@@ -2,34 +2,34 @@ import React from 'react';
 import { Paginate, DataTable, DataTableColumn } from 'syntec-apollo-11';
 import { generateData } from '../../utils/generateData';
 import { PrismCode } from 'react-prism';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
 
 class PaginatePage extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.dataToPaginateAList = [
-      {tarefa: 'Tarefa 1', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 2', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 3', prioridade: 'Baixa'},
-      {tarefa: 'Tarefa 4', prioridade: 'Alta'},
-      {tarefa: 'Tarefa 5', prioridade: 'Média'},
-      {tarefa: 'Tarefa 6', prioridade: 'Alta'},
-      {tarefa: 'Tarefa 7', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 8', prioridade: 'Baixa'},
-      {tarefa: 'Tarefa 9', prioridade: 'Média'},
-      {tarefa: 'Tarefa 10', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 11', prioridade: 'Alta'},
-      {tarefa: 'Tarefa 12', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 13', prioridade: 'Média'},
-      {tarefa: 'Tarefa 14', prioridade: 'Crítica'},
-      {tarefa: 'Tarefa 15', prioridade: 'Baixa'},
-      {tarefa: 'Tarefa 16', prioridade: 'Média'},
-      {tarefa: 'Tarefa 17', prioridade: 'Alta'},
-      {tarefa: 'Tarefa 18', prioridade: 'Média'},
-      {tarefa: 'Tarefa 19', prioridade: 'Baixa'},
-      {tarefa: 'Tarefa 20', prioridade: 'Crítica'},
+      { tarefa: 'Tarefa 1', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 2', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 3', prioridade: 'Baixa' },
+      { tarefa: 'Tarefa 4', prioridade: 'Alta' },
+      { tarefa: 'Tarefa 5', prioridade: 'Média' },
+      { tarefa: 'Tarefa 6', prioridade: 'Alta' },
+      { tarefa: 'Tarefa 7', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 8', prioridade: 'Baixa' },
+      { tarefa: 'Tarefa 9', prioridade: 'Média' },
+      { tarefa: 'Tarefa 10', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 11', prioridade: 'Alta' },
+      { tarefa: 'Tarefa 12', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 13', prioridade: 'Média' },
+      { tarefa: 'Tarefa 14', prioridade: 'Crítica' },
+      { tarefa: 'Tarefa 15', prioridade: 'Baixa' },
+      { tarefa: 'Tarefa 16', prioridade: 'Média' },
+      { tarefa: 'Tarefa 17', prioridade: 'Alta' },
+      { tarefa: 'Tarefa 18', prioridade: 'Média' },
+      { tarefa: 'Tarefa 19', prioridade: 'Baixa' },
+      { tarefa: 'Tarefa 20', prioridade: 'Crítica' },
     ];
     this.dataToPaginateWithOptions = generateData();
     this.state = {
@@ -56,7 +56,11 @@ class PaginatePage extends React.Component {
   render() {
 
     let itemsOfPaginate = this.state.dataToPaginateAList.map((tarefa, i) => {
-      return <li key={i} style={{'marginBottom': '4px'}}> {tarefa.tarefa} - {tarefa.prioridade} </li>;
+      return (
+        <li className='sv-vertical-marged-5' key={i}>
+          {tarefa.tarefa} - {tarefa.prioridade}
+        </li>
+      );
     });
 
     return (
@@ -109,7 +113,7 @@ class PaginatePage extends React.Component {
         <h4 className='bold'> Paginate flexível </h4>
         <p>
           O Paginate não necessariamente precisa ser utilizado em conjunto ao
-          <Link to='docs/data-table'> DataTable</Link>. No exemplo abaixo, ele foi utilizado em uma lista simples.
+          <NavLink activeClassName='active' to='data-table'> DataTable</NavLink>. No exemplo abaixo, ele foi utilizado em uma lista simples.
         </p>
         <div className='sv-text-center'>
           <ul>
@@ -133,7 +137,6 @@ class PaginatePage extends React.Component {
       </div>
     );
   }
-
 }
 
 export default PaginatePage;

@@ -67,7 +67,9 @@ class ExemploDePaginateSemDataTable extends React.Component {
   render() {
 
     let itens = this.state.dadosFiltradosPeloPaginate.map((tarefa, i) => {
-      return <li key={i}> {tarefa.tarefa} - {tarefa.prioridade} </li>;
+      return (
+        <li key={i}> {tarefa.tarefa} - {tarefa.prioridade} </li>
+      );
     });
 
     return (

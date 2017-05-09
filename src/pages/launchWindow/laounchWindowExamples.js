@@ -2,8 +2,8 @@ import React from 'react';
 import { LaunchWindow } from 'syntec-apollo-11';
 
 class LaunchWindowExample extends React.Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
   }
 
   showLaunchWindow(){
@@ -16,11 +16,9 @@ class LaunchWindowExample extends React.Component {
         <LaunchWindow ref='modal'>
           Modal
         </LaunchWindow>
-
         <p>
           <button className='sv-button small default' onClick={() => this.showLaunchWindow()}>Open</button>
         </p>
-
       </div>
     )
   }
@@ -29,5 +27,3 @@ class LaunchWindowExample extends React.Component {
 LaunchWindowExample.displayName = 'LaunchWindowExample';
 
 export default LaunchWindowExample;
-
-

@@ -15,7 +15,6 @@ class UserTestsPage extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     this.getData('http://172.29.0.9:3000/tasks', {
       params: {
         _sort: 'weddingDayNumber',
@@ -25,7 +24,6 @@ class UserTestsPage extends React.Component {
   }
 
   getData(url, params) {
-
     axios.get(url, params).then((response) => {
       this.immutableData = response.data;
       this.setState({
@@ -42,8 +40,7 @@ class UserTestsPage extends React.Component {
     }
   }
 
-  advancedFilter(values) {
-    debugger;
+  advancedFilter(values) {    
     this.refs.paginateForAdvancedFilter.reset();
     let worldlyGoods = values.worldlyGoods;
     let convertedWeddingDayGTE = this.convertToUADateToCompare(values.weddingDayGTE);
