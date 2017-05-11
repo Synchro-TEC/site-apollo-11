@@ -27,10 +27,10 @@ const dados = [
 
 class ExemploDeDataTableComPaginate extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     //Slice inicial necessário (mencionado na documentação do Paginate)
-    this.state = { dadosFiltradosPeloPaginate: dados.slice(0,5) };
+    this.state = {dadosFiltradosPeloPaginate: dados.slice(0,5)};
   }
 
   /**
@@ -48,21 +48,27 @@ class ExemploDeDataTableComPaginate extends React.Component {
    * Chamada quando o usuário vai para uma próxima página.
   */
   proximaPagina(informacoesDoPaginate) {
-    this.setState({dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate)});
+    this.setState({
+      dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate),
+    });
   }
 
   /**
    * Chamada quando o usuário vai para uma página anterior.
   */
   paginaAnterior(informacoesDoPaginate) {
-    this.setState({dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate)});
+    this.setState({
+      dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate),
+    });
   }
 
   /**
    * Chamada quando o usuário seleciona uma página pelas opções.
   */
   paginaEspecifica(informacoesDoPaginate) {
-    this.setState({dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate)});
+    this.setState({
+      dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate),
+    });
   }
 
   render() {

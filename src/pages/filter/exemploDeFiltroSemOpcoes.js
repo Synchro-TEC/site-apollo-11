@@ -3,6 +3,10 @@ import { Filter } from 'syntec-apollo-11';
 
 class ExemploDeFiltroSemOpcoes extends React.Component {
 
+  constructor() {
+    super();
+  }
+
   /**
     * Função que recebe o valor do campo de busca.
   */

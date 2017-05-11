@@ -2,11 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 class HeaderSite extends React.Component {
-
-  constructor(props){
-    super(props);
-  }
-
   render() {
     return (
       <header className='dm-header'>
@@ -28,9 +23,7 @@ class HeaderSite extends React.Component {
       </header>
     );
   }
-
 }
 
 HeaderSite.displayName = 'HeaderSite';
-
 export default HeaderSite;

@@ -3,11 +3,11 @@ import { LaunchWindow } from 'syntec-apollo-11';
 import {PrismCode} from 'react-prism';
 
 class LaunchWindowPage extends React.Component {
-  constructor(props){
-    super(props);
+  constructor() {
+    super();
   }
 
-  showLaunchWindow(){
+  showLaunchWindow() {
     this.refs.modal.show();
   }
 

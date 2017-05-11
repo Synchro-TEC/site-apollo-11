@@ -54,7 +54,7 @@ class ExemploDeDataTableComColunaOrdenavel extends React.Component {
       </div>
     );
   }
-
+  
 }
 
 ExemploDeDataTableComColunaOrdenavel.displayName = 'ExemploDeDataTableComColunaOrdenavel';

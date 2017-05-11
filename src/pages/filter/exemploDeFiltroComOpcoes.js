@@ -3,7 +3,7 @@ import { Filter } from 'syntec-apollo-11';
 
 class ExemploDeFiltroComOpcoes extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
   }
 

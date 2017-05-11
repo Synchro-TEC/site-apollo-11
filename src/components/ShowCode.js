@@ -30,4 +30,5 @@ class ShowCode extends React.Component {
   }
 }
 
+ShowCode.displayName = 'ShowCode';
 export default ShowCode;

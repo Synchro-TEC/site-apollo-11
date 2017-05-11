@@ -9,4 +9,5 @@ function Template(props) {
     </div>
   );
 }
+
 export default Template;

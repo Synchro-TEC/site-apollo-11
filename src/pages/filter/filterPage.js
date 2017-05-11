@@ -71,6 +71,7 @@ class FilterPage extends React.Component {
         temUmMac: false,
       },
     ];
+
     this.state = {
       dataFoundByFilterWithoutOptions: this.immutableData,
       dataFoundByFilterWithOptions: this.immutableData,
@@ -97,6 +98,7 @@ class FilterPage extends React.Component {
    * @return {type}              description
    */
   mountWordlyGoodsObject(filterValues) {
+
     let bens = {
       temUmaBicicleta: false,
       temUmCarro: false,
@@ -124,7 +126,6 @@ class FilterPage extends React.Component {
     return bens;
   }
 
-
   /**
    * findDatesLesserThan - description
    * Retorna dados filtrados por uma data menor do que a recebida
@@ -148,7 +149,6 @@ class FilterPage extends React.Component {
       return date <= this.toDate(item.diaDoCasamento);
     });
   }
-
 
   /**
    * findDatesBetween - description
@@ -231,7 +231,7 @@ class FilterPage extends React.Component {
       foundData = this.immutableData;
     }
 
-    this.setState({ dataFoundByFilterWithOptions: foundData });
+    this.setState({dataFoundByFilterWithOptions: foundData});
   }
 
   simpleFilter(value) {
@@ -239,7 +239,7 @@ class FilterPage extends React.Component {
       return item.nome.includes(value);
     });
 
-    this.setState({ dataFoundByFilterWithoutOptions: foundData });
+    this.setState({dataFoundByFilterWithoutOptions: foundData});
   }
 
   render() {
@@ -376,7 +376,8 @@ class FilterPage extends React.Component {
         </p>
         <Filter
           onFilter={(value) => this.simpleFilter(value)}
-          placeholder='Buscar por nome...' />
+          placeholder='Buscar por nome...'
+        />
         <div className='sv-vertical-marged-15'/>
         <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
           <DataTableColumn dataKey='nome'>Nome</DataTableColumn>

@@ -5,22 +5,18 @@ const HomePage = () => (
     <div className='col dm-hero sv-bg-color--blue-800'/>
     <div className='dm-home-content'>
       <div className='sv-row'>
-
         <div className='sv-column sv-text-center sv-padd-50'>
           <img height='auto' src='hermes.png' width='220' />
           <h6>Hermes for notifications</h6>
         </div>
-
         <div className='sv-column sv-text-center sv-padd-50'>
           <img height='auto' src='window.png' width='220' />
           <h6>Launch Window.</h6>
         </div>
-
         <div className='sv-column sv-text-center sv-padd-50'>
           <img height='auto' src='all-components.png' width='220' />
           <h6>View all components!</h6>
         </div>
-
       </div>
     </div>
     <div className='sv-row sv-bg-color--steel-200 sv-no-margins'>
@@ -39,7 +35,6 @@ const HomePage = () => (
         </div>
       </div>
     </div>
-
     <div className='dm-credits sv-row sv-bg-color--steel-100 sv-no-margins'>
       <div className='sv-column  sv-padd-10 sv-text-center'>
         Icons made by <a href='http://www.flaticon.com/authors/freepik' title='Freepik'>Freepik</a> from

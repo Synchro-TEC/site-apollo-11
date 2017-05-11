@@ -46,11 +46,15 @@ class PaginatePage extends React.Component {
   }
 
   paginateAction(paginateInfo) {
-    this.setState({dataToPaginateAList: this.doPaginate(paginateInfo)});
+    this.setState({
+      dataToPaginateAList: this.doPaginate(paginateInfo),
+    });
   }
 
   powerfullPaginateAction(paginateInfo) {
-    this.setState({dataToPaginateWithOptions: this.doPaginate(paginateInfo)});
+    this.setState({
+      dataToPaginateWithOptions: this.doPaginate(paginateInfo),
+    });
   }
 
   render() {
@@ -113,7 +117,8 @@ class PaginatePage extends React.Component {
         <h4 className='bold'> Paginate flexível </h4>
         <p>
           O Paginate não necessariamente precisa ser utilizado em conjunto ao
-          <NavLink activeClassName='active' to='data-table'> DataTable</NavLink>. No exemplo abaixo, ele foi utilizado em uma lista simples.
+          <NavLink activeClassName='active' to='data-table'> DataTable</NavLink>.
+          No exemplo abaixo, ele foi utilizado em uma lista simples.
         </p>
         <div className='sv-text-center'>
           <ul>
@@ -139,4 +144,5 @@ class PaginatePage extends React.Component {
   }
 }
 
+PaginatePage.displayName = 'PaginatePage';
 export default PaginatePage;

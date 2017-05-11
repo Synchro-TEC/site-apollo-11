@@ -183,7 +183,8 @@ class PowerTablePage extends React.Component {
       </div>
     );
   }
-
+  
 }
 
+PowerTablePage.displayName = 'PowerTablePage';
 export default PowerTablePage;

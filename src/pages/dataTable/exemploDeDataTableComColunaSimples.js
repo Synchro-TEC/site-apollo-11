@@ -10,7 +10,6 @@ const dados = [
 ];
 
 class ExemploDeDataTableComColunaSimples extends React.Component {
-
   render() {
     return (
       <div>
@@ -21,7 +20,6 @@ class ExemploDeDataTableComColunaSimples extends React.Component {
       </div>
     );
   }
-
 }
 
 ExemploDeDataTableComColunaSimples.displayName = 'ExemploDeDataTableComColunaSimples';

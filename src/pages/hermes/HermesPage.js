@@ -16,7 +16,6 @@ var setContext = (context) => {
 };
 
 const HermesPage = (props) => {
-
   return (
     <div className='dm-content'>
       <Hermes />
@@ -67,7 +66,6 @@ const HermesPage = (props) => {
       </ShowCode>
     </div>
   );
-
 };
 
 HermesPage.displayName = 'HermesPage';

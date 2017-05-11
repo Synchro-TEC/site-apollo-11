@@ -2,7 +2,7 @@ import React from 'react';
 import { LaunchWindow } from 'syntec-apollo-11';
 
 class LaunchWindowExample extends React.Component {
-  constructor(){
+  constructor() {
     super();
   }
 
