@@ -13,6 +13,7 @@ import DataTablePage from './pages/dataTable/dataTablePage';
 import PaginatePage from './pages/paginate/paginatePage';
 import PowerTablePage from './pages/PowerTable/PowerTablePage';
 import UserTestsPage from './pages/userTests/userTestsPage';
+import PowerSheetPage from './pages/PowerSheet/PowerSheetPage';
 
 const hashHistory = createHashHistory();
 
@@ -29,6 +30,7 @@ const App = () => (
       <Route component={PaginatePage} exact path='/paginate' />
       <Route component={PowerTablePage} exact path='/power-table' />
       <Route component={UserTestsPage} exact path='/user-tests' />
+      <Route component={PowerSheetPage} exact path='/power-sheet' />
     </TemplateDocs>
   </Router>
 );
