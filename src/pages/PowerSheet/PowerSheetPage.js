@@ -29,19 +29,15 @@ class PowerSheetPage extends React.Component {
     return (
       <div className='dm-content'>
         <h3> PowerSheet </h3>
-
-
           <PowerSheet
             containerHeight={495}
             fetch={{url: 'http://localhost:3003/users', method: 'get'}}
             pageSize={20}
           >
             <SheetColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric' />
-            <SheetColumn columnTitle='Nome' dataKey='nome' searchable />
+            <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
             <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
           </PowerSheet>
-
-
       </div>
     );
   }
