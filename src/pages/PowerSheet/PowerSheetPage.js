@@ -34,7 +34,7 @@ class PowerSheetPage extends React.Component {
             fetch={{url: 'http://localhost:3003/users', method: 'get'}}
             pageSize={20}
           >
-            <SheetColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric' />
+            <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' width={80} />
             <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
             <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
           </PowerSheet>
