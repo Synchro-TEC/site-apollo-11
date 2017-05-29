@@ -37,7 +37,8 @@ class PowerSheetPage extends React.Component {
             <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' width={120} />
             <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
             <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
-            <SheetColumn columnTitle='Teste' dataType='numeric' width={90} />
+            <SheetColumn columnTitle='E-mail' dataKey='email' searchable />
+            <SheetColumn columnTitle='Teste' width={80} />
           </PowerSheet>
       </div>
     );
