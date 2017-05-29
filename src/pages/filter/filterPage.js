@@ -150,19 +150,19 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(value) {     
+  doAdvancedFilter(value) {         
     let { diaDoCasamentoGTE, diaDoCasamentoLTE } = this.filterValues;
-    let foundData;
+    let foundData = this.immutableData;
 
-    if(!_isEmpty(this.filterValues)) {      
+    if(!_isEmpty(this.filterValues) || value !== '') {      
       let comparableDateGTE = this.toDate(diaDoCasamentoGTE);
       let comparableDateLTE = this.toDate(diaDoCasamentoLTE);
       
-      if(comparableDateGTE && !comparableDateLTE) {        
+      if(!comparableDateLTE && comparableDateGTE) {        
         foundData = this.findDatesGreaterThan(comparableDateGTE);        
       } else if(comparableDateLTE && !comparableDateGTE) {        
         foundData = this.findDatesLesserThan(comparableDateLTE);        
-      } else {
+      } else if(comparableDateLTE && comparableDateGTE) {
         foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
       }
       
@@ -176,11 +176,11 @@ class FilterPage extends React.Component {
       }
 
       foundData = _filter(foundData, this.filterValues);
-    } else {
-      foundData = this.immutableData;
     }
 
-    this.setState({dataFoundByFilterWithOptions: foundData});    
+    this.setState({
+      dataFoundByFilterWithOptions: foundData,
+    });    
   }
 
   simpleFilter(value) {
@@ -191,7 +191,7 @@ class FilterPage extends React.Component {
     this.setState({dataFoundByFilterWithoutOptions: foundData});
   }
 
-  clearAll() {
+  clearAll(value) {    
     this.filterValues = {};
     this.refs.mac.checked = false;
     this.refs.carro.checked = false;
@@ -201,8 +201,8 @@ class FilterPage extends React.Component {
     this.refs.sexoFeminino.checked = false;
     this.refs.diaDoCasamentoGTE.value = '';
     this.refs.diaDoCasamentoLTE.value = '';
-    this.refs.nacionalidade.value = '';
-    this.doAdvancedFilter();
+    this.refs.nacionalidade.value = '';    
+    this.doAdvancedFilter(value);    
   }
 
   mountWordlyGoodsObject(value) {    
@@ -226,7 +226,7 @@ class FilterPage extends React.Component {
     }    
   }
 
-  mountFilterObject(value) {          
+  mountFilterObject(value) {              
     this.filterValues = _assign(this.filterValues, value);
     if(value['nacionalidade'] == '') {
       delete this.filterValues['nacionalidade'];
@@ -249,10 +249,11 @@ class FilterPage extends React.Component {
         <p>
           Você pode configurá-las do jeito que quiser, basta colocar as opções dentro do
           componente. Com esta configuração, existirá uma propriedade chamada <b> onClearAll </b>
-          que executará a função recebida como propriedade quando as opções do filtro forem limpas.
+          que executará a função recebida como propriedade quando as opções do filtro forem limpas
+          e retornará o valor do campo de busca.
         </p>
         <Filter name='nome'
-          onClearAll={() => this.clearAll()}
+          onClearAll={(value) => this.clearAll(value)}
           onFilter={(value) => this.doAdvancedFilter(value)}          
           placeholder='Buscar por nome...'>
           <label>
@@ -312,15 +313,17 @@ class FilterPage extends React.Component {
             <span>Sexo:</span>
           </label>
           <label>
-            <input 
+            <input              
+              name='sexo'
               onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
-              ref='sexoMasculino'               
+              ref='sexoMasculino'        
               type='radio'
               value='Masculino'
             /> Masculino
           </label>
           <label>
-            <input                
+            <input              
+              name='sexo'        
               onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
               ref='sexoFeminino'
               type='radio' 

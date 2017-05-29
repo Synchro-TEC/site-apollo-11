@@ -11,7 +11,7 @@ class ExemploDeFiltroComOpcoes extends React.Component {
   /**
     * Função para executar quando o usuário limpa os campos.
   */
-  limparCampos() { }
+  limparCampos(valorDoCampoDeBusca) { }
 
   render() {
     return (
@@ -21,7 +21,7 @@ class ExemploDeFiltroComOpcoes extends React.Component {
           cancelButtonLabel='O valor do botão cancelar'
           clearAllButtonLabel='O valor do botão limpar filtro'
           filterButtonLabel='O valor do botão de opções do filtro'          
-          onClearAll={() => this.limparCampos()}
+          onClearAll={(valorDoCampoDeBusca) => this.limparCampos(valorDoCampoDeBusca)}
           onFilter={(valorDoCampoDeBusca) => this.filtrar(valorDoCampoDeBusca)}>
           <label>
             <span> Nacionalidade: </span>
