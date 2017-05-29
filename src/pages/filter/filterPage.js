@@ -9,6 +9,7 @@ import axios from 'axios';
 import _isEmpty from 'lodash/isEmpty';
 import _filter from 'lodash/filter';
 import _assign from 'lodash/assign';
+import _remove from 'lodash/remove';
 
 class FilterPage extends React.Component {
 
@@ -74,8 +75,10 @@ class FilterPage extends React.Component {
 
     this.state = {
       dataFoundByFilterWithoutOptions: this.immutableData,
-      dataFoundByFilterWithOptions: this.immutableData,
+      dataFoundByFilterWithOptions: this.immutableData,      
     };
+
+    this.filterValues = {};
   }
 
   /**
@@ -89,41 +92,6 @@ class FilterPage extends React.Component {
       const regExp = new RegExp('([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})');
       return new Date(dateToConvert.replace(regExp, '$2/$1/$3'));
     }
-  }
-
-  /**
-   * mountWordlyGoodsObject - description
-   * Monta um objeto com variaveis booleanas baseando-se nos valores de bens
-   * @param  {type} filterValues description
-   * @return {type}              description
-   */
-  mountWordlyGoodsObject(filterValues) {
-
-    let bens = {
-      temUmaBicicleta: false,
-      temUmCarro: false,
-      temUmMac: false,
-      temUmHelicoptero: false,
-    };
-
-    for(let i = 0; i<filterValues.bens.length; i++) {
-      switch (filterValues.bens[i]) {
-        case 'bicicleta':
-          bens.temUmaBicicleta = true;
-        break;
-        case 'carro':
-          bens.temUmCarro = true;
-        break;
-        case 'mac':
-          bens.temUmMac = true;
-        break;
-        case 'helicóptero':
-          bens.temUmHelicoptero = true;
-        break;
-      }
-    }
-
-    return bens;
   }
 
   /**
@@ -164,27 +132,6 @@ class FilterPage extends React.Component {
     });
   }
 
-  prepareFilter(values) {
-    let filterValues = {};
-
-    for(let property in values) {
-      switch (property) {
-        case 'nacionalidade':
-          filterValues.nacionalidade = values.nacionalidade;
-        break;
-        case 'sexo':
-          filterValues.sexo = values.sexo;
-        break;
-        case 'bens':
-          filterValues = _assign(filterValues, this.mountWordlyGoodsObject(values));
-        break;
-      }
-    }
-
-    return filterValues;
-  }
-
-
   /**
    * findByName - description
    * Busca pelo nome no array recebido e retorna o array filtrado caso o nome passado
@@ -203,35 +150,37 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(values) {
-    let { diaDoCasamentoGTE, diaDoCasamentoLTE } = values;
+  doAdvancedFilter(value) {     
+    let { diaDoCasamentoGTE, diaDoCasamentoLTE } = this.filterValues;
     let foundData;
 
-    if(!_isEmpty(values)) {
-      let filterValues = this.prepareFilter(values);
+    if(!_isEmpty(this.filterValues)) {      
       let comparableDateGTE = this.toDate(diaDoCasamentoGTE);
       let comparableDateLTE = this.toDate(diaDoCasamentoLTE);
-
-      if(comparableDateGTE && !comparableDateLTE) {
-        foundData = this.findDatesGreaterThan(comparableDateGTE);
-      } else if(comparableDateLTE && !comparableDateGTE) {
-        foundData = this.findDatesLesserThan(comparableDateLTE);
+      
+      if(comparableDateGTE && !comparableDateLTE) {        
+        foundData = this.findDatesGreaterThan(comparableDateGTE);        
+      } else if(comparableDateLTE && !comparableDateGTE) {        
+        foundData = this.findDatesLesserThan(comparableDateLTE);        
       } else {
-        foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);
+        foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
       }
+      
+      delete this.filterValues['diaDoCasamentoGTE'];
+      delete this.filterValues['diaDoCasamentoLTE'];
 
       if(!_isEmpty(foundData)) {
-        foundData = this.findByName(values.nome, foundData);
+        foundData = this.findByName(value, foundData);
       } else {
-        foundData = this.findByName(values.nome, this.immutableData);
+        foundData = this.findByName(value, this.immutableData);
       }
 
-      foundData = _filter(foundData, filterValues);
+      foundData = _filter(foundData, this.filterValues);
     } else {
       foundData = this.immutableData;
     }
 
-    this.setState({dataFoundByFilterWithOptions: foundData});
+    this.setState({dataFoundByFilterWithOptions: foundData});    
   }
 
   simpleFilter(value) {
@@ -242,33 +191,76 @@ class FilterPage extends React.Component {
     this.setState({dataFoundByFilterWithoutOptions: foundData});
   }
 
-  render() {
+  clearAll() {
+    this.filterValues = {};
+    this.refs.mac.checked = false;
+    this.refs.carro.checked = false;
+    this.refs.helicoptero.checked = false;
+    this.refs.bicicleta.checked = false;
+    this.refs.sexoMasculino.checked = false;
+    this.refs.sexoFeminino.checked = false;
+    this.refs.diaDoCasamentoGTE.value = '';
+    this.refs.diaDoCasamentoLTE.value = '';
+    this.refs.nacionalidade.value = '';
+    this.doAdvancedFilter();
+  }
+
+  mountWordlyGoodsObject(value) {    
+    let wordlyGoods = _assign({ 
+      temUmaBicicleta: this.refs.bicicleta.checked, 
+      temUmCarro: this.refs.carro.checked, 
+      temUmMac: this.refs.mac.checked, 
+      temUmHelicoptero: this.refs.helicoptero.checked, 
+    }, {});
+
+    this.filterValues = _assign(this.filterValues, wordlyGoods);
+
+    if(!wordlyGoods.temUmaBicicleta &&
+      !wordlyGoods.temUmCarro &&
+      !wordlyGoods.temUmMac &&
+      !wordlyGoods.temUmHelicoptero) {
+      delete this.filterValues['temUmaBicicleta'];   
+      delete this.filterValues['temUmCarro'];
+      delete this.filterValues['temUmMac'];
+      delete this.filterValues['temUmHelicoptero'];
+    }    
+  }
+
+  mountFilterObject(value) {          
+    this.filterValues = _assign(this.filterValues, value);
+    if(value['nacionalidade'] == '') {
+      delete this.filterValues['nacionalidade'];
+    }        
+    delete this.filterValues['bens'];
+  }
+
+  render() {        
     return (
       <div className='dm-content'>
         <h3>Filter</h3>
         <p>
-          Quando o filtro é aplicado, a propriedade chamada <b>onFilter</b> retorna um objeto com o
-          estado atual do filtro. Quando os campos são limpos, a propriedade chamada <b> onClearAll </b>
-          executa um callback caso este exista. Se você optar pelo filtro com opções e estas forem
-          diferentes de select, radio ou checkbox, se fará obrigatório um callback para a propriedade
-          onClearAll.
+          Quando o filtro é aplicado, a propriedade chamada <b> onFilter </b> retorna o valor
+          do campo de busca. Quando o campo de busca é limpo, a mesma função da propriedade
+          onFilter é executada retornando um valor vazio.
         </p>
         <h5 className='bold'>
           Filtro com opções
         </h5>
         <p>
-          Você pode configurá-las do jeito que quiser, desde que cada
-          input possua a propriedade "name", inclusive o componente filtro.
-          Se você deseja um conjunto de opções para um checkbox, basta dar às opções o mesmo nome.
-          O nome de um input será a sua chave no objeto de retorno da propriedade onFilter.
+          Você pode configurá-las do jeito que quiser, basta colocar as opções dentro do
+          componente. Com esta configuração, existirá uma propriedade chamada <b> onClearAll </b>
+          que executará a função recebida como propriedade quando as opções do filtro forem limpas.
         </p>
         <Filter name='nome'
-          onFilter={(values) => this.doAdvancedFilter(values)}
+          onClearAll={() => this.clearAll()}
+          onFilter={(value) => this.doAdvancedFilter(value)}          
           placeholder='Buscar por nome...'>
           <label>
             <span> Nacionalidade: </span>
             <div className='sv-select'>
-              <select name='nacionalidade'>
+              <select 
+                onChange={(e) => this.mountFilterObject({'nacionalidade': e.target.value})}
+                ref='nacionalidade'>
                 <option value=''/>
                 <option value='Itália'>Itália</option>
                 <option value='Estados Unidos'>Estados Unidos</option>
@@ -287,9 +279,10 @@ class FilterPage extends React.Component {
               <div className='sv-column'>
                 <label>
                   <div className='sv-select'>
-                    <input
-                      name='diaDoCasamentoGTE'
+                    <input                      
+                      onChange={(e) => this.mountFilterObject({'diaDoCasamentoGTE': e.target.value})}
                       placeholder='dd/mm/yyyy'
+                      ref='diaDoCasamentoGTE'
                       type='text'
                     />
                     <label style={{color: '#648391'}}>
@@ -301,9 +294,10 @@ class FilterPage extends React.Component {
               <div className='sv-column'>
                 <label>
                   <div className='sv-select'>
-                    <input
-                      name='diaDoCasamentoLTE'
+                    <input                      
+                      onChange={(e) => this.mountFilterObject({'diaDoCasamentoLTE': e.target.value})}                      
                       placeholder='dd/mm/yyyy'
+                      ref='diaDoCasamentoLTE'
                       type='text'
                      />
                     <label style={{color: '#648391'}}>
@@ -318,25 +312,55 @@ class FilterPage extends React.Component {
             <span>Sexo:</span>
           </label>
           <label>
-            <input name='sexo' type='radio' value='Masculino' /> Masculino
+            <input 
+              onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
+              ref='sexoMasculino'               
+              type='radio'
+              value='Masculino'
+            /> Masculino
           </label>
           <label>
-            <input name='sexo' type='radio' value='Feminino' /> Feminino
+            <input                
+              onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
+              ref='sexoFeminino'
+              type='radio' 
+              value='Feminino' 
+            /> Feminino
           </label>
           <label>
             <span>Bens materiais: </span>
           </label>
           <label>
-            <input name='bens' type='checkbox' value='bicicleta' /> Bicicleta
+            <input              
+              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
+              ref='bicicleta'
+              type='checkbox'
+              value='bicicleta'
+            /> Bicicleta
           </label>
           <label>
-            <input name='bens' type='checkbox' value='carro' /> Carro
+            <input               
+              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
+              ref='carro' 
+              type='checkbox' 
+              value='carro' 
+            /> Carro
           </label>
           <label>
-            <input name='bens' type='checkbox' value='helicóptero' /> Helicóptero
+            <input                
+              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
+              ref='helicoptero' 
+              type='checkbox' 
+              value='helicóptero' 
+            /> Helicóptero
           </label>
           <label>
-            <input name='bens' type='checkbox' value='mac' /> Mac
+            <input              
+              onChange={(e) => this.mountWordlyGoodsObject(e.target)} 
+              ref='mac'
+              type='checkbox' 
+              value='mac' 
+            /> Mac
           </label>
         </Filter>
         <div className='sv-vertical-marged-15'/>
@@ -351,28 +375,14 @@ class FilterPage extends React.Component {
           <PrismCode className='language-js'>
             {require('!raw-loader!./exemploDeFiltroComOpcoes.js')}
           </PrismCode>
-        </ShowCode>
-        <div className='sv-vertical-marged-25'/>
-        <p>
-          Se o usuário busca por exemplo, o italiano "Pedro Saraiva" que possui
-          uma bicicleta, um carro e um helicóptero, o objeto de retorno seria:
-        </p>
-        <div className='dm-code-container'>
-          <pre>
-            <PrismCode className='language-js'>
-              {require('!raw-loader!./exemploDeRetornoDoFiltroComOpcoes.js')}
-            </PrismCode>
-          </pre>
-        </div>
+        </ShowCode>        
         <div className='sv-vertical-marged-25'/>
         <h5 className='bold'>
           Filtro simples
         </h5>
         <p>
-          Com esta configuração, você obterá apenas o valor atual do campo de busca
-          retornado pela propriedade onFilter. A busca acontece quando o usuário começa a digitar.
-          Repare que, neste caso não se faz necessário nomear o filtro como fizemos no filtro
-          com opções.
+          Com esta configuração você obterá o valor atual do campo de busca a 
+          partir da propriedade onFilter, assim que usuário começa a digitar.          
         </p>
         <Filter
           onFilter={(value) => this.simpleFilter(value)}

@@ -2,15 +2,11 @@ import React from 'react';
 import { Filter } from 'syntec-apollo-11';
 
 class ExemploDeFiltroComOpcoes extends React.Component {
-
-  constructor() {
-    super();
-  }
-
+  
   /**
-    * Função que recebe os valores do filtro.
+    * Função que recebe o valor do campo de busca e é disparada quando o usuário aplica o filtro.
   */
-  filtrar(valoresDoFiltro) { }
+  filtrar(valorDoCampoDeBusca) { }
 
   /**
     * Função para executar quando o usuário limpa os campos.
@@ -24,10 +20,9 @@ class ExemploDeFiltroComOpcoes extends React.Component {
           applyFilterButtonLabel='O valor do botão aplicar filtro'
           cancelButtonLabel='O valor do botão cancelar'
           clearAllButtonLabel='O valor do botão limpar filtro'
-          filterButtonLabel='O valor do botão de opções do filtro'
-          name='nome'
+          filterButtonLabel='O valor do botão de opções do filtro'          
           onClearAll={() => this.limparCampos()}
-          onFilter={(valoresDoFiltro) => this.filtrar(valoresDoFiltro)}>
+          onFilter={(valorDoCampoDeBusca) => this.filtrar(valorDoCampoDeBusca)}>
           <label>
             <span> Nacionalidade: </span>
             <div className='sv-select'>
