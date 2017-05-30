@@ -156,25 +156,22 @@ class FilterPage extends React.Component {
     let comparableDateGTE = this.toDate(this.refs.diaDoCasamentoGTE.value);
     let comparableDateLTE = this.toDate(this.refs.diaDoCasamentoLTE.value);
 
-    if(!_isEmpty(this.filterValues) || value !== '' || comparableDateGTE || comparableDateLTE) { 
-           
-      if(!comparableDateLTE && comparableDateGTE) {        
-        foundData = this.findDatesGreaterThan(comparableDateGTE);        
-      } else if(comparableDateLTE && !comparableDateGTE) {        
-        foundData = this.findDatesLesserThan(comparableDateLTE);        
-      } else {
-        foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
-      }
+    if(!comparableDateLTE && comparableDateGTE) {        
+      foundData = this.findDatesGreaterThan(comparableDateGTE);        
+    } else if(comparableDateLTE && !comparableDateGTE) {        
+      foundData = this.findDatesLesserThan(comparableDateLTE);        
+    } else {
+      foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
+    }
 
-      if(!_isEmpty(foundData)) {
-        foundData = this.findByName(value, foundData);
-      } else {
-        foundData = this.findByName(value, this.immutableData);
-      }
+    if(!_isEmpty(foundData)) {
+      foundData = this.findByName(value, foundData);
+    } else {
+      foundData = this.findByName(value, this.immutableData);
+    }
 
-      if(!_isEmpty(this.filterValues)) {
-        foundData = _filter(foundData, this.filterValues);
-      }      
+    if(!_isEmpty(this.filterValues)) {
+      foundData = _filter(foundData, this.filterValues);      
     }
 
     this.setState({
