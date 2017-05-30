@@ -150,24 +150,21 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(value) {         
-    let { diaDoCasamentoGTE, diaDoCasamentoLTE } = this.filterValues;
+  doAdvancedFilter(value) {    
     let foundData = this.immutableData;
 
-    if(!_isEmpty(this.filterValues) || value !== '') {      
-      let comparableDateGTE = this.toDate(diaDoCasamentoGTE);
-      let comparableDateLTE = this.toDate(diaDoCasamentoLTE);
-      
+    let comparableDateGTE = this.toDate(this.refs.diaDoCasamentoGTE.value);
+    let comparableDateLTE = this.toDate(this.refs.diaDoCasamentoLTE.value);
+
+    if(!_isEmpty(this.filterValues) || value !== '' || comparableDateGTE || comparableDateLTE) { 
+           
       if(!comparableDateLTE && comparableDateGTE) {        
         foundData = this.findDatesGreaterThan(comparableDateGTE);        
       } else if(comparableDateLTE && !comparableDateGTE) {        
         foundData = this.findDatesLesserThan(comparableDateLTE);        
-      } else if(comparableDateLTE && comparableDateGTE) {
+      } else {
         foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
       }
-      
-      delete this.filterValues['diaDoCasamentoGTE'];
-      delete this.filterValues['diaDoCasamentoLTE'];
 
       if(!_isEmpty(foundData)) {
         foundData = this.findByName(value, foundData);
@@ -175,7 +172,9 @@ class FilterPage extends React.Component {
         foundData = this.findByName(value, this.immutableData);
       }
 
-      foundData = _filter(foundData, this.filterValues);
+      if(!_isEmpty(this.filterValues)) {
+        foundData = _filter(foundData, this.filterValues);
+      }      
     }
 
     this.setState({
@@ -183,12 +182,10 @@ class FilterPage extends React.Component {
     });    
   }
 
-  simpleFilter(value) {
-    let foundData = _filter(this.immutableData, (item) => {
-      return item.nome.includes(value);
+  simpleFilter(value) {    
+    this.setState({
+      dataFoundByFilterWithoutOptions: this.findByName(value, this.immutableData),
     });
-
-    this.setState({dataFoundByFilterWithoutOptions: foundData});
   }
 
   clearAll(value) {    
@@ -280,8 +277,7 @@ class FilterPage extends React.Component {
               <div className='sv-column'>
                 <label>
                   <div className='sv-select'>
-                    <input                      
-                      onChange={(e) => this.mountFilterObject({'diaDoCasamentoGTE': e.target.value})}
+                    <input
                       placeholder='dd/mm/yyyy'
                       ref='diaDoCasamentoGTE'
                       type='text'
@@ -295,8 +291,7 @@ class FilterPage extends React.Component {
               <div className='sv-column'>
                 <label>
                   <div className='sv-select'>
-                    <input                      
-                      onChange={(e) => this.mountFilterObject({'diaDoCasamentoLTE': e.target.value})}                      
+                    <input
                       placeholder='dd/mm/yyyy'
                       ref='diaDoCasamentoLTE'
                       type='text'
