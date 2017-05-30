@@ -83,7 +83,8 @@ class FilterPage extends React.Component {
 
   /**
    * toDate - description
-   * Converte uma data dd/mm/aaaa para um tipo date
+   * Converte uma data dd/mm/aaaa para o formato padrão do tipo date: mm/dd/aaaa,
+   * para conseguir instanciar uma data com este valor.
    * @param  {type} dateToConvert description
    * @return {type}               description
    */
@@ -96,7 +97,7 @@ class FilterPage extends React.Component {
 
   /**
    * findDatesLesserThan - description
-   * Retorna dados filtrados por uma data menor do que a recebida
+   * Retorna os dados com data menor do que a data recebida
    * @param  {type} date description
    * @return {type}      description
    */
@@ -108,7 +109,7 @@ class FilterPage extends React.Component {
 
   /**
    * findDatesGreaterThan - description
-   * Retorna dados filtrados por uma data maior do que a recebida
+   * Retorna os dados com data maior do que a data recebida
    * @param  {type} date description
    * @return {type}      description
    */
@@ -120,7 +121,7 @@ class FilterPage extends React.Component {
 
   /**
    * findDatesBetween - description
-   * Retorna dados filtrados por duas datas
+   * Retorna os dados com data entre as duas datas recebidas 
    * @param  {type} dateLTE description
    * @param  {type} dateGTE description
    * @return {type}         description
@@ -272,31 +273,21 @@ class FilterPage extends React.Component {
             <span> Dia de casamento entre: </span>
             <div className='sv-row--with-gutter'>
               <div className='sv-column'>
-                <label>
-                  <div className='sv-select'>
-                    <input
-                      placeholder='dd/mm/yyyy'
-                      ref='diaDoCasamentoGTE'
-                      type='text'
-                    />
-                    <label style={{color: '#648391'}}>
-                      <i className='fa fa-calendar'/>
-                    </label>
-                  </div>
+                <label>                  
+                  <input
+                    placeholder='dd/mm/yyyy'
+                    ref='diaDoCasamentoGTE'
+                    type='text'
+                  />                  
                 </label>
               </div>
               <div className='sv-column'>
-                <label>
-                  <div className='sv-select'>
-                    <input
-                      placeholder='dd/mm/yyyy'
-                      ref='diaDoCasamentoLTE'
-                      type='text'
-                     />
-                    <label style={{color: '#648391'}}>
-                      <i className='fa fa-calendar'/>
-                    </label>
-                  </div>
+                <label>                  
+                  <input
+                    placeholder='dd/mm/yyyy'
+                    ref='diaDoCasamentoLTE'
+                    type='text'
+                   />                    
                 </label>
               </div>
             </div>
