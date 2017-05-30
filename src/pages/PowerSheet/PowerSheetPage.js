@@ -14,7 +14,7 @@ class PowerSheetPage extends React.Component {
   }
 
   printPrice(row) {
-    return `R$ ${row.preco}`;
+    return `R$ ${row.price}`;
   }
 
   printPriceOnFilter(price) {
@@ -28,7 +28,7 @@ class PowerSheetPage extends React.Component {
   render() {
     return (
       <div className='dm-content'>
-        <h3> PowerSheet </h3>
+        <h3> PowerSheet </h3>          
           <PowerSheet
             containerHeight={495}
             fetch={{url: 'http://localhost:3003/users', method: 'get'}}
@@ -36,9 +36,9 @@ class PowerSheetPage extends React.Component {
           >
             <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' width={120} />
             <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
-            <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
+            <SheetColumn columnTitle='Time' dataKey='time' groupBy searchable />
             <SheetColumn columnTitle='E-mail' dataKey='email' searchable />
-            <SheetColumn columnTitle='Qtd.' dataKey='quantity' dataType='numeric' searchable width={80} />
+            <SheetColumn columnTitle='Preço' dataKey='price' dataType='numeric' formatter={this.printPrice} formatterOnFilter={this.printPriceOnFilter} searchable width={120} />
           </PowerSheet>
       </div>
     );
