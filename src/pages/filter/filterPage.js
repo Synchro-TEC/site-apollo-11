@@ -5,11 +5,9 @@ import React from 'react';
 import { Filter, DataTable, DataTableColumn } from 'syntec-apollo-11';
 import { PrismCode } from 'react-prism';
 import ShowCode from '../../components/ShowCode';
-import axios from 'axios';
 import _isEmpty from 'lodash/isEmpty';
 import _filter from 'lodash/filter';
 import _assign from 'lodash/assign';
-import _remove from 'lodash/remove';
 
 class FilterPage extends React.Component {
 
@@ -17,59 +15,59 @@ class FilterPage extends React.Component {
     super();
     this.immutableData = [
       {
-        nome: 'Lorraine Barros',
-        nacionalidade: 'Rússia',
-        sexo: 'Feminino',
-        diaDoCasamento: '02/03/2017',
-        bens: 'Bicicleta, carro, helicóptero, mac',
-        temUmaBicicleta: true,
-        temUmCarro: true,
-        temUmHelicoptero: true,
-        temUmMac: true,
+        name: 'Lorraine Barros',
+        nationality: 'Rússia',
+        gender: 'Feminino',
+        weddingDay: '02/03/2017',
+        wordlyGoods: 'Bicicleta, carro, helicóptero, mac',
+        hadABike: true,
+        hadACar: true,
+        hadAHelicopter : true,
+        hadAMac: true,
       },
       {
-        nome: 'Núbia Xavier',
-        nacionalidade: 'Estados Unidos',
-        sexo: 'Feminino',
-        diaDoCasamento: '28/02/2010',
-        bens: 'Helicóptero',
-        temUmHelicoptero: true,
-        temUmMac: false,
-        temUmaBicicleta: false,
-        temUmCarro: false,
+        name: 'Núbia Xavier',
+        nationality: 'Estados Unidos',
+        gender: 'Feminino',
+        weddingDay: '28/02/2010',
+        wordlyGoods: 'Helicóptero',
+        hadAHelicopter : true,
+        hadAMac: false,
+        hadABike: false,
+        hadACar: false,
       },
       {
-        nome: 'Vitória Braga Filho',
-        nacionalidade: 'Austrália',
-        sexo: 'Feminino',
-        diaDoCasamento: '08/02/2005',
-        bens: 'Bicicleta',
-        temUmaBicicleta: true,
-        temUmMac: false,
-        temUmCarro: false,
-        temUmHelicoptero: false,
+        name: 'Vitória Braga Filho',
+        nationality: 'Austrália',
+        gender: 'Feminino',
+        weddingDay: '08/02/2005',
+        wordlyGoods: 'Bicicleta',
+        hadABike: true,
+        hadAMac: false,
+        hadACar: false,
+        hadAHelicopter : false,
       },
       {
-        nome: 'Ladislau Braga',
-        nacionalidade: 'Nova Zelândia',
-        sexo: 'Masculino',
-        diaDoCasamento: '10/01/2000',
-        temUmaBicicleta: true,
-        temUmMac: true,
-        temUmHelicoptero: false,
-        temUmCarro: false,
-        bens: 'Bicicleta, mac',
+        name: 'Ladislau Braga',
+        nationality: 'Nova Zelândia',
+        gender: 'Masculino',
+        weddingDay: '10/01/2000',
+        hadABike: true,
+        hadAMac: true,
+        hadAHelicopter : false,
+        hadACar: false,
+        wordlyGoods: 'Bicicleta, mac',
       },
       {
-        nome: 'Pedro Saraiva',
-        nacionalidade: 'Itália',
-        sexo: 'Masculino',
-        diaDoCasamento: '07/07/1996',
-        bens: 'Bicicleta, carro, helicóptero',
-        temUmaBicicleta: true,
-        temUmCarro: true,
-        temUmHelicoptero: true,
-        temUmMac: false,
+        name: 'Pedro Saraiva',
+        nationality: 'Itália',
+        gender: 'Masculino',
+        weddingDay: '07/07/1996',
+        wordlyGoods: 'Bicicleta, carro, helicóptero',
+        hadABike: true,
+        hadACar: true,
+        hadAHelicopter : true,
+        hadAMac: false,
       },
     ];
 
@@ -101,9 +99,9 @@ class FilterPage extends React.Component {
    * @param  {type} date description
    * @return {type}      description
    */
-  findDatesLesserThan(date) {
+  findDatesLesserThan(dateLTE) {
     return _filter(this.immutableData, (item) => {
-      return date >= this.toDate(item.diaDoCasamento);
+      return dateLTE >= this.toDate(item.weddingDay);
     });
   }
 
@@ -113,9 +111,9 @@ class FilterPage extends React.Component {
    * @param  {type} date description
    * @return {type}      description
    */
-  findDatesGreaterThan(date) {
+  findDatesGreaterThan(dateGTE) {
     return _filter(this.immutableData, (item) => {
-      return date <= this.toDate(item.diaDoCasamento);
+      return dateGTE <= this.toDate(item.weddingDay);
     });
   }
 
@@ -128,7 +126,7 @@ class FilterPage extends React.Component {
    */
   findDatesBetween(dateLTE, dateGTE) {
     return _filter(this.immutableData, (item) => {
-      let itemWeddingDay = this.toDate(item.diaDoCasamento);
+      let itemWeddingDay = this.toDate(item.weddingDay);
       return dateGTE <= itemWeddingDay && dateLTE >= itemWeddingDay;
     });
   }
@@ -141,10 +139,10 @@ class FilterPage extends React.Component {
    * @param  {type} data description
    * @return {type}      description
    */
-  findByName(nome, data) {
-    if(nome && nome !== '') {
+  findByName(name, data) {
+    if(name && name !== '') {
       return _filter(data, (item) => {
-        return item.nome.includes(nome);
+        return item.name.includes(name);
       });
     } else {
       return data;
@@ -154,15 +152,15 @@ class FilterPage extends React.Component {
   doAdvancedFilter(value) {    
     let foundData = this.immutableData;
 
-    let comparableDateGTE = this.toDate(this.refs.diaDoCasamentoGTE.value);
-    let comparableDateLTE = this.toDate(this.refs.diaDoCasamentoLTE.value);
+    let dateGTE = this.toDate(this.refs.weddingDayGTE.value);
+    let dateLTE = this.toDate(this.refs.weddingDayLTE.value);
 
-    if(!comparableDateLTE && comparableDateGTE) {        
-      foundData = this.findDatesGreaterThan(comparableDateGTE);        
-    } else if(comparableDateLTE && !comparableDateGTE) {        
-      foundData = this.findDatesLesserThan(comparableDateLTE);        
-    } else {
-      foundData = this.findDatesBetween(comparableDateLTE, comparableDateGTE);              
+    if(!dateLTE && dateGTE) {        
+      foundData = this.findDatesGreaterThan(dateGTE);        
+    } else if(dateLTE && !dateGTE) {        
+      foundData = this.findDatesLesserThan(dateLTE);        
+    } else if(dateLTE && dateGTE) {
+      foundData = this.findDatesBetween(dateLTE, dateGTE);              
     }
 
     if(!_isEmpty(foundData)) {
@@ -189,44 +187,40 @@ class FilterPage extends React.Component {
   clearAll(value) {    
     this.filterValues = {};
     this.refs.mac.checked = false;
-    this.refs.carro.checked = false;
-    this.refs.helicoptero.checked = false;
-    this.refs.bicicleta.checked = false;
-    this.refs.sexoMasculino.checked = false;
-    this.refs.sexoFeminino.checked = false;
-    this.refs.diaDoCasamentoGTE.value = '';
-    this.refs.diaDoCasamentoLTE.value = '';
-    this.refs.nacionalidade.value = '';    
+    this.refs.car.checked = false;
+    this.refs.helicopter.checked = false;
+    this.refs.bike.checked = false;
+    this.refs.male.checked = false;
+    this.refs.female.checked = false;
+    this.refs.weddingDayGTE.value = '';
+    this.refs.weddingDayLTE.value = '';
+    this.refs.nationality.value = '';    
     this.doAdvancedFilter(value);    
   }
 
-  mountWordlyGoodsObject(value) {    
-    let wordlyGoods = _assign({ 
-      temUmaBicicleta: this.refs.bicicleta.checked, 
-      temUmCarro: this.refs.carro.checked, 
-      temUmMac: this.refs.mac.checked, 
-      temUmHelicoptero: this.refs.helicoptero.checked, 
-    }, {});
+  mountWordlyGoodsObject(value) {
+    let hadABike = this.refs.bike.checked; 
+    let hadACar = this.refs.car.checked;
+    let hadAMac = this.refs.mac.checked;
+    let hadAHelicopter = this.refs.helicopter.checked;
 
-    this.filterValues = _assign(this.filterValues, wordlyGoods);
-
-    if(!wordlyGoods.temUmaBicicleta &&
-      !wordlyGoods.temUmCarro &&
-      !wordlyGoods.temUmMac &&
-      !wordlyGoods.temUmHelicoptero) {
-      delete this.filterValues['temUmaBicicleta'];   
-      delete this.filterValues['temUmCarro'];
-      delete this.filterValues['temUmMac'];
-      delete this.filterValues['temUmHelicoptero'];
-    }    
+    if(hadABike || hadACar || hadAMac || hadAHelicopter) {
+      let wordlyGoods = _assign({
+        hadABike: hadABike, 
+        hadACar: hadACar, 
+        hadAMac: hadAMac, 
+        hadAHelicopter : hadAHelicopter, 
+      }, {});  
+      this.filterValues = _assign(this.filterValues, wordlyGoods);  
+    }           
   }
 
   mountFilterObject(value) {              
     this.filterValues = _assign(this.filterValues, value);
-    if(value['nacionalidade'] == '') {
-      delete this.filterValues['nacionalidade'];
+    if(value['nationality'] == '') {
+      delete this.filterValues['nationality'];
     }        
-    delete this.filterValues['bens'];
+    delete this.filterValues['wordlyGoods'];
   }
 
   render() {        
@@ -247,7 +241,7 @@ class FilterPage extends React.Component {
           que executará a função recebida como propriedade quando as opções do filtro forem limpas
           e retornará o valor do campo de busca.
         </p>
-        <Filter name='nome'
+        <Filter
           onClearAll={(value) => this.clearAll(value)}
           onFilter={(value) => this.doAdvancedFilter(value)}          
           placeholder='Buscar por nome...'>
@@ -255,8 +249,8 @@ class FilterPage extends React.Component {
             <span> Nacionalidade: </span>
             <div className='sv-select'>
               <select 
-                onChange={(e) => this.mountFilterObject({'nacionalidade': e.target.value})}
-                ref='nacionalidade'>
+                onChange={(e) => this.mountFilterObject({'nationality': e.target.value})}
+                ref='nationality'>
                 <option value=''/>
                 <option value='Itália'>Itália</option>
                 <option value='Estados Unidos'>Estados Unidos</option>
@@ -276,7 +270,7 @@ class FilterPage extends React.Component {
                 <label>                  
                   <input
                     placeholder='dd/mm/yyyy'
-                    ref='diaDoCasamentoGTE'
+                    ref='weddingDayGTE'
                     type='text'
                   />                  
                 </label>
@@ -285,7 +279,7 @@ class FilterPage extends React.Component {
                 <label>                  
                   <input
                     placeholder='dd/mm/yyyy'
-                    ref='diaDoCasamentoLTE'
+                    ref='weddingDayLTE'
                     type='text'
                    />                    
                 </label>
@@ -297,18 +291,18 @@ class FilterPage extends React.Component {
           </label>
           <label>
             <input              
-              name='sexo'
-              onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
-              ref='sexoMasculino'        
+              name='gender'
+              onChange={(e) => this.mountFilterObject({'gender': e.target.value})}
+              ref='male'        
               type='radio'
               value='Masculino'
             /> Masculino
           </label>
           <label>
             <input              
-              name='sexo'        
-              onChange={(e) => this.mountFilterObject({'sexo': e.target.value})}
-              ref='sexoFeminino'
+              name='gender'        
+              onChange={(e) => this.mountFilterObject({'gender': e.target.value})}
+              ref='female'
               type='radio' 
               value='Feminino' 
             /> Feminino
@@ -318,31 +312,31 @@ class FilterPage extends React.Component {
           </label>
           <label>
             <input              
-              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
-              ref='bicicleta'
+              onChange={() => this.mountWordlyGoodsObject()}
+              ref='bike'
               type='checkbox'
-              value='bicicleta'
+              value='bike'
             /> Bicicleta
           </label>
           <label>
             <input               
-              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
-              ref='carro' 
+              onChange={() => this.mountWordlyGoodsObject()}
+              ref='car' 
               type='checkbox' 
-              value='carro' 
+              value='car' 
             /> Carro
           </label>
           <label>
             <input                
-              onChange={(e) => this.mountWordlyGoodsObject(e.target)}
-              ref='helicoptero' 
+              onChange={() => this.mountWordlyGoodsObject()}
+              ref='helicopter' 
               type='checkbox' 
               value='helicóptero' 
             /> Helicóptero
           </label>
           <label>
             <input              
-              onChange={(e) => this.mountWordlyGoodsObject(e.target)} 
+              onChange={() => this.mountWordlyGoodsObject()} 
               ref='mac'
               type='checkbox' 
               value='mac' 
@@ -351,11 +345,11 @@ class FilterPage extends React.Component {
         </Filter>
         <div className='sv-vertical-marged-15'/>
         <DataTable data={this.state.dataFoundByFilterWithOptions}>
-          <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
-          <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
-          <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
-          <DataTableColumn dataKey='diaDoCasamento'>Dia do Casamento</DataTableColumn>
-          <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
+          <DataTableColumn dataKey='name'>Nome</DataTableColumn>
+          <DataTableColumn dataKey='nationality'>Nacionalidade</DataTableColumn>
+          <DataTableColumn dataKey='gender'>Sexo</DataTableColumn>
+          <DataTableColumn dataKey='weddingDay'>Dia do Casamento</DataTableColumn>
+          <DataTableColumn dataKey='wordlyGoods'>Bens</DataTableColumn>
         </DataTable>
         <ShowCode>
           <PrismCode className='language-js'>
@@ -376,11 +370,11 @@ class FilterPage extends React.Component {
         />
         <div className='sv-vertical-marged-15'/>
         <DataTable data={this.state.dataFoundByFilterWithoutOptions}>
-          <DataTableColumn dataKey='nome'>Nome</DataTableColumn>
-          <DataTableColumn dataKey='nacionalidade'>Nacionalidade</DataTableColumn>
-          <DataTableColumn dataKey='sexo'>Sexo</DataTableColumn>
-          <DataTableColumn dataKey='diaDoCasamento'>Dia do casamento</DataTableColumn>
-          <DataTableColumn dataKey='bens'>Bens</DataTableColumn>
+          <DataTableColumn dataKey='name'>Nome</DataTableColumn>
+          <DataTableColumn dataKey='nationality'>Nacionalidade</DataTableColumn>
+          <DataTableColumn dataKey='gender'>Sexo</DataTableColumn>
+          <DataTableColumn dataKey='weddingDay'>Dia do casamento</DataTableColumn>
+          <DataTableColumn dataKey='wordlyGoods'>Bens</DataTableColumn>
         </DataTable>
         <ShowCode>
           <PrismCode className='language-js'>
