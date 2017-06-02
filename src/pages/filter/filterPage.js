@@ -215,12 +215,11 @@ class FilterPage extends React.Component {
     }           
   }
 
-  mountFilterObject(value) {              
+  mountFilterObject(object) {              
     this.filterValues = _assign(this.filterValues, value);
     if(value['nationality'] == '') {
       delete this.filterValues['nationality'];
-    }        
-    delete this.filterValues['wordlyGoods'];
+    }
   }
 
   render() {        

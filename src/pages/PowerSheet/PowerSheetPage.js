@@ -38,7 +38,15 @@ class PowerSheetPage extends React.Component {
             <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
             <SheetColumn columnTitle='Time' dataKey='time' groupBy searchable />
             <SheetColumn columnTitle='E-mail' dataKey='email' searchable />
-            <SheetColumn columnTitle='Preço' dataKey='price' dataType='numeric' formatter={this.printPrice} formatterOnFilter={this.printPriceOnFilter} searchable width={120} />
+            <SheetColumn 
+              columnTitle='Preço' 
+              dataKey='price' 
+              dataType='numeric' 
+              formatter={this.printPrice} 
+              formatterOnFilter={this.printPriceOnFilter} 
+              searchable 
+              width={120} 
+            />
           </PowerSheet>
       </div>
     );
