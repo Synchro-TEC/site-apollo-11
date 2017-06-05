@@ -149,9 +149,8 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(value) {    
+  doAdvancedFilter(searchValue) {        
     let foundData = this.immutableData;
-
     let dateGTE = this.toDate(this.refs.weddingDayGTE.value);
     let dateLTE = this.toDate(this.refs.weddingDayLTE.value);
 
@@ -164,9 +163,9 @@ class FilterPage extends React.Component {
     }
 
     if(!_isEmpty(foundData)) {
-      foundData = this.findByName(value, foundData);
+      foundData = this.findByName(searchValue, foundData);
     } else {
-      foundData = this.findByName(value, this.immutableData);
+      foundData = this.findByName(searchValue, this.immutableData);
     }
 
     if(!_isEmpty(this.filterValues)) {
@@ -178,13 +177,13 @@ class FilterPage extends React.Component {
     });    
   }
 
-  simpleFilter(value) {    
+  simpleFilter(searchValue) {    
     this.setState({
-      dataFoundByFilterWithoutOptions: this.findByName(value, this.immutableData),
+      dataFoundByFilterWithoutOptions: this.findByName(searchValue, this.immutableData),
     });
   }
 
-  clearAll(value) {    
+  clearAll(searchValue) {    
     this.filterValues = {};
     this.refs.mac.checked = false;
     this.refs.car.checked = false;
@@ -195,29 +194,28 @@ class FilterPage extends React.Component {
     this.refs.weddingDayGTE.value = '';
     this.refs.weddingDayLTE.value = '';
     this.refs.nationality.value = '';    
-    this.doAdvancedFilter(value);    
+    this.doAdvancedFilter(searchValue);    
   }
 
-  mountWordlyGoodsObject(value) {
+  mountWordlyGoodsObject() {
     let hadABike = this.refs.bike.checked; 
     let hadACar = this.refs.car.checked;
     let hadAMac = this.refs.mac.checked;
     let hadAHelicopter = this.refs.helicopter.checked;
 
-    if(hadABike || hadACar || hadAMac || hadAHelicopter) {
-      let wordlyGoods = _assign({
+    if(hadABike || hadACar || hadAMac || hadAHelicopter) {      
+      this.filterValues = _assign(this.filterValues, _assign({
         hadABike: hadABike, 
         hadACar: hadACar, 
         hadAMac: hadAMac, 
         hadAHelicopter : hadAHelicopter, 
-      }, {});  
-      this.filterValues = _assign(this.filterValues, wordlyGoods);  
+      }, {}));  
     }           
   }
 
-  mountFilterObject(object) {              
-    this.filterValues = _assign(this.filterValues, value);
-    if(value['nationality'] == '') {
+  mountFilterObject(object) {
+    this.filterValues = _assign(this.filterValues, object);
+    if(object.nationality == '') {
       delete this.filterValues['nationality'];
     }
   }
