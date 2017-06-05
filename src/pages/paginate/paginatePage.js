@@ -10,26 +10,26 @@ class PaginatePage extends React.Component {
   constructor() {
     super();
     this.dataToPaginateAList = [
-      { tarefa: 'Tarefa 1', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 2', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 3', prioridade: 'Baixa' },
-      { tarefa: 'Tarefa 4', prioridade: 'Alta' },
-      { tarefa: 'Tarefa 5', prioridade: 'Média' },
-      { tarefa: 'Tarefa 6', prioridade: 'Alta' },
-      { tarefa: 'Tarefa 7', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 8', prioridade: 'Baixa' },
-      { tarefa: 'Tarefa 9', prioridade: 'Média' },
-      { tarefa: 'Tarefa 10', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 11', prioridade: 'Alta' },
-      { tarefa: 'Tarefa 12', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 13', prioridade: 'Média' },
-      { tarefa: 'Tarefa 14', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 15', prioridade: 'Baixa' },
-      { tarefa: 'Tarefa 16', prioridade: 'Média' },
-      { tarefa: 'Tarefa 17', prioridade: 'Alta' },
-      { tarefa: 'Tarefa 18', prioridade: 'Média' },
-      { tarefa: 'Tarefa 19', prioridade: 'Baixa' },
-      { tarefa: 'Tarefa 20', prioridade: 'Crítica' },
+      { task: 'Tarefa 1', priority: 'Crítica' },
+      { task: 'Tarefa 2', priority: 'Crítica' },
+      { task: 'Tarefa 3', priority: 'Baixa' },
+      { task: 'Tarefa 4', priority: 'Alta' },
+      { task: 'Tarefa 5', priority: 'Média' },
+      { task: 'Tarefa 6', priority: 'Alta' },
+      { task: 'Tarefa 7', priority: 'Crítica' },
+      { task: 'Tarefa 8', priority: 'Baixa' },
+      { task: 'Tarefa 9', priority: 'Média' },
+      { task: 'Tarefa 10', priority: 'Crítica' },
+      { task: 'Tarefa 11', priority: 'Alta' },
+      { task: 'Tarefa 12', priority: 'Crítica' },
+      { task: 'Tarefa 13', priority: 'Média' },
+      { task: 'Tarefa 14', priority: 'Crítica' },
+      { task: 'Tarefa 15', priority: 'Baixa' },
+      { task: 'Tarefa 16', priority: 'Média' },
+      { task: 'Tarefa 17', priority: 'Alta' },
+      { task: 'Tarefa 18', priority: 'Média' },
+      { task: 'Tarefa 19', priority: 'Baixa' },
+      { task: 'Tarefa 20', priority: 'Crítica' },
     ];
     this.dataToPaginateWithOptions = generateData();
     this.state = {
@@ -59,10 +59,10 @@ class PaginatePage extends React.Component {
 
   render() {
 
-    let itemsOfPaginate = this.state.dataToPaginateAList.map((tarefa, i) => {
+    let tasks = this.state.dataToPaginateAList.map((task, i) => {
       return (
         <li className='sv-vertical-marged-5' key={i}>
-          {tarefa.tarefa} - {tarefa.prioridade}
+          {task.task} - {task.priority}
         </li>
       );
     });
@@ -122,7 +122,7 @@ class PaginatePage extends React.Component {
         </p>
         <div className='sv-text-center'>
           <ul>
-            {itemsOfPaginate}
+            {tasks}
           </ul>
         </div>
         <div className='sv-vertical-marged-25'/>

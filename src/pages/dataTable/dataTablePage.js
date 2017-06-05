@@ -13,19 +13,19 @@ class DataTablePage extends React.Component {
     super();
     this.dataForDataTableWithPaginateExample = generateData();
     this.dataForSimpleDataTableExample = [
-      { tarefa: 'Tarefa 1', prioridade: 'Crítica' },
-      { tarefa: 'Tarefa 2', prioridade: 'Baixa' },
-      { tarefa: 'Tarefa 3', prioridade: 'Média' },
-      { tarefa: 'Tarefa 4', prioridade: 'Alta' },
-      { tarefa: 'Tarefa 5', prioridade: 'Crítica' },
+      { task: 'Tarefa 1', priority: 'Crítica' },
+      { task: 'Tarefa 2', priority: 'Baixa' },
+      { task: 'Tarefa 3', priority: 'Média' },
+      { task: 'Tarefa 4', priority: 'Alta' },
+      { task: 'Tarefa 5', priority: 'Crítica' },
     ];
     this.state = {
       dataForSortableColumnDataTableExample: [
-        { tarefa: 'Tarefa 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002' },
-        { tarefa: 'Tarefa 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996' },
-        { tarefa: 'Tarefa 3',  prioridade: 'Média', dataDeInicio: '31/01/2010' },
-        { tarefa: 'Tarefa 4',  prioridade: 'Crítica', dataDeInicio: '14/02/2017' },
-        { tarefa: 'Tarefa 5', prioridade: 'Alta', dataDeInicio: '14/01/2016' },
+        { task: 'Tarefa 1', priority: 'Baixa', startDate: '28/08/2002' },
+        { task: 'Tarefa 2', priority: 'Crítica', startDate: '13/05/1996' },
+        { task: 'Tarefa 3',  priority: 'Média', startDate: '31/01/2010' },
+        { task: 'Tarefa 4',  priority: 'Crítica', startDate: '14/02/2017' },
+        { task: 'Tarefa 5', priority: 'Alta', startDate: '14/01/2016' },
       ],
       dataFilteredByPaginate: this.dataForDataTableWithPaginateExample.slice(0,5),
     };
@@ -39,7 +39,9 @@ class DataTablePage extends React.Component {
   }
 
   paginateAction(paginateInfo) {
-    this.setState({dataFilteredByPaginate: this.doPaginate(paginateInfo)});
+    this.setState({
+      dataFilteredByPaginate: this.doPaginate(paginateInfo),
+    });
   }
 
   executeSort(sortInfo) {
@@ -50,7 +52,9 @@ class DataTablePage extends React.Component {
       sortedData = _sortBy(clone, (obj) => {
         if(sortInfo.columnKey === 'startDate') {
           let dateToConvert = obj[sortInfo.columnKey];
-          let convertedDate = dateToConvert.replace(/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/, '$3/$2/$1');
+          let convertedDate = dateToConvert.replace(
+            /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/, '$3/$2/$1'
+          );
           return new Date(convertedDate);
         } else {
           return obj[sortInfo.columnKey];
@@ -60,7 +64,9 @@ class DataTablePage extends React.Component {
       sortedData = clone.reverse();
     }
 
-    this.setState({dataForSortableColumnDataTableExample: sortedData});
+    this.setState({
+      dataForSortableColumnDataTableExample: sortedData,
+    });
   }
 
   render() {
@@ -80,8 +86,8 @@ class DataTablePage extends React.Component {
           chave no objeto, como mencionado acima.
         </p>
         <DataTable data={this.dataForSimpleDataTableExample}>
-          <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
-          <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
+          <DataTableColumn dataKey='task'>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
         </DataTable>
         <ShowCode>
           <PrismCode className='language-js'>
@@ -97,9 +103,9 @@ class DataTablePage extends React.Component {
           que esta sendo ordenada e a direção. Lembrando que, apenas uma coluna pode ser ordenada por vez.
         </p>
         <DataTable data={this.state.dataForSortableColumnDataTableExample} onSort={(sortInfo) => this.executeSort(sortInfo)}>
-          <DataTableColumn dataKey='tarefa' sortable>Tarefa</DataTableColumn>
-          <DataTableColumn dataKey='prioridade' sortable>Prioridade</DataTableColumn>
-          <DataTableColumn dataKey='dataDeInicio' sortable>Data de inicio</DataTableColumn>
+          <DataTableColumn dataKey='task' sortable>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='priority' sortable>Prioridade</DataTableColumn>
+          <DataTableColumn dataKey='startDate' sortable>Data de inicio</DataTableColumn>
         </DataTable>
         <ShowCode>
           <PrismCode className='language-js'>
@@ -113,8 +119,8 @@ class DataTablePage extends React.Component {
           com o componente <NavLink activeClassName='active' to='paginate'> Paginate</NavLink>.
         </p>
         <DataTable data={this.state.dataFilteredByPaginate}>
-          <DataTableColumn dataKey='tarefa'>Tarefa</DataTableColumn>
-          <DataTableColumn dataKey='prioridade'>Prioridade</DataTableColumn>
+          <DataTableColumn dataKey='task'>Tarefa</DataTableColumn>
+          <DataTableColumn dataKey='priority'>Prioridade</DataTableColumn>
         </DataTable>
         <Paginate
           onNextPage={(paginateInfo) => this.paginateAction(paginateInfo)}

@@ -8,9 +8,9 @@ function generateData() {
   for (let i = 1; i <= 130; i++) {
     data.push({
       id: i,
-      tarefa: 'Tarefa ' + i,
-      prioridade: ['Crítica', 'Alta', 'Média', 'Baixa'][Math.floor((Math.random() * 4))],
-      dataDeInicio: getRandomDate(new Date(2015, 3, 1), new Date()),
+      task: 'Tarefa ' + i,
+      priority: ['Crítica', 'Alta', 'Média', 'Baixa'][Math.floor((Math.random() * 4))],
+      startDate: getRandomDate(new Date(2015, 3, 1), new Date()),
     });
   }
 
