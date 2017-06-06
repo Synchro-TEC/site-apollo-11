@@ -100,6 +100,7 @@ class FilterPage extends React.Component {
    * @return {type}      description
    */
   findDatesLesserThan(dateLTE) {
+    debugger;
     return _filter(this.immutableData, (item) => {
       return dateLTE >= this.toDate(item.weddingDay);
     });
@@ -149,7 +150,7 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(searchValue) {        
+  doAdvancedFilter(searchValue) {            
     let foundData = this.immutableData;
     let dateGTE = this.toDate(this.refs.weddingDayGTE.value);
     let dateLTE = this.toDate(this.refs.weddingDayLTE.value);
@@ -201,19 +202,24 @@ class FilterPage extends React.Component {
     let hadABike = this.refs.bike.checked; 
     let hadACar = this.refs.car.checked;
     let hadAMac = this.refs.mac.checked;
-    let hadAHelicopter = this.refs.helicopter.checked;
+    let hadAHelicopter = this.refs.helicopter.checked; 
 
-    if(hadABike || hadACar || hadAMac || hadAHelicopter) {      
-      this.filterValues = _assign(this.filterValues, _assign({
-        hadABike: hadABike, 
-        hadACar: hadACar, 
-        hadAMac: hadAMac, 
-        hadAHelicopter : hadAHelicopter, 
-      }, {}));  
-    }           
+    this.filterValues = _assign(this.filterValues, _assign({
+      hadABike: hadABike, 
+      hadACar: hadACar, 
+      hadAMac: hadAMac, 
+      hadAHelicopter : hadAHelicopter, 
+    }, {}));
+
+    if(!hadABike && !hadACar && !hadAMac && !hadAHelicopter) {    
+      delete this.filterValues.hadABike;
+      delete this.filterValues.hadACar;
+      delete this.filterValues.hadAMac;
+      delete this.filterValues.hadAHelicopter;    
+    }
   }
 
-  mountFilterObject(object) {
+  mountFilterObject(object) {    
     this.filterValues = _assign(this.filterValues, object);
     if(object.nationality == '') {
       delete this.filterValues['nationality'];
