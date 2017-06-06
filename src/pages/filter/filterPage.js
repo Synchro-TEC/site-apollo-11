@@ -99,8 +99,7 @@ class FilterPage extends React.Component {
    * @param  {type} date description
    * @return {type}      description
    */
-  findDatesLesserThan(dateLTE) {
-    debugger;
+  findDatesLesserThan(dateLTE) {    
     return _filter(this.immutableData, (item) => {
       return dateLTE >= this.toDate(item.weddingDay);
     });
@@ -150,8 +149,8 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(searchValue) {            
-    let foundData = this.immutableData;
+  doAdvancedFilter(searchValue) {                
+    let foundData = this.immutableData;    
     let dateGTE = this.toDate(this.refs.weddingDayGTE.value);
     let dateLTE = this.toDate(this.refs.weddingDayLTE.value);
 
@@ -222,7 +221,7 @@ class FilterPage extends React.Component {
   mountFilterObject(object) {    
     this.filterValues = _assign(this.filterValues, object);
     if(object.nationality == '') {
-      delete this.filterValues['nationality'];
+      delete this.filterValues.nationality;
     }
   }
 
@@ -284,7 +283,7 @@ class FilterPage extends React.Component {
                     placeholder='dd/mm/yyyy'
                     ref='weddingDayLTE'
                     type='text'
-                   />                    
+                  />                    
                 </label>
               </div>
             </div>

@@ -10,7 +10,6 @@ class HeaderSite extends React.Component {
             <img height='32px' src='logo-apollo.svg' width='auto' />
           </NavLink>
         </div>
-
         <div className='sv-text-right dm-menu'>
           <span className='sv-horizontal-marged-5'>
            <NavLink activeClassName='active' to='/docs'>Docs</NavLink>

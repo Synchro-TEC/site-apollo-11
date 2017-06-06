@@ -43,31 +43,21 @@ class ExemploDeFiltroComOpcoes extends React.Component {
             <span> Dia de casamento entre: </span>
             <div className='sv-row--with-gutter'>
               <div className='sv-column'>
-                <label>
-                  <div className='sv-select'>
-                    <input
-                      name='diaDoCasamentoGTE'
-                      placeholder='dd/mm/yyyy'
-                      type='text'
-                    />
-                    <label>
-                      <i className='fa fa-calendar'/>
-                    </label>
-                  </div>
+                <label>          
+                  <input
+                    name='diaDoCasamentoGTE'
+                    placeholder='dd/mm/yyyy'
+                    type='text'
+                  />     
                 </label>
               </div>
               <div className='sv-column'>
-                <label>
-                  <div className='sv-select'>
-                    <input
-                      name='diaDoCasamentoLTE'
-                      placeholder='dd/mm/yyyy'
-                      type='text'
-                    />
-                    <label>
-                      <i className='fa fa-calendar'/>
-                    </label>
-                  </div>
+                <label>                  
+                  <input
+                    name='diaDoCasamentoLTE'
+                    placeholder='dd/mm/yyyy'
+                    type='text'
+                  />                  
                 </label>
               </div>
             </div>

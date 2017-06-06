@@ -10,26 +10,26 @@ class PaginatePage extends React.Component {
   constructor() {
     super();
     this.dataToPaginateAList = [
-      { task: 'Tarefa 1', priority: 'Crítica' },
-      { task: 'Tarefa 2', priority: 'Crítica' },
-      { task: 'Tarefa 3', priority: 'Baixa' },
-      { task: 'Tarefa 4', priority: 'Alta' },
-      { task: 'Tarefa 5', priority: 'Média' },
-      { task: 'Tarefa 6', priority: 'Alta' },
-      { task: 'Tarefa 7', priority: 'Crítica' },
-      { task: 'Tarefa 8', priority: 'Baixa' },
-      { task: 'Tarefa 9', priority: 'Média' },
-      { task: 'Tarefa 10', priority: 'Crítica' },
-      { task: 'Tarefa 11', priority: 'Alta' },
-      { task: 'Tarefa 12', priority: 'Crítica' },
-      { task: 'Tarefa 13', priority: 'Média' },
-      { task: 'Tarefa 14', priority: 'Crítica' },
-      { task: 'Tarefa 15', priority: 'Baixa' },
-      { task: 'Tarefa 16', priority: 'Média' },
-      { task: 'Tarefa 17', priority: 'Alta' },
-      { task: 'Tarefa 18', priority: 'Média' },
-      { task: 'Tarefa 19', priority: 'Baixa' },
-      { task: 'Tarefa 20', priority: 'Crítica' },
+      {task: 'Tarefa 0', priority: 'Crítica'},
+      {task: 'Tarefa 1', priority: 'Crítica'},
+      {task: 'Tarefa 2', priority: 'Baixa'},
+      {task: 'Tarefa 3', priority: 'Alta'},
+      {task: 'Tarefa 4', priority: 'Média'},
+      {task: 'Tarefa 5', priority: 'Alta'},
+      {task: 'Tarefa 6', priority: 'Crítica'},
+      {task: 'Tarefa 7', priority: 'Baixa'},
+      {task: 'Tarefa 8', priority: 'Média'},
+      {task: 'Tarefa 9', priority: 'Crítica'},
+      {task: 'Tarefa 10', priority: 'Alta'},
+      {task: 'Tarefa 11', priority: 'Crítica'},
+      {task: 'Tarefa 12', priority: 'Média'},
+      {task: 'Tarefa 13', priority: 'Crítica'},
+      {task: 'Tarefa 14', priority: 'Baixa'},
+      {task: 'Tarefa 15', priority: 'Média'},
+      {task: 'Tarefa 16', priority: 'Alta'},
+      {task: 'Tarefa 17', priority: 'Média'},
+      {task: 'Tarefa 18', priority: 'Baixa'},
+      {task: 'Tarefa 19', priority: 'Crítica'},
     ];
     this.dataToPaginateWithOptions = generateData();
     this.state = {
@@ -51,7 +51,7 @@ class PaginatePage extends React.Component {
     });
   }
 
-  powerfullPaginateAction(paginateInfo) {
+  powerfullPaginateAction(paginateInfo) {    
     this.setState({
       dataToPaginateWithOptions: this.doPaginate(paginateInfo),
     });
