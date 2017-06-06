@@ -3,14 +3,12 @@ import { PowerTable, PowerColumn } from 'syntec-apollo-11';
 import ShowCode from '../../components/ShowCode';
 import { PrismCode } from 'react-prism';
 import _uniqueId from 'lodash/uniqueId';
-import axios from 'axios';
 import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable';
 
 class PowerTablePage extends React.Component {
 
-  constructor(props) {
-    super();
-    this.data = generateDataForPowerTable();
+  constructor() {
+    super();    
   }
 
   printPrice(row) {
@@ -132,15 +130,15 @@ class PowerTablePage extends React.Component {
         </p>
         <div style={{position: 'relative'}}>
           <PowerTable
-            fetch={{collection: this.data}}
+            fetch={{collection: generateDataForPowerTable()}}
             key={_uniqueId('PWT-')}
             pageSize={5}
             rowHeight={39}>
-            <PowerColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric'/>
-            <PowerColumn columnTitle='Nome' dataKey='nome' />
-            <PowerColumn columnTitle='Papel' dataKey='papel' />
-            <PowerColumn columnTitle='Descrição' dataKey='descricao' />
-            <PowerColumn columnTitle='Endereço' dataKey='endereco' />
+            <PowerColumn columnTitle='Codigo' dataKey='id' dataType='numeric'/>
+            <PowerColumn columnTitle='Nome' dataKey='name' />
+            <PowerColumn columnTitle='Papel' dataKey='type' />
+            <PowerColumn columnTitle='Descrição' dataKey='description' />
+            <PowerColumn columnTitle='Endereço' dataKey='address' />
           </PowerTable>
         </div>
         <ShowCode>
@@ -155,23 +153,23 @@ class PowerTablePage extends React.Component {
         </p>
         <div style={{position: 'relative'}}>
           <PowerTable
-            fetch={{collection: this.data}}
+            fetch={{collection: generateDataForPowerTable()}}
             key={_uniqueId('PWT-')}
             pageSize={5}
             rowHeight={39}>
-            <PowerColumn columnTitle='Codigo' dataKey='codigo' dataType='numeric' />
-            <PowerColumn columnTitle='Nome' dataKey='nome' searchable />
-            <PowerColumn columnTitle='Papel' dataKey='papel' searchable />
-            <PowerColumn columnTitle='Descrição' dataKey='descricao' searchable />
-            <PowerColumn columnTitle='Endereço' dataKey='endereco' searchable />
+            <PowerColumn columnTitle='Codigo' dataKey='id' dataType='numeric' />
+            <PowerColumn columnTitle='Nome' dataKey='name' searchable />
+            <PowerColumn columnTitle='Papel' dataKey='type' searchable />
+            <PowerColumn columnTitle='Descrição' dataKey='description' searchable />
+            <PowerColumn columnTitle='Endereço' dataKey='address' searchable />
             <PowerColumn
               columnTitle='Preço'
-              dataKey='preco'
+              dataKey='price'
               dataType='numeric'
               formatter={this.printPrice}
               formatterOnFilter={this.printPriceOnFilter}
               searchable />
-            <PowerColumn columnTitle='Quantidade' dataKey='quantidade' dataType='numeric' searchable />
+            <PowerColumn columnTitle='Quantidade' dataKey='quantity' dataType='numeric' searchable />
             <PowerColumn columnTitle='Total' formatter={this.printTotal} />
           </PowerTable>
         </div>
@@ -182,8 +180,7 @@ class PowerTablePage extends React.Component {
         </ShowCode>
       </div>
     );
-  }
-  
+  }  
 }
 
 PowerTablePage.displayName = 'PowerTablePage';

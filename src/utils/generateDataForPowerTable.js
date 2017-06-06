@@ -1,10 +1,10 @@
-function generateDataForPowerTable() {
-  let data = [];
+import _times from 'lodash/times';
 
-  for (let i = 1; i <= 130; i++) {
-    data.push({
-      codigo: i,
-      nome: [
+let generateDataForPowerTable = () => {  
+	return _times(130, (i) => {
+		return {
+			id: i,
+			name: [
 				'Rafaela',
 				'Felícia',
 				'Ofélia',
@@ -16,8 +16,8 @@ function generateDataForPowerTable() {
 				'Jorge',
 				'Raul',
 			][Math.floor((Math.random() * 10))],
-			papel: ['admin', 'manager', 'user'][Math.floor((Math.random() * 3))],
-			descricao: [
+			type: ['admin', 'manager', 'user'][Math.floor((Math.random() * 3))],
+			description: [
 				'Ex nostrum aspernatur.',
 				'Assumenda amet maiores.',
 				'Quia ex soluta quidem.',
@@ -29,7 +29,7 @@ function generateDataForPowerTable() {
 				'Dolorem ab eos est rem ducimus quas rem.',
 				'Qui autem rerum.',
 			][Math.floor((Math.random() * 10))],
-			endereco: [
+			address: [
 				'87016 Alessandra Viela',
 				'6402 Pereira Marginal',
 				'5421 Eduarda Ponte',
@@ -41,12 +41,10 @@ function generateDataForPowerTable() {
 				'60618 Carvalho Rodovia',
 				'598 Macedo Alameda',
 			][Math.floor((Math.random() * 10))],
-      quantidade: Math.floor((Math.random() * 5) + 1),
-      preco: (Math.random() * 1000).toFixed(2),
-    });
-  }
-
-  return data;
+      quantity: Math.floor((Math.random() * 5) + 1),
+      price: (Math.random() * 1000).toFixed(2), 
+		}
+	});
 }
 
 export { generateDataForPowerTable };

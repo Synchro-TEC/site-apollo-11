@@ -1,6 +1,6 @@
 import _times from 'lodash/times';
 
-let generateData = () => {  
+let generateDataForDataTable = () => {  
   return _times(130, (i) => {
     return {
       id: i,
@@ -10,4 +10,4 @@ let generateData = () => {
   });
 }
 
-export { generateData };
+export { generateDataForDataTable };

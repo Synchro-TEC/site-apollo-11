@@ -3,7 +3,7 @@ import { DataTable, DataTableColumn, Paginate } from 'syntec-apollo-11';
 import { PrismCode } from 'react-prism';
 import { NavLink } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
-import { generateData } from '../../utils/generateData';
+import { generateDataForDataTable } from '../../utils/generateDataForDataTable';
 import _sortBy from 'lodash/sortBy';
 import _cloneDeep from 'lodash/cloneDeep';
 
@@ -11,7 +11,7 @@ class DataTablePage extends React.Component {
 
   constructor() {
     super();
-    this.dataForDataTableWithPaginateExample = generateData();
+    this.dataForDataTableWithPaginateExample = generateDataForDataTable();
     this.dataForSimpleDataTableExample = [
       {task: 'Tarefa 0', priority: 'Crítica'},
       {task: 'Tarefa 1', priority: 'Baixa'},

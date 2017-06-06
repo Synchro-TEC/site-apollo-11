@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paginate, DataTable, DataTableColumn } from 'syntec-apollo-11';
-import { generateData } from '../../utils/generateData';
+import { generateDataForDataTable } from '../../utils/generateDataForDataTable';
 import { PrismCode } from 'react-prism';
 import { NavLink } from 'react-router-dom';
 import ShowCode from '../../components/ShowCode';
@@ -31,7 +31,7 @@ class PaginatePage extends React.Component {
       {task: 'Tarefa 18', priority: 'Baixa'},
       {task: 'Tarefa 19', priority: 'Crítica'},
     ];
-    this.dataToPaginateWithOptions = generateData();
+    this.dataToPaginateWithOptions = generateDataForDataTable();
     this.state = {
       dataToPaginateAList: this.dataToPaginateAList.slice(0,5),
       dataToPaginateWithOptions: this.dataToPaginateWithOptions.slice(0,5),

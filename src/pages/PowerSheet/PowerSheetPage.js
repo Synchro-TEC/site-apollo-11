@@ -2,15 +2,12 @@ import React from 'react';
 import { PowerSheet, SheetColumn } from 'syntec-apollo-11';
 import ShowCode from '../../components/ShowCode';
 import { PrismCode } from 'react-prism';
-import _uniqueId from 'lodash/uniqueId';
-import axios from 'axios';
 import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable';
 
 class PowerSheetPage extends React.Component {
 
-  constructor(props) {
-    super();
-    this.data = generateDataForPowerTable();
+  constructor() {
+    super();    
   }
 
   printPrice(row) {
@@ -32,8 +29,7 @@ class PowerSheetPage extends React.Component {
           <PowerSheet
             containerHeight={495}
             fetch={{url: 'http://localhost:3003/users', method: 'get'}}
-            pageSize={20}
-          >
+            pageSize={20}>
             <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' width={120} />
             <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
             <SheetColumn columnTitle='Time' dataKey='time' groupBy searchable />
