@@ -9,11 +9,11 @@ class ExemploDeDataTableComColunaOrdenavel extends React.Component {
     super(props);
     this.state = {
       dados: [
-        {tarefa: 'Tarefa 1', prioridade: 'Baixa', dataDeInicio: '28/08/2002'},
+        {tarefa: 'Tarefa 1', prioridade: 'Baixa',   dataDeInicio: '28/08/2002'},
         {tarefa: 'Tarefa 2', prioridade: 'Crítica', dataDeInicio: '13/05/1996'},
-        {tarefa: 'Tarefa 3', prioridade: 'Média', dataDeInicio: '31/01/2010'},
+        {tarefa: 'Tarefa 3', prioridade: 'Média',   dataDeInicio: '31/01/2010'},
         {tarefa: 'Tarefa 4', prioridade: 'Crítica', dataDeInicio: '14/02/2017'},
-        {tarefa: 'Tarefa 5', prioridade: 'Alta', dataDeInicio: '14/01/2016'},
+        {tarefa: 'Tarefa 5', prioridade: 'Alta',    dataDeInicio: '14/01/2016'},
       ],
     }
   }

@@ -10,16 +10,16 @@ class PaginatePage extends React.Component {
   constructor() {
     super();
     this.dataToPaginateAList = [
-      {task: 'Tarefa 0', priority: 'Crítica'},
-      {task: 'Tarefa 1', priority: 'Crítica'},
-      {task: 'Tarefa 2', priority: 'Baixa'},
-      {task: 'Tarefa 3', priority: 'Alta'},
-      {task: 'Tarefa 4', priority: 'Média'},
-      {task: 'Tarefa 5', priority: 'Alta'},
-      {task: 'Tarefa 6', priority: 'Crítica'},
-      {task: 'Tarefa 7', priority: 'Baixa'},
-      {task: 'Tarefa 8', priority: 'Média'},
-      {task: 'Tarefa 9', priority: 'Crítica'},
+      {task: 'Tarefa 0',  priority: 'Crítica'},
+      {task: 'Tarefa 1',  priority: 'Crítica'},
+      {task: 'Tarefa 2',  priority: 'Baixa'},
+      {task: 'Tarefa 3',  priority: 'Alta'},
+      {task: 'Tarefa 4',  priority: 'Média'},
+      {task: 'Tarefa 5',  priority: 'Alta'},
+      {task: 'Tarefa 6',  priority: 'Crítica'},
+      {task: 'Tarefa 7',  priority: 'Baixa'},
+      {task: 'Tarefa 8',  priority: 'Média'},
+      {task: 'Tarefa 9',  priority: 'Crítica'},
       {task: 'Tarefa 10', priority: 'Alta'},
       {task: 'Tarefa 11', priority: 'Crítica'},
       {task: 'Tarefa 12', priority: 'Média'},
@@ -30,11 +30,10 @@ class PaginatePage extends React.Component {
       {task: 'Tarefa 17', priority: 'Média'},
       {task: 'Tarefa 18', priority: 'Baixa'},
       {task: 'Tarefa 19', priority: 'Crítica'},
-    ];
-    this.dataToPaginateWithOptions = generateDataForDataTable();
+    ];    
     this.state = {
       dataToPaginateAList: this.dataToPaginateAList.slice(0,5),
-      dataToPaginateWithOptions: this.dataToPaginateWithOptions.slice(0,5),
+      dataToPaginateWithOptions: generateDataForDataTable().slice(0,5),
     }
   }
 
@@ -105,7 +104,7 @@ class PaginatePage extends React.Component {
           onPreviousPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.powerfullPaginateAction(paginateInfo)}
           recordsByPage={5}
-          totalSizeOfData={this.dataToPaginateWithOptions.length}
+          totalSizeOfData={generateDataForDataTable().length}
         />
         <div className='sv-vertical-marged-25'/>
         <ShowCode>

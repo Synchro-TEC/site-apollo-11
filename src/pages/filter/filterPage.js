@@ -70,13 +70,12 @@ class FilterPage extends React.Component {
         hadAMac: false,
       },
     ];
+    this.filterValues = {};
 
     this.state = {
       dataFoundByFilterWithoutOptions: this.immutableData,
       dataFoundByFilterWithOptions: this.immutableData,      
-    };
-
-    this.filterValues = {};
+    };    
   }
 
   /**
@@ -140,7 +139,7 @@ class FilterPage extends React.Component {
    * @return {type}      description
    */
   findByName(name, data) {
-    if(name && name !== '') {
+    if(name) {
       return _filter(data, (item) => {
         return item.name.includes(name);
       });
@@ -149,17 +148,17 @@ class FilterPage extends React.Component {
     }
   }
 
-  doAdvancedFilter(searchValue) {                
+  doAdvancedFilter(searchValue) {                    
     let foundData = this.immutableData;    
-    let dateGTE = this.toDate(this.refs.weddingDayGTE.value);
-    let dateLTE = this.toDate(this.refs.weddingDayLTE.value);
+    let dateGTE = this.refs.weddingDayGTE.value;
+    let dateLTE = this.refs.weddingDayLTE.value;
 
-    if(!dateLTE && dateGTE) {        
-      foundData = this.findDatesGreaterThan(dateGTE);        
+    if(!dateLTE && dateGTE) {              
+      foundData = this.findDatesGreaterThan(this.toDate(dateGTE));        
     } else if(dateLTE && !dateGTE) {        
-      foundData = this.findDatesLesserThan(dateLTE);        
+      foundData = this.findDatesLesserThan(this.toDate(dateLTE));        
     } else if(dateLTE && dateGTE) {
-      foundData = this.findDatesBetween(dateLTE, dateGTE);              
+      foundData = this.findDatesBetween(this.toDate(dateLTE), this.toDate(dateGTE));  
     }
 
     if(!_isEmpty(foundData)) {
@@ -203,18 +202,18 @@ class FilterPage extends React.Component {
     let hadAMac = this.refs.mac.checked;
     let hadAHelicopter = this.refs.helicopter.checked; 
 
-    this.filterValues = _assign(this.filterValues, _assign({
-      hadABike: hadABike, 
-      hadACar: hadACar, 
-      hadAMac: hadAMac, 
-      hadAHelicopter : hadAHelicopter, 
-    }, {}));
-
     if(!hadABike && !hadACar && !hadAMac && !hadAHelicopter) {    
       delete this.filterValues.hadABike;
       delete this.filterValues.hadACar;
       delete this.filterValues.hadAMac;
       delete this.filterValues.hadAHelicopter;    
+    } else {
+      this.filterValues = _assign(this.filterValues, _assign({
+        hadABike: hadABike, 
+        hadACar: hadACar, 
+        hadAMac: hadAMac, 
+        hadAHelicopter : hadAHelicopter, 
+      }, {}));
     }
   }
 
