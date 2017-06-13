@@ -64,14 +64,22 @@ class ExemploDePaginateComOpcoes extends React.Component {
     this.setState({dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate)});
   }
 
+  /**
+   * Função que volta para a primeira página
+  */
+  voltarParaPrimeiraPagina() {
+    this.refs.paginate.reset();  
+  }
+
   render() {
     return (
       <div>
-        <Paginate
+        <Paginate          
           onNextPage={(informacoesDoPaginate) => this.proximaPagina(informacoesDoPaginate)}
           onPreviousPage={(informacoesDoPaginate) => this.paginaAnterior(informacoesDoPaginate)}
           onSelectASpecifPage={(informacoesDoPaginate) => this.paginaEspecifica(informacoesDoPaginate)}
           recordsByPage={5}
+          ref='paginate'
           totalSizeOfData={dados.length}
         />
       </div>

@@ -64,6 +64,13 @@ class ExemploDePaginateSemDataTable extends React.Component {
     this.setState({dadosFiltradosPeloPaginate: this.fazerPaginacao(informacoesDoPaginate)});
   }
 
+  /**
+   * Função que volta para a primeira página
+  */
+  voltarParaPrimeiraPagina() {
+    this.refs.paginate.reset();  
+  }
+
   render() {
 
     let itens = this.state.dadosFiltradosPeloPaginate.map((tarefa, i) => {
@@ -77,11 +84,12 @@ class ExemploDePaginateSemDataTable extends React.Component {
         <ul>
           {itens}
         </ul>
-        <Paginate
+        <Paginate          
           onNextPage={(paginateInfo) => this.proximaPagina(paginateInfo)}
           onPreviousPage={(paginateInfo) => this.paginaAnterior(paginateInfo)}
           onSelectASpecifPage={(paginateInfo) => this.paginaEspecifica(paginateInfo)}
           recordsByPage={5}
+          ref='paginate'
           totalSizeOfData={this.dataForPaginateExample.length}
         />
       </div>

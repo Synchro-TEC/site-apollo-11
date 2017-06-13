@@ -75,7 +75,8 @@ class PaginatePage extends React.Component {
           A propriedade <b> recordsByPage </b> servirá para o componente retornar as informações
           quando uma das ações ocorrerem. Em qualquer que seja a ação, as propriedades correspondentes
           às estas ações retornarão um objeto com informações que são úteis para realizar a paginação: limit,
-          offset e página atual.
+          offset e página atual. O componente possui uma função chamada <b> reset </b> que volta para a 
+          primeira página, essa função é utilizada em todos os exemplos abaixo.
         </p>
         <h4 className='bold'> Paginate simples </h4>
         <p>

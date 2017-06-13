@@ -13,6 +13,13 @@ class ExemploDePaginateSemOpcoes extends React.Component {
   */
   paginaAnterior(informacoesDoPaginate) { }
 
+  /**
+   * Função que volta para a primeira página
+  */
+  voltarParaPrimeiraPagina() {
+    this.refs.paginate.reset();
+  }
+
   render() {
     return (
       <div>
@@ -20,6 +27,7 @@ class ExemploDePaginateSemOpcoes extends React.Component {
           onNextPage={(informacoesDoPaginate) => this.proximaPagina(informacoesDoPaginate)}
           onPreviousPage={(informacoesDoPaginate) => this.paginaAnterior(informacoesDoPaginate)}
           recordsByPage={5}
+          ref='paginate'
           totalSizeOfData={seusDados.length}
         />
       </div>
