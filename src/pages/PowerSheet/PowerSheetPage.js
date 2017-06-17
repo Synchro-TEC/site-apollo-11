@@ -11,38 +11,43 @@ class PowerSheetPage extends React.Component {
   }
 
   printPrice(row) {
-    return `R$ ${row.price}`;
+    return `R$ ${parseFloat(row.valorPago).toFixed(2)}`;
   }
 
   printPriceOnFilter(price) {
     return `R$ ${price}`;
   }
 
-  printTotal(row) {
-    return `R$ ${parseFloat(row.preco * row.quantidade).toFixed(2)}`;
-  }
+  // printTotal(row) {
+  //     return `R$ ${parseFloat(row.preco * row.quantidade).toFixed(2)}`;
+  // }
 
   render() {
     return (
       <div className='dm-content'>
-        <h3> PowerSheet </h3>          
+
+        <h3> PowerSheet </h3>
           <PowerSheet
-            containerHeight={495}
-            fetch={{url: 'http://localhost:3003/users', method: 'get'}}
-            pageSize={20}>
-            <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' width={120} />
-            <SheetColumn columnTitle='Nome' dataKey='name.first' searchable />
-            <SheetColumn columnTitle='Time' dataKey='time' groupBy searchable />
-            <SheetColumn columnTitle='E-mail' dataKey='email' searchable />
-            <SheetColumn 
-              columnTitle='Preço' 
-              dataKey='price' 
-              dataType='numeric' 
-              formatter={this.printPrice} 
-              formatterOnFilter={this.printPriceOnFilter} 
-              searchable 
-              width={120} 
+            containerHeight={695}
+            fetch={{url: 'http://localhost:3003/apuracoes', method: 'get'}}
+            pageSize={10}
+          >
+            <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' />
+            <SheetColumn columnTitle='Responsável' dataKey='responsavel' searchable  />
+            <SheetColumn columnTitle='Obrigação' dataKey='obgricacao' groupBy searchable />
+            <SheetColumn columnTitle='Estado' dataKey='estado' groupBy searchable/>
+            <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
+
+            <SheetColumn
+              columnTitle='Valor'
+              dataKey='valorPago'
+              dataType='numeric'
+              formatter={this.printPrice}
+              formatterOnFilter={this.printPriceOnFilter}
+              searchable
+              width={120}
             />
+
           </PowerSheet>
       </div>
     );
