@@ -31,11 +31,12 @@ class PowerSheetPage extends React.Component {
             containerHeight={695}
             fetch={{url: 'http://localhost:3003/apuracoes', method: 'get'}}
             pageSize={10}
+            rowHeight={35}
           >
             <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' />
             <SheetColumn columnTitle='Responsável' dataKey='responsavel' searchable  />
-            <SheetColumn columnTitle='Obrigação' dataKey='obgricacao' groupBy searchable />
-            <SheetColumn columnTitle='Estado' dataKey='estado' groupBy searchable/>
+            <SheetColumn columnTitle='Obrigação' dataKey='obgricacao'  searchable />
+            <SheetColumn columnTitle='Estado' dataKey='estado'  searchable/>
             <SheetColumn columnTitle='Papel' dataKey='papel' searchable />
 
             <SheetColumn
