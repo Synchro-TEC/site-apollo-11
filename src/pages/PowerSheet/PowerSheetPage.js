@@ -22,14 +22,14 @@ class PowerSheetPage extends React.Component {
   //     return `R$ ${parseFloat(row.preco * row.quantidade).toFixed(2)}`;
   // }
 
-  render() {
+  render() {    
     return (
       <div className='dm-content'>
 
         <h3> PowerSheet </h3>
           <PowerSheet
             containerHeight={695}
-            fetch={{url: 'http://localhost:3003/apuracoes', method: 'get'}}
+            fetch={{url: 'http://localhost:3000/apuracoes', method: 'get'}}
             pageSize={10}
             rowHeight={35}
           >
