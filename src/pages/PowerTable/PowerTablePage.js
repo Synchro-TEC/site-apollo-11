@@ -8,11 +8,12 @@ import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable
 class PowerTablePage extends React.Component {
 
   constructor() {
-    super();    
+    super();
+    this.data = generateDataForPowerTable();    
   }
 
   printPrice(row) {
-    return `R$ ${row.preco}`;
+    return `R$ ${row.price}`;
   }
 
   printPriceOnFilter(price) {
@@ -20,10 +21,10 @@ class PowerTablePage extends React.Component {
   }
 
   printTotal(row) {
-    return `R$ ${parseFloat(row.preco * row.quantidade).toFixed(2)}`;
+    return `R$ ${parseFloat(row.price * row.quantity).toFixed(2)}`;
   }
 
-  render() {
+  render() {    
     return (
       <div className='dm-content'>
         <h3> PowerTable </h3>
@@ -130,7 +131,7 @@ class PowerTablePage extends React.Component {
         </p>
         <div style={{position: 'relative'}}>
           <PowerTable
-            fetch={{collection: generateDataForPowerTable()}}
+            fetch={{collection: this.data}}
             key={_uniqueId('PWT-')}
             pageSize={5}
             rowHeight={39}>
@@ -153,7 +154,7 @@ class PowerTablePage extends React.Component {
         </p>
         <div style={{position: 'relative'}}>
           <PowerTable
-            fetch={{collection: generateDataForPowerTable()}}
+            fetch={{collection: this.data}}
             key={_uniqueId('PWT-')}
             pageSize={5}
             rowHeight={39}>
