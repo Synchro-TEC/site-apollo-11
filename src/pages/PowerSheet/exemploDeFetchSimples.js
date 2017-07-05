@@ -1,0 +1,3 @@
+const fetchSimples = {
+	dados: conjuntoDeDados,
+};

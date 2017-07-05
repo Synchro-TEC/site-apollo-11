@@ -1,3 +1,0 @@
-let fetchSimples = {
-	collection: dadosRecebidos,
-};

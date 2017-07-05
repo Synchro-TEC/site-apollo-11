@@ -3,13 +3,13 @@ import { PowerTable, PowerColumn } from 'syntec-apollo-11';
 import ShowCode from '../../components/ShowCode';
 import { PrismCode } from 'react-prism';
 import _uniqueId from 'lodash/uniqueId';
-import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable';
+// import { generateDataForPowerTable } from '../../utils/generateDataForPowerTable';
 
 class PowerTablePage extends React.Component {
 
   constructor() {
     super();
-    this.data = generateDataForPowerTable();    
+    // this.data = generateDataForPowerTable();  
   }
 
   printPrice(row) {
@@ -48,14 +48,7 @@ class PowerTablePage extends React.Component {
         <p>
           O fetch simples contém apenas o essencial para o PowerTable:
           os dados que serão consumidos. O objeto é montado assim:
-        </p>
-        <div className='dm-code-container'>
-          <pre>
-            <PrismCode className='language-js'>
-              {require('!raw-loader!./exemploDeFetchSimples')}
-            </PrismCode>
-          </pre>
-        </div>
+        </p>        
         <div className='sv-vertical-marged-25'/>
         <h6> Fetch configurado </h6>
         <p>
@@ -65,13 +58,6 @@ class PowerTablePage extends React.Component {
           <b> responseCollectionPath </b> especifica o caminho dos dados no objeto
           de resposta. Abaixo, segue um exemplo de fetch configurado:
         </p>
-        <div className='dm-code-container'>
-          <pre>
-            <PrismCode className='language-js'>
-              {require('!raw-loader!./exemploDeFetchConfigurado')}
-            </PrismCode>
-          </pre>
-        </div>
         <div className='sv-vertical-marged-25'/>
         <h4 className='bold'> O PowerColumn </h4>
         <p>
@@ -110,9 +96,8 @@ class PowerTablePage extends React.Component {
               <td> formatterOnFilter </td>
               <td> function </td>
               <td>
-                Função que deve retornar o valor formatado para este aparecer
-                nas opções do filtro
-              </td>
+                Função que deve retornar o valor formatado para as opções do filtro
+              </td>              
             </tr>
             <tr>
               <td> searchable </td>
@@ -129,19 +114,6 @@ class PowerTablePage extends React.Component {
           Este é o tipo mais básico de configuração do componente, contendo
           somente as propriedades necessárias explicadas acima.
         </p>
-        <div style={{position: 'relative'}}>
-          <PowerTable
-            fetch={{collection: this.data}}
-            key={_uniqueId('PWT-')}
-            pageSize={5}
-            rowHeight={39}>
-            <PowerColumn columnTitle='Codigo' dataKey='id' dataType='numeric'/>
-            <PowerColumn columnTitle='Nome' dataKey='name' />
-            <PowerColumn columnTitle='Papel' dataKey='type' />
-            <PowerColumn columnTitle='Descrição' dataKey='description' />
-            <PowerColumn columnTitle='Endereço' dataKey='address' />
-          </PowerTable>
-        </div>
         <ShowCode>
           <PrismCode className='language-js'>
             {require('!raw-loader!./exemploDePowerTableComFetchSimples.js')}
