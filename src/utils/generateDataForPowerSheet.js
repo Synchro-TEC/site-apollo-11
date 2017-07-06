@@ -1,7 +1,7 @@
 import _times from 'lodash/times';
 
 let powerSheetData = () => {  
-	return _times(10000, (i) => {
+	return _times(1000, (i) => {
 		return {
 			id: i+1,
 			type: ['admin', 'manager', 'user'][Math.floor((Math.random() * 3))],

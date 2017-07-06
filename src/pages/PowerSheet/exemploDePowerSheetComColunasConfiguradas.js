@@ -13,7 +13,7 @@ const dadosRecebidos = [
   //...
 ];
 
-class PowerSheetComColunasSimples extends React.Component {
+class PowerSheetComColunasConfiguradas extends React.Component {
 
   //Função que retorna o valor formatado para uma coluna
   printPrice(row) {
@@ -53,5 +53,5 @@ class PowerSheetComColunasSimples extends React.Component {
   }
 }
 
-PowerSheetComColunasSimples.displayName = 'PowerSheetComColunasSimples';
-export default PowerSheetComColunasSimples;
+PowerSheetComColunasConfiguradas.displayName = 'PowerSheetComColunasConfiguradas';
+export default PowerSheetComColunasConfiguradas;

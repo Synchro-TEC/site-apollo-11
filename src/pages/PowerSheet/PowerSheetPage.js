@@ -153,24 +153,24 @@ class PowerSheetPage extends React.Component {
                 <td> não </td>
               </tr>
               <tr> 
-                <td> isGrouped </td>
+                <td> groupBy </td>
                 <td> boolean </td>
                 <td> false </td>
-                <td> Define se uma coluna pode ser agrupada ou não </td>
+                <td> Agrupa linhas de acordo com o valor da coluna </td>
                 <td> não </td>
               </tr>              
               <tr>
                 <td> searchable </td>
                 <td> boolean </td>
-                <td> false </td>
-                <td> Quando deseja uma coluna com opção de filtro por valores e por condições. </td>
+                <td> false </td>  
+                <td> Coluna com opção de filtro por valores e condições </td>
                 <td> não </td>
               </tr>
               <tr> 
                 <td> width </td>
                 <td> int </td>
                 <td> undefined </td>
-                <td> Tamanho fixo de uma coluna </td>
+                <td> Largura fixa de uma coluna </td>
                 <td> não </td>
               </tr>
             </tbody>
@@ -200,8 +200,8 @@ class PowerSheetPage extends React.Component {
           </ShowCode>
           <h4 className='bold'> PowerSheet com colunas configuradas e fetch configurado </h4>
           <p> 
-            Neste exemplo, algumas colunas foram configuradas com a propriedade <b> searchable </b>e
-            <b> isGrouped</b>. Para o fetch foi especificado uma URL e o método da requisição.
+            Neste exemplo, algumas colunas foram configuradas com a propriedade <b> searchable</b>,
+            <b> groupBy</b> e formatadores. Para o fetch foi especificado uma URL e o método da requisição.
           </p>          
           <PowerSheet
             containerHeight={290}
@@ -210,7 +210,7 @@ class PowerSheetPage extends React.Component {
             rowHeight={35}>
             <SheetColumn columnTitle='Codigo' dataKey='id' dataType='numeric' />
             <SheetColumn columnTitle='Responsável' dataKey='responsible' searchable />
-            <SheetColumn columnTitle='Obrigação' dataKey='obrigation' searchable />
+            <SheetColumn columnTitle='Obrigação' dataKey='obrigation' groupBy searchable />
             <SheetColumn columnTitle='Estado' dataKey='state' searchable />
             <SheetColumn columnTitle='Papel' dataKey='type' searchable />     
             <SheetColumn
