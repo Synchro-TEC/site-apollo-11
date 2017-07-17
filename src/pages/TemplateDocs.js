@@ -12,9 +12,7 @@ function TemplateDocs(props) {
           <li><NavLink activeClassName='active' to='filter'>Filter</NavLink></li>
           <li><NavLink activeClassName='active' to='data-table'>Data Table</NavLink></li>
           <li><NavLink activeClassName='active' to='paginate'>Paginate</NavLink></li>
-          <li><NavLink activeClassName='active' to='power-table'>Power Table</NavLink></li>
           <li><NavLink activeClassName='active' to='power-sheet'>Power Sheet</NavLink></li>
-          {/* <li><NavLink activeClassName='active' to='docs/user-tests'>User tests</NavLink></li> */}
         </ul>
         <div className='dm-syntec'>
           <a href='https://github.com/Synchro-TEC' rel='noopen' target='_blank'>
